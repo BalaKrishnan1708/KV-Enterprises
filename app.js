@@ -133,43 +133,69 @@ const ViewRenderers = {
   home: function(container) {
     container.innerHTML = `
       <!-- Hero Banner -->
-      <section class="hero-section fade-in-section">
+      <section class="hero-section fade-in-section" id="hero-area">
         <div class="container hero-grid">
           <div class="hero-content-area">
             <div class="hero-tag">
               <span class="pulse-dot"></span>
-              <span>Industrial Manpower placements</span>
+              <span>Direct Gate Placements • Sriperumbudur</span>
             </div>
             <h1 class="hero-title">
               Industrial Manpower.<br>
               <span class="gradient-text">Delivered. On Time.</span>
             </h1>
             <p class="hero-desc">
-              KV Enterprises places pre-verified workers into leading Korean, Japanese and Indian manufacturing plants across Sriperumbudur corridors. Direct joining. No middlemen.
+              KV Enterprises places skilled operators into leading Korean, Japanese, and Indian manufacturing plants across the Sriperumbudur corridor. Direct joining. No middlemen.
             </p>
             <div class="hero-ctas">
-              <a href="#jobs" class="btn btn-primary">View Open Jobs</a>
-              <a href="#employer" class="btn btn-secondary">Hire Manpower</a>
+              <a href="#jobs" class="btn btn-primary">Browse Jobs</a>
+              <a href="#employer" class="btn btn-secondary">Hire Workers</a>
             </div>
           </div>
           
-          <div class="hero-illustration">
-            <div class="hud-box">
-              <div class="hud-title-line">
-                <h3>Live Placements HUD</h3>
-                <span class="badge badge-green" style="font-size:0.6rem;">Status: Active</span>
+          <!-- Redesigned Corporate Benefits Board -->
+          <div class="hero-features-board">
+            <div class="corporate-guarantees-card">
+              <div class="guarantees-header">
+                <h3>Placement Guarantees</h3>
               </div>
-              <div class="hud-item">
-                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" width="16" height="16"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-                <span>72H Avg. Mobilization</span>
-              </div>
-              <div class="hud-item">
-                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" width="16" height="16"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4" /></svg>
-                <span>Aadhar & Bank Cleared</span>
-              </div>
-              <div class="hud-item">
-                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" width="16" height="16"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
-                <span>100% Direct Join</span>
+              
+              <div class="guarantees-list">
+                <div class="guarantee-item">
+                  <div class="guarantee-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                    </svg>
+                  </div>
+                  <div class="guarantee-text">
+                    <strong>100% Direct Join Contracts</strong>
+                    <p>No brokerage fees or middleman charges. Official company rolls onboarding.</p>
+                  </div>
+                </div>
+                
+                <div class="guarantee-item">
+                  <div class="guarantee-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    </svg>
+                  </div>
+                  <div class="guarantee-text">
+                    <strong>Pre-Screened Backgrounds</strong>
+                    <p>Aadhar details, bank verification, and educational background checks cleared.</p>
+                  </div>
+                </div>
+
+                <div class="guarantee-item">
+                  <div class="guarantee-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                  <div class="guarantee-text">
+                    <strong>Rapid Shift Mobilization</strong>
+                    <p>Workers pre-cleared and registered at the factory gate within 72 hours.</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
