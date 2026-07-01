@@ -1,19 +1,19 @@
 /* ==========================================================================
-   DESIGN SYSTEM - KV ENTERPRISES (TIVOR.US AGENCY ESTHETIC)
+   DESIGN SYSTEM - KV ENTERPRISES (TIVOR.US AGENCY ESTHETIC - RASPBERRY EDITION)
    ========================================================================== */
 
-/* Core Layout Custom Variables - Warm Ivory Palette */
+/* Core Layout Custom Variables - Winter White & Raspberry */
 :root {
-  --bg-canvas: #FAF6EC;       /* Soft, warm ivory canvas background */
-  --bg-secondary: #F5EFDD;    /* Slightly deeper cream/ivory for panels */
-  --bg-card: #F5EFDD;         /* Cream card surfaces (no white allowed) */
-  --bg-glass: rgba(250, 246, 236, 0.85); /* Sticky nav blurry overlay */
+  --bg-canvas: #F9F9FB;       /* Winter White canvas background */
+  --bg-secondary: #F1F1F5;    /* Soft clean light gray-white for panels */
+  --bg-card: #F1F1F5;         /* Card surfaces */
+  --bg-glass: rgba(249, 249, 251, 0.85); /* Sticky nav blurry overlay */
   
   --text-main: #1A1A1A;       /* Dark charcoal for high contrast headers */
-  --text-body: #5C5546;       /* Warm charcoal/gray-brown for body copy */
-  --text-muted: #8A8170;      /* Warm muted gray/brown for tags and details */
+  --text-body: #5A5A62;       /* Clean cool gray-charcoal for readable copy */
+  --text-muted: #8E8E9F;      /* Cool muted gray for details/labels */
   
-  --border-color: #E8E1D0;    /* Soft warm gray border lines */
+  --border-color: #E5E5EB;    /* Clean cool gray border lines */
   
   --radius-sm: 4px;           /* Minimal corners (Tivor agency aesthetic) */
   --radius-md: 12px;
@@ -26,48 +26,12 @@
   
   --font-sans: 'Inter', 'Plus Jakarta Sans', -apple-system, sans-serif;
   --font-mono: 'Share Tech Mono', 'SFMono-Regular', Consolas, monospace;
-}
 
-/* Preset Accent Configurations */
-
-/* 1. Confident Blue (Default) */
-body, body[data-accent="blue"] {
-  --accent: #0284C7;
-  --accent-hover: #0369A1;
-  --accent-rgb: 2, 132, 199;
-  --accent-light: rgba(2, 132, 199, 0.08);
-}
-
-/* 2. Industrial Amber / Gold */
-body[data-accent="amber"] {
-  --accent: #D97706;
-  --accent-hover: #B45309;
-  --accent-rgb: 217, 119, 6;
-  --accent-light: rgba(217, 119, 6, 0.08);
-}
-
-/* 3. Confident Green (Sage) */
-body[data-accent="green"] {
-  --accent: #0F766E;
-  --accent-hover: #115E59;
-  --accent-rgb: 15, 118, 110;
-  --accent-light: rgba(15, 118, 110, 0.08);
-}
-
-/* 4. Ocean Teal */
-body[data-accent="teal"] {
-  --accent: #0D9488;
-  --accent-hover: #0F766E;
-  --accent-rgb: 13, 148, 136;
-  --accent-light: rgba(13, 148, 136, 0.08);
-}
-
-/* 5. Steel Slate */
-body[data-accent="slate"] {
-  --accent: #475569;
-  --accent-hover: #334155;
-  --accent-rgb: 71, 85, 105;
-  --accent-light: rgba(71, 85, 105, 0.08);
+  /* Raspberry Static Accent Color */
+  --accent: #D21B54;
+  --accent-hover: #B5103E;
+  --accent-rgb: 210, 27, 84;
+  --accent-light: rgba(210, 27, 84, 0.06);
 }
 
 /* Base resets & scroll behaviors */
@@ -1244,90 +1208,6 @@ button, input, select, textarea {
   to { opacity: 0; transform: scale(0.95); pointer-events: none; }
 }
 
-/* ==========================================================================
-   THEME SWITCHER CONTROLS
-   ========================================================================== */
-
-.theme-switcher-widget {
-  position: fixed;
-  bottom: 2rem;
-  left: 2rem;
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.theme-switcher-toggle {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  background: var(--bg-card);
-  color: var(--accent);
-  border: 1px solid var(--border-color);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-.theme-switcher-toggle:hover {
-  transform: rotate(30deg) scale(1.05);
-  border-color: var(--accent);
-}
-
-.theme-presets-panel {
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-sm);
-  padding: 0.6rem 0.85rem;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-  animation: panelSlideIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-@keyframes panelSlideIn {
-  from { transform: translateX(-10px); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
-}
-
-.theme-panel-label {
-  font-size: 0.6rem;
-  font-family: var(--font-mono);
-  font-weight: 700;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.preset-buttons-grid {
-  display: flex;
-  gap: 0.45rem;
-}
-
-.preset-color-dot {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  cursor: pointer;
-  border: 2px solid transparent;
-  outline: none;
-  transition: transform 0.2s ease, border-color 0.2s ease;
-}
-.preset-color-dot:hover {
-  transform: scale(1.2);
-}
-.preset-color-dot.active {
-  border-color: var(--text-main);
-  box-shadow: 0 0 5px var(--accent);
-}
-
-.dot-blue { background-color: #0284C7; }
-.dot-amber { background-color: #D97706; }
-.dot-green { background-color: #0F766E; }
-.dot-teal { background-color: #0D9488; }
-.dot-slate { background-color: #475569; }
 
 /* ==========================================================================
    FOOTER (STYLISH, LIGHT IVORY UNDERSTATED)

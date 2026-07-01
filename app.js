@@ -143,8 +143,8 @@ const ViewRenderers = {
           </div>
           
           <h1 class="hero-heading anim-hero-title">
-            INDUSTRIAL MANPOWER.<br>
-            <span class="accent-text">DELIVERED. ON TIME.</span>
+            INDUSTRIAL MANPOWER<br>
+            <span class="accent-text">DELIVERED ON TIME</span>
           </h1>
           
           <p class="hero-subtitle anim-hero-sub">
@@ -1235,51 +1235,7 @@ function initStatsCounters() {
   });
 }
 
-// --- 8. ACCENT THEME SWITCHER CONTROLLER ---
-
-function initializeThemeSwitcher() {
-  const container = document.getElementById("theme-switcher-container");
-  const toggleBtn = document.getElementById("theme-switcher-toggle-btn");
-  const panel = document.getElementById("theme-presets-panel");
-  const dots = document.querySelectorAll(".preset-color-dot");
-  
-  const savedAccent = localStorage.getItem("kv_accent_theme") || "blue";
-  document.body.setAttribute("data-accent", savedAccent);
-  
-  dots.forEach(dot => {
-    if (dot.getAttribute("data-accent-val") === savedAccent) {
-      dot.classList.add("active");
-    } else {
-      dot.classList.remove("active");
-    }
-  });
-
-  toggleBtn.addEventListener("click", (e) => {
-    e.stopPropagation();
-    panel.classList.toggle("hidden");
-  });
-
-  document.addEventListener("click", () => {
-    panel.classList.add("hidden");
-  });
-  panel.addEventListener("click", (e) => e.stopPropagation());
-
-  dots.forEach(dot => {
-    dot.addEventListener("click", () => {
-      const selected = dot.getAttribute("data-accent-val");
-      
-      document.body.setAttribute("data-accent", selected);
-      localStorage.setItem("kv_accent_theme", selected);
-      
-      dots.forEach(d => d.classList.remove("active"));
-      dot.classList.add("active");
-      
-      showToast(`Accent theme shifted to ${selected.toUpperCase()}`, "success");
-    });
-  });
-}
-
-// --- 9. INITIALIZERS ---
+// --- 8. INITIALIZERS ---
 
 window.addEventListener("hashchange", handleRouting);
 
@@ -1317,6 +1273,5 @@ window.addEventListener("DOMContentLoaded", () => {
     showAdminLoginModal();
   });
 
-  initializeThemeSwitcher();
   handleRouting();
 });
