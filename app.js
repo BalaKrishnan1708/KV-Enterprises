@@ -106,7 +106,7 @@ function saveDatabase() {
   localStorage.setItem("kv_db_clicks", JSON.stringify(STATE.clicks));
 }
 
-// Log application click helper
+// Log candidate application actions
 function logApplyAction(jobTitle, company, type) {
   const now = new Date();
   const dateStr = now.getFullYear() + '-' + 
@@ -133,31 +133,34 @@ const ViewRenderers = {
   home: function(container) {
     container.innerHTML = `
       <!-- Hero Banner - Centered Typographic Tivor style -->
-      <section class="hero-section fade-in-section" id="hero-area">
+      <section class="hero-section" id="hero-area">
+        <!-- Floating ambient light blob -->
+        <div class="ambient-blob"></div>
+        
         <div class="container hero-content-center">
-          <div class="hero-tag">
+          <div class="hero-tag anim-hero-tag">
             <span class="pulse-dot"></span>
-            <span>01 / Strategic Placements</span>
+            <span>01 / Placement Logistics</span>
           </div>
-          <h1 class="hero-title">
-            Industrial Manpower.<br>
-            <span class="accent-text">Delivered. On Time.</span>
+          <h1 class="hero-title anim-hero-title">
+            <span class="word-line"><span>Industrial Manpower.</span></span><br>
+            <span class="word-line"><span class="accent-text">Delivered. On Time.</span></span>
           </h1>
-          <p class="hero-subtitle">
+          <p class="hero-subtitle anim-hero-sub">
             Factory Onboarding & Supply Chain Staffing Solutions
           </p>
-          <p class="hero-desc">
+          <p class="hero-desc anim-hero-desc">
             KV Enterprises places pre-verified operators and quality inspectors into leading manufacturing plants across the Sriperumbudur corridor. Direct gate joining. No middlemen.
           </p>
-          <div class="hero-ctas">
+          <div class="hero-ctas anim-hero-ctas">
             <a href="#jobs" class="btn btn-primary">Browse Jobs</a>
             <a href="#employer" class="btn btn-secondary">Hire Workers</a>
           </div>
         </div>
       </section>
 
-      <!-- Text marquee -->
-      <section class="fade-in-section">
+      <!-- Infinite auto-scrolling marquee -->
+      <section class="scroll-reveal">
         <div class="marquee-container">
           <div class="marquee-inner">
             <span>CNC Machining</span>
@@ -177,35 +180,35 @@ const ViewRenderers = {
       </section>
 
       <!-- Stats Metric Panel -->
-      <section class="stats-section fade-in-section">
+      <section class="stats-section scroll-reveal">
         <div class="container stats-grid">
           <div class="stat-card">
-            <div class="stat-number">500+</div>
+            <div class="stat-number" data-count-target="500">0</div>
             <div class="stat-label">Workers Placed</div>
             <div class="stat-desc">Direct factory jobs</div>
           </div>
           <div class="stat-card">
-            <div class="stat-number">25+</div>
+            <div class="stat-number" data-count-target="25">0</div>
             <div class="stat-label">Client Factories</div>
             <div class="stat-desc">Sriperumbudur corridor</div>
           </div>
           <div class="stat-card">
-            <div class="stat-number">72H</div>
-            <div class="stat-label">Avg. Placement</div>
+            <div class="stat-number" data-count-target="72">0</div>
+            <div class="stat-label">Avg. Placement Hours</div>
             <div class="stat-desc">Quick Gate Joining</div>
           </div>
           <div class="stat-card">
-            <div class="stat-number">100%</div>
-            <div class="stat-label">Direct Joining</div>
+            <div class="stat-number" data-count-target="100">0</div>
+            <div class="stat-label">Direct Joining %</div>
             <div class="stat-desc">Zero Middlemen</div>
           </div>
         </div>
       </section>
 
       <!-- Now Hiring Openings -->
-      <section class="jobs-section fade-in-section">
+      <section class="jobs-section">
         <div class="container">
-          <div class="section-header">
+          <div class="section-header scroll-reveal">
             <h2>Active Openings</h2>
             <p>Immediate gate joining openings. Select below to call or apply on WhatsApp.</p>
           </div>
@@ -214,16 +217,16 @@ const ViewRenderers = {
             <!-- Rendered Dynamically -->
           </div>
           
-          <div style="text-align:center; margin-top:2.5rem;">
+          <div style="text-align:center; margin-top:3rem;" class="scroll-reveal">
             <a href="#jobs" class="btn btn-secondary">View All Open Positions</a>
           </div>
         </div>
       </section>
 
-      <!-- Employer register banner -->
-      <section class="employer-banner-section fade-in-section">
+      <!-- B2B Employer register banner -->
+      <section class="employer-banner-section">
         <div class="container">
-          <div class="banner-grid">
+          <div class="banner-grid scroll-reveal">
             <div class="banner-content">
               <h3>Need workers this week?</h3>
               <p>
@@ -273,41 +276,45 @@ const ViewRenderers = {
         </div>
       </section>
 
-      <!-- Why KV Section (Numbered Tivor style) -->
-      <section class="why-section fade-in-section">
+      <!-- Why KV Section (Numbered Tivor style list rows) -->
+      <section class="why-section">
         <div class="container">
-          <div class="section-header">
+          <div class="section-header scroll-reveal">
             <h2>Built for Sriperumbudur's factory belt</h2>
           </div>
           <div class="why-features-grid">
-            <div class="why-card">
+            <div class="why-card scroll-reveal scroll-stagger-1">
               <span class="why-num">01 / CAPABILITY</span>
               <h3 class="why-title">Factory-first</h3>
               <p class="why-desc">We know the shop floor. From CNC to despatch, we place workers who can start Monday.</p>
+              <span class="why-arrow">&rarr;</span>
             </div>
-            <div class="why-card">
+            <div class="why-card scroll-reveal scroll-stagger-2">
               <span class="why-num">02 / DISPATCH</span>
               <h3 class="why-title">Fast turnaround</h3>
               <p class="why-desc">Most placements happen within 72 hours of requirement submission.</p>
+              <span class="why-arrow">&rarr;</span>
             </div>
-            <div class="why-card">
+            <div class="why-card scroll-reveal scroll-stagger-3">
               <span class="why-num">03 / CONTROL</span>
               <h3 class="why-title">Verified profiles</h3>
               <p class="why-desc">Aadhar, education & experience proofs verified before gate onboarding.</p>
+              <span class="why-arrow">&rarr;</span>
             </div>
-            <div class="why-card">
+            <div class="why-card scroll-reveal scroll-stagger-4">
               <span class="why-num">04 / SUPPORT</span>
               <h3 class="why-title">End-to-end</h3>
               <p class="why-desc">Documentation, onboarding, replacement — one contact, zero hassle.</p>
+              <span class="why-arrow">&rarr;</span>
             </div>
           </div>
         </div>
       </section>
 
       <!-- Talk to us today -->
-      <section class="quick-contact-strip fade-in-section">
+      <section class="quick-contact-strip">
         <div class="container">
-          <div class="quick-contact-box">
+          <div class="quick-contact-box scroll-reveal">
             <div class="quick-text">
               <h3>Talk to us today</h3>
               <p>Call or WhatsApp — get placed / staffed this week.</p>
@@ -334,8 +341,8 @@ const ViewRenderers = {
         </div>
       </div>
       
-      <div class="container jobs-board-wrap fade-in-section">
-        <div class="jobs-filter-bar">
+      <div class="container jobs-board-wrap">
+        <div class="jobs-filter-bar scroll-reveal">
           <div class="board-search-input-wrap">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
             <input type="text" id="jobs-search-input" placeholder="Search by company, title, location...">
@@ -355,7 +362,6 @@ const ViewRenderers = {
       </div>
     `;
 
-    // Bind event listeners for search and filters
     const searchInput = document.getElementById("jobs-search-input");
     const genderBtns = container.querySelectorAll(".gender-filter-btn");
     
@@ -389,9 +395,9 @@ const ViewRenderers = {
         </div>
       </div>
       
-      <div class="container employer-container-layout fade-in-section">
+      <div class="container employer-container-layout">
         <!-- Info Column - Numbered list -->
-        <aside class="employer-info-card">
+        <aside class="employer-info-card scroll-reveal scroll-stagger-1">
           <h3>Why Hire Through Us</h3>
           <ul class="employer-bullet-list">
             <li>
@@ -420,7 +426,7 @@ const ViewRenderers = {
         </aside>
 
         <!-- Form Column -->
-        <div class="card">
+        <div class="card scroll-reveal scroll-stagger-2">
           <h3 style="margin-bottom:1.5rem; border-bottom:1px solid var(--border-color); padding-bottom:0.75rem;">Company Requirement Form</h3>
           <form id="employer-requirement-form">
             <div class="form-row">
@@ -549,11 +555,11 @@ const ViewRenderers = {
       </div>
       
       <div class="container" style="margin-top:3.5rem;">
-        <div class="about-narrative fade-in-section">
+        <div class="about-narrative scroll-reveal">
           <strong>KV ENTERPRISES</strong> is a specialised industrial manpower firm supplying skilled and semi-skilled workers to leading manufacturing plants in and around Sriperumbudur. We operate lean, move fast, and deliver workers who show up ready.
         </div>
 
-        <div class="card fade-in-section" style="margin-bottom:3.5rem;">
+        <div class="card scroll-reveal" style="margin-bottom:3.5rem;">
           <h3 style="margin-bottom:1rem; color:var(--accent); font-family:var(--font-mono); text-transform:uppercase; font-size:1rem;">Our Mission</h3>
           <h2 style="font-size:1.85rem; margin-bottom:1rem; color:var(--text-main);">Right worker. Right role. Right on time.</h2>
           <p style="line-height:1.65; color:var(--text-body); max-width:850px;">
@@ -565,54 +571,54 @@ const ViewRenderers = {
         </div>
 
         <!-- Metrics display -->
-        <div class="stats-grid fade-in-section" style="margin-bottom:4rem;">
+        <div class="stats-grid scroll-reveal" style="margin-bottom:4rem;">
           <div class="stat-card">
-            <div class="stat-number">500+</div>
+            <div class="stat-number" data-count-target="500">0</div>
             <div class="stat-label">Workers placed</div>
           </div>
           <div class="stat-card">
-            <div class="stat-number">25+</div>
+            <div class="stat-number" data-count-target="25">0</div>
             <div class="stat-label">Client factories</div>
           </div>
           <div class="stat-card">
-            <div class="stat-number">72H</div>
+            <div class="stat-number" data-count-target="72">0</div>
             <div class="stat-label">Avg. placement</div>
           </div>
           <div class="stat-card">
-            <div class="stat-number">100%</div>
+            <div class="stat-number" data-count-target="100">0</div>
             <div class="stat-label">Direct joining</div>
           </div>
         </div>
 
         <!-- Industries serve grid -->
-        <div class="section-header fade-in-section">
+        <div class="section-header scroll-reveal">
           <h2>Where our workers show up</h2>
           <p>Supplying skilled technicians to key manufacturing lines.</p>
         </div>
-        <div class="about-serve-grid fade-in-section">
-          <div class="serve-card">
+        <div class="about-serve-grid">
+          <div class="serve-card scroll-reveal scroll-stagger-1">
             <h4>01 / Automotive</h4>
             <p>Korean & Indian OEMs, Tier-1 & Tier-2 suppliers.</p>
           </div>
-          <div class="serve-card">
+          <div class="serve-card scroll-reveal scroll-stagger-2">
             <h4>02 / Metal Tech</h4>
             <p>Sheet metal, fabrication, racking systems.</p>
           </div>
-          <div class="serve-card">
+          <div class="serve-card scroll-reveal scroll-stagger-3">
             <h4>03 / Precision CNC</h4>
             <p>CNC operators, quality inspectors, machinists.</p>
           </div>
-          <div class="serve-card">
+          <div class="serve-card scroll-reveal scroll-stagger-4">
             <h4>04 / Logistics</h4>
             <p>Despatch, warehousing, packing lines.</p>
           </div>
         </div>
 
         <!-- Two paths CTA -->
-        <div class="fade-in-section" style="background-color:var(--text-main); color:var(--bg-canvas); border-radius:var(--radius-sm); padding:3rem; text-align:center; box-shadow: 0 10px 30px rgba(var(--accent-rgb),0.06);">
-          <h3 style="color:var(--bg-canvas); font-size:1.6rem; margin-bottom:0.75rem;">Ready to hire or get hired?</h3>
-          <p style="color:var(--text-muted); margin-bottom:2rem; font-size:0.95rem;">Two paths. One trusted industrial manpower partner.</p>
-          <div style="display:flex; justify-content:center; gap:1rem; flex-wrap:wrap;">
+        <div class="scroll-reveal" style="background-color:var(--text-main); color:var(--bg-canvas); border-radius:var(--radius-sm); padding:4rem 2rem; text-align:center; box-shadow: 0 10px 30px rgba(var(--accent-rgb),0.06);">
+          <h3 style="color:var(--bg-canvas); font-size:1.85rem; margin-bottom:0.75rem;">Ready to hire or get hired?</h3>
+          <p style="color:var(--text-muted); margin-bottom:2.5rem; font-size:0.95rem;">Two paths. One trusted industrial manpower partner.</p>
+          <div style="display:flex; justify-content:center; gap:1.25rem; flex-wrap:wrap;">
             <a href="#jobs" class="btn btn-primary">I'm looking for a job</a>
             <a href="#employer" class="btn btn-teal">I need workers</a>
           </div>
@@ -631,10 +637,10 @@ const ViewRenderers = {
         </div>
       </div>
       
-      <div class="container contact-layout-box fade-in-section">
+      <div class="container contact-layout-box">
         <!-- Address Details -->
         <div class="contact-details-grid">
-          <div class="contact-detail-item">
+          <div class="contact-detail-item scroll-reveal scroll-stagger-1">
             <div class="contact-icon-wrap">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
             </div>
@@ -645,7 +651,7 @@ const ViewRenderers = {
             </div>
           </div>
 
-          <div class="contact-detail-item">
+          <div class="contact-detail-item scroll-reveal scroll-stagger-2">
             <div class="contact-icon-wrap" style="background-color:rgba(37,211,102,0.06); color:#25D366; border-color: rgba(37,211,102,0.15)">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
             </div>
@@ -655,7 +661,7 @@ const ViewRenderers = {
             </div>
           </div>
 
-          <div class="contact-detail-item">
+          <div class="contact-detail-item scroll-reveal scroll-stagger-3">
             <div class="contact-icon-wrap">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3"/></svg>
             </div>
@@ -668,7 +674,7 @@ const ViewRenderers = {
         </div>
 
         <!-- Office Hours Panel -->
-        <div class="office-hours-block fade-in-section">
+        <div class="office-hours-block scroll-reveal scroll-stagger-2">
           <h3>Working Hours</h3>
           <div class="hours-row">
             <span>Monday – Saturday:</span>
@@ -713,23 +719,26 @@ function renderBoardJobsList(searchQuery, genderFilter) {
   });
 
   if (results.length === 0) {
-    container.innerHTML = `<div class="card" style="text-align:center; padding:3rem; grid-column:span 3;">No matching open positions found.</div>`;
+    container.innerHTML = `<div class="card scroll-reveal" style="text-align:center; padding:3rem; grid-column:span 3;">No matching open positions found.</div>`;
     return;
   }
 
-  container.innerHTML = results.map(job => getJobCardHTML(job)).join("");
+  container.innerHTML = results.map((job, idx) => getJobCardHTML(job, idx)).join("");
   bindJobCardEvents();
+  initScrollAnimations();
 }
 
-function getJobCardHTML(job) {
+function getJobCardHTML(job, index = 0) {
   const compLetter = job.company.charAt(0);
   const urgentBadge = job.urgent ? `<span class="badge badge-urgent">Urgent</span>` : '';
   const genderBadge = job.gender === "Both" 
     ? `<span class="badge badge-neutral">Male / Female</span>`
     : `<span class="badge badge-green">${job.gender} Only</span>`;
+  
+  const staggerClass = `scroll-stagger-${(index % 4) + 1}`;
     
   return `
-    <article class="job-card" data-jobid="${job.id}">
+    <article class="job-card scroll-reveal ${staggerClass}" data-jobid="${job.id}">
       <div class="job-card-main">
         <div class="job-card-logo">${compLetter}</div>
         <div class="job-card-info">
@@ -1032,12 +1041,12 @@ function showToast(message, type = "success") {
   setTimeout(() => { toast.remove(); }, 3500);
 }
 
-// --- 7. ROUTING ENGINE & SCROLL ANIMATION ATTACHER ---
+// --- 7. ROUTING ENGINE & MOTION STAGGER TRIGGERS ---
 
 function handleRouting() {
   const hash = window.location.hash || "#home";
 
-  // Update navbar links
+  // Update navbar links active states
   const links = document.querySelectorAll(".nav-link");
   links.forEach(l => {
     const view = l.getAttribute("data-view");
@@ -1087,8 +1096,9 @@ function handleRouting() {
 
   document.title = titles[hash] || "KV Enterprises — Industrial Manpower";
 
-  // Hook scroll-based animations for the rendered section elements
+  // Trigger motion reveals and statistics counts
   initScrollAnimations();
+  initStatsCounters();
 }
 
 function initScrollAnimations() {
@@ -1096,12 +1106,47 @@ function initScrollAnimations() {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add("visible");
+        observer.unobserve(entry.target); // One-time fade trigger
       }
     });
   }, { threshold: 0.05 });
   
-  document.querySelectorAll(".fade-in-section").forEach(sec => {
+  document.querySelectorAll(".scroll-reveal").forEach(sec => {
     observer.observe(sec);
+  });
+}
+
+// Animate metric statistics when scrolled into view
+function initStatsCounters() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const target = entry.target;
+        const countTo = parseInt(target.getAttribute("data-count-target"), 10);
+        if (isNaN(countTo)) return;
+
+        let start = 0;
+        const duration = 1500; // 1.5s duration
+        const stepTime = Math.abs(Math.floor(duration / countTo));
+        
+        const counter = setInterval(() => {
+          start += 1;
+          target.innerText = start + (target.innerText.includes("%") || countTo === 100 ? "%" : "+");
+          if (start >= countTo) {
+            target.innerText = countTo + (countTo === 100 || countTo === 72 ? "" : "+");
+            if (countTo === 100) target.innerText += "%";
+            if (countTo === 72) target.innerText += "H";
+            clearInterval(counter);
+          }
+        }, Math.max(stepTime, 10));
+
+        observer.unobserve(target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll(".stat-number").forEach(num => {
+    observer.observe(num);
   });
 }
 
@@ -1157,10 +1202,32 @@ function initializeThemeSwitcher() {
 // --- 9. INITIALIZERS ---
 
 window.addEventListener("hashchange", handleRouting);
+
+// Header blur/shadow transition after scrolling past Hero area
+window.addEventListener("scroll", () => {
+  const header = document.querySelector(".main-header");
+  if (!header) return;
+  if (window.scrollY > 80) {
+    header.classList.add("scrolled");
+  } else {
+    header.classList.remove("scrolled");
+  }
+});
+
 window.addEventListener("DOMContentLoaded", () => {
-  // Mobile Nav Toggle
-  document.getElementById("mobile-menu-toggle").addEventListener("click", () => {
-    document.getElementById("nav-menu").classList.toggle("open");
+  // Mobile Nav Toggle Drawer
+  const mobileToggle = document.getElementById("mobile-menu-toggle");
+  const navMenu = document.getElementById("nav-menu");
+  
+  mobileToggle.addEventListener("click", (e) => {
+    e.stopPropagation();
+    navMenu.classList.toggle("open");
+  });
+  
+  document.addEventListener("click", (e) => {
+    if (!navMenu.contains(e.target) && e.target !== mobileToggle) {
+      navMenu.classList.remove("open");
+    }
   });
 
   // Logo navigation link
