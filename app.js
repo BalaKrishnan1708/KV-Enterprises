@@ -1,5 +1,5 @@
 /* ==========================================================================
-   APPLICATION CONTROLLER - KV ENTERPRISES (FUTURISTIC & FAITHFUL SPA)
+   APPLICATION CONTROLLER - KV ENTERPRISES (LIGHT INDUSTRIAL SPA)
    ========================================================================== */
 
 // --- 1. LOCAL STORAGE STATE DATABASE ---
@@ -133,7 +133,7 @@ const ViewRenderers = {
   home: function(container) {
     container.innerHTML = `
       <!-- Hero Banner -->
-      <section class="hero-section">
+      <section class="hero-section fade-in-section">
         <div class="container hero-grid">
           <div class="hero-content-area">
             <div class="hero-tag">
@@ -160,15 +160,15 @@ const ViewRenderers = {
                 <span class="badge badge-green" style="font-size:0.6rem;">Status: Active</span>
               </div>
               <div class="hud-item">
-                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" width="16" height="16"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
                 <span>72H Avg. Mobilization</span>
               </div>
               <div class="hud-item">
-                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4" /></svg>
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" width="16" height="16"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4" /></svg>
                 <span>Aadhar & Bank Cleared</span>
               </div>
               <div class="hud-item">
-                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" width="16" height="16"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
                 <span>100% Direct Join</span>
               </div>
             </div>
@@ -177,7 +177,7 @@ const ViewRenderers = {
       </section>
 
       <!-- Text marquee -->
-      <section>
+      <section class="fade-in-section">
         <div class="marquee-container">
           <div class="marquee-inner">
             <span>CNC Machining</span>
@@ -197,7 +197,7 @@ const ViewRenderers = {
       </section>
 
       <!-- Stats Metric Panel -->
-      <section class="stats-section">
+      <section class="stats-section fade-in-section">
         <div class="container stats-grid">
           <div class="stat-card">
             <div class="stat-number">500+</div>
@@ -223,7 +223,7 @@ const ViewRenderers = {
       </section>
 
       <!-- Now Hiring Openings -->
-      <section class="jobs-section">
+      <section class="jobs-section fade-in-section">
         <div class="container">
           <div class="section-header">
             <h2>Active Openings</h2>
@@ -241,7 +241,7 @@ const ViewRenderers = {
       </section>
 
       <!-- Employer register banner -->
-      <section class="employer-banner-section">
+      <section class="employer-banner-section fade-in-section">
         <div class="container">
           <div class="banner-grid">
             <div class="banner-content">
@@ -251,24 +251,24 @@ const ViewRenderers = {
               </p>
               <div class="banner-features">
                 <div class="banner-feature-item">
-                  <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg>
+                  <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" width="16" height="16"><path d="M5 13l4 4L19 7"/></svg>
                   <span>Same-day callback</span>
                 </div>
                 <div class="banner-feature-item">
-                  <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg>
+                  <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" width="16" height="16"><path d="M5 13l4 4L19 7"/></svg>
                   <span>Verified workers</span>
                 </div>
                 <div class="banner-feature-item">
-                  <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg>
+                  <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" width="16" height="16"><path d="M5 13l4 4L19 7"/></svg>
                   <span>Bulk hiring ready</span>
                 </div>
                 <div class="banner-feature-item">
-                  <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg>
+                  <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" width="16" height="16"><path d="M5 13l4 4L19 7"/></svg>
                   <span>Compliance handled</span>
                 </div>
               </div>
               <div>
-                <a href="#employer" class="btn btn-teal">Register Requirement</a>
+                <a href="#employer" class="btn btn-primary">Register Requirement</a>
               </div>
             </div>
             
@@ -294,7 +294,7 @@ const ViewRenderers = {
       </section>
 
       <!-- Why KV Section -->
-      <section class="why-section">
+      <section class="why-section fade-in-section">
         <div class="container">
           <div class="section-header">
             <h2>Built for Sriperumbudur's factory belt</h2>
@@ -325,7 +325,7 @@ const ViewRenderers = {
       </section>
 
       <!-- Talk to us today -->
-      <section class="quick-contact-strip">
+      <section class="quick-contact-strip fade-in-section">
         <div class="container">
           <div class="quick-contact-box">
             <div class="quick-text">
@@ -354,10 +354,10 @@ const ViewRenderers = {
         </div>
       </div>
       
-      <div class="container jobs-board-wrap">
+      <div class="container jobs-board-wrap fade-in-section">
         <div class="jobs-filter-bar">
           <div class="board-search-input-wrap">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
             <input type="text" id="jobs-search-input" placeholder="Search by company, title, location...">
           </div>
           
@@ -409,7 +409,7 @@ const ViewRenderers = {
         </div>
       </div>
       
-      <div class="container employer-container-layout">
+      <div class="container employer-container-layout fade-in-section">
         <!-- Info Column -->
         <aside class="employer-info-card">
           <h3>Why Hire Through Us</h3>
@@ -432,16 +432,16 @@ const ViewRenderers = {
             </li>
           </ul>
           
-          <div style="margin-top:2rem; border-top:1px solid var(--color-border-glow); padding-top:1.5rem;">
+          <div style="margin-top:2rem; border-top:1px solid var(--border-color); padding-top:1.5rem;">
             <p style="font-size:0.75rem; font-family:var(--font-mono); color:var(--text-muted); margin-bottom:0.25rem;">PREFER TO TALK?</p>
             <p style="font-weight:700; color:var(--text-main); font-size:1.1rem; margin-bottom:0.25rem;">Call our HR Desk</p>
-            <p style="font-family:var(--font-mono); font-weight:700; font-size:0.95rem; color:var(--accent-sage);">6385422938 / 7200172460</p>
+            <p style="font-family:var(--font-mono); font-weight:700; font-size:0.95rem; color:var(--accent);">6385422938 / 7200172460</p>
           </div>
         </aside>
 
         <!-- Form Column -->
         <div class="card">
-          <h3 style="margin-bottom:1.5rem; border-bottom:1px solid var(--color-border-glow); padding-bottom:0.75rem;">Company Requirement Form</h3>
+          <h3 style="margin-bottom:1.5rem; border-bottom:1px solid var(--border-color); padding-bottom:0.75rem;">Company Requirement Form</h3>
           <form id="employer-requirement-form">
             <div class="form-row">
               <div class="form-group half">
@@ -569,12 +569,12 @@ const ViewRenderers = {
       </div>
       
       <div class="container" style="margin-top:3.5rem;">
-        <div class="about-narrative">
+        <div class="about-narrative fade-in-section">
           <strong>KV ENTERPRISES</strong> is a specialised industrial manpower firm supplying skilled and semi-skilled workers to leading manufacturing plants in and around Sriperumbudur. We operate lean, move fast, and deliver workers who show up ready.
         </div>
 
-        <div class="card" style="margin-bottom:3.5rem;">
-          <h3 style="margin-bottom:1rem; color:var(--accent-sage); font-family:var(--font-mono); text-transform:uppercase; font-size:1rem;">Our Mission</h3>
+        <div class="card fade-in-section" style="margin-bottom:3.5rem;">
+          <h3 style="margin-bottom:1rem; color:var(--accent); font-family:var(--font-mono); text-transform:uppercase; font-size:1rem;">Our Mission</h3>
           <h2 style="font-size:1.85rem; margin-bottom:1rem; color:var(--text-main);">Right worker. Right role. Right on time.</h2>
           <p style="line-height:1.65; color:var(--text-body); max-width:850px;">
             Manufacturing plants lose lakhs every day a line runs short-staffed. Job seekers lose weeks chasing consultants. We remove both problems by matching pre-verified workers to open shifts within 72 hours.
@@ -585,7 +585,7 @@ const ViewRenderers = {
         </div>
 
         <!-- Metrics display -->
-        <div class="stats-grid" style="margin-bottom:4rem;">
+        <div class="stats-grid fade-in-section" style="margin-bottom:4rem;">
           <div class="stat-card">
             <div class="stat-number">500+</div>
             <div class="stat-label">Workers placed</div>
@@ -605,11 +605,11 @@ const ViewRenderers = {
         </div>
 
         <!-- Industries serve grid -->
-        <div class="section-header">
+        <div class="section-header fade-in-section">
           <h2>Where our workers show up</h2>
           <p>Supplying skilled technicians to key manufacturing lines.</p>
         </div>
-        <div class="about-serve-grid">
+        <div class="about-serve-grid fade-in-section">
           <div class="serve-card">
             <h4>Automotive</h4>
             <p>Korean & Indian OEMs, Tier-1 & Tier-2 suppliers.</p>
@@ -629,7 +629,7 @@ const ViewRenderers = {
         </div>
 
         <!-- Two paths CTA -->
-        <div style="background-color:var(--text-main); color:#FFFFFF; border-radius:var(--radius-sm); padding:3rem; text-align:center; box-shadow: 0 10px 30px rgba(15,118,110,0.15);">
+        <div class="fade-in-section" style="background-color:var(--text-main); color:#FFFFFF; border-radius:var(--radius-sm); padding:3rem; text-align:center; box-shadow: 0 10px 30px rgba(var(--accent-rgb),0.15);">
           <h3 style="color:#FFFFFF; font-size:1.6rem; margin-bottom:0.75rem;">Ready to hire or get hired?</h3>
           <p style="color:#94A3B8; margin-bottom:2rem; font-size:0.95rem;">Two paths. One trusted industrial manpower partner.</p>
           <div style="display:flex; justify-content:center; gap:1rem; flex-wrap:wrap;">
@@ -651,12 +651,12 @@ const ViewRenderers = {
         </div>
       </div>
       
-      <div class="container contact-layout-box">
+      <div class="container contact-layout-box fade-in-section">
         <!-- Address Details -->
         <div class="contact-details-grid">
           <div class="contact-detail-item">
             <div class="contact-icon-wrap">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
             </div>
             <div class="contact-text-wrap">
               <h4>Call Recruiter Desk</h4>
@@ -666,8 +666,8 @@ const ViewRenderers = {
           </div>
 
           <div class="contact-detail-item">
-            <div class="contact-icon-wrap" style="background-color:rgba(37,211,102,0.06); color:#25D366;">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+            <div class="contact-icon-wrap" style="background-color:rgba(37,211,102,0.06); color:#25D366; border-color: rgba(37,211,102,0.15)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
             </div>
             <div class="contact-text-wrap">
               <h4>WhatsApp Placements</h4>
@@ -677,7 +677,7 @@ const ViewRenderers = {
 
           <div class="contact-detail-item">
             <div class="contact-icon-wrap">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3"/></svg>
             </div>
             <div class="contact-text-wrap">
               <h4>Corridor Location</h4>
@@ -688,7 +688,7 @@ const ViewRenderers = {
         </div>
 
         <!-- Office Hours Panel -->
-        <div class="office-hours-block">
+        <div class="office-hours-block fade-in-section">
           <h3>Working Hours</h3>
           <div class="hours-row">
             <span>Monday – Saturday:</span>
@@ -762,11 +762,11 @@ function getJobCardHTML(job) {
           <span class="job-card-company">${job.company}</span>
           <div class="job-card-meta">
             <div class="meta-item">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3"/></svg>
               <span>${job.location}</span>
             </div>
             <div class="meta-item">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M12 16M9 21h6"/></svg>
               <span>${job.salary}</span>
             </div>
           </div>
@@ -797,13 +797,13 @@ function showDetailModal(jobId) {
   overlay.innerHTML = `
     <div class="modal-content">
       <button class="modal-close-btn" id="btn-close-modal">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 18L18 6M6 6l12 12"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M6 18L18 6M6 6l12 12"/></svg>
       </button>
       
       <div class="modal-header-block">
         <span class="badge badge-green" style="margin-bottom:0.5rem;">${job.industry}</span>
         <h2>${job.title}</h2>
-        <p style="color:var(--accent-teal); font-weight:700; font-size:1.05rem; margin-top:0.25rem;">${job.company}</p>
+        <p style="color:var(--accent); font-weight:700; font-size:1.05rem; margin-top:0.25rem;">${job.company}</p>
       </div>
       
       <div class="modal-body-block">
@@ -814,7 +814,7 @@ function showDetailModal(jobId) {
           </tr>
           <tr>
             <td class="label">Salary Package</td>
-            <td class="value" style="font-weight:700; color:var(--accent-sage);">${job.salary}</td>
+            <td class="value" style="font-weight:700; color:var(--accent);">${job.salary}</td>
           </tr>
           <tr>
             <td class="label">Shift Timing</td>
@@ -883,7 +883,7 @@ function showAdminLoginModal() {
   overlay.innerHTML = `
     <div class="modal-content" style="max-width: 420px;">
       <button class="modal-close-btn" id="btn-close-modal">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 18L18 6M6 6l12 12"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M6 18L18 6M6 6l12 12"/></svg>
       </button>
       
       <div class="modal-header-block">
@@ -958,7 +958,7 @@ function showAdminDashboardLogs() {
   overlay.innerHTML = `
     <div class="modal-content" style="max-width: 900px; width:95vw;">
       <button class="modal-close-btn" id="btn-close-modal">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 18L18 6M6 6l12 12"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M6 18L18 6M6 6l12 12"/></svg>
       </button>
       
       <div class="modal-header-block">
@@ -969,7 +969,7 @@ function showAdminDashboardLogs() {
       <div class="modal-body-block" style="display:flex; flex-direction:column; gap:2rem; max-height:60vh; overflow-y:auto;">
         
         <div>
-          <h3 style="font-size:1rem; font-family:var(--font-mono); margin-bottom:0.75rem; color:var(--accent-sage); text-transform:uppercase;">Registered B2B Client Requirements</h3>
+          <h3 style="font-size:1rem; font-family:var(--font-mono); margin-bottom:0.75rem; color:var(--accent); text-transform:uppercase;">Registered B2B Client Requirements</h3>
           <div style="overflow-x:auto;">
             <table class="admin-log-table">
               <thead>
@@ -989,7 +989,7 @@ function showAdminDashboardLogs() {
         </div>
 
         <div>
-          <h3 style="font-size:1rem; font-family:var(--font-mono); margin-bottom:0.75rem; color:var(--accent-teal); text-transform:uppercase;">Candidate Application clicks logs</h3>
+          <h3 style="font-size:1rem; font-family:var(--font-mono); margin-bottom:0.75rem; color:var(--accent); text-transform:uppercase;">Candidate Application clicks logs</h3>
           <div style="overflow-x:auto;">
             <table class="admin-log-table">
               <thead>
@@ -1040,8 +1040,8 @@ function showToast(message, type = "success") {
   toast.className = `toast-item toast-${type}`;
   
   const icon = type === "success" 
-    ? `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>` 
-    : `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>`;
+    ? `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>` 
+    : `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>`;
 
   toast.innerHTML = `
     <div class="toast-icon">${icon}</div>
@@ -1052,7 +1052,7 @@ function showToast(message, type = "success") {
   setTimeout(() => { toast.remove(); }, 3500);
 }
 
-// --- 7. ROUTING ENGINE ---
+// --- 7. ROUTING ENGINE & SCROLL ANIMATION ATTACHER ---
 
 function handleRouting() {
   const hash = window.location.hash || "#home";
@@ -1106,9 +1106,75 @@ function handleRouting() {
   };
 
   document.title = titles[hash] || "KV Enterprises — Industrial Manpower";
+
+  // Hook scroll-based animations for the rendered section elements
+  initScrollAnimations();
 }
 
-// --- 8. INITIALIZERS ---
+function initScrollAnimations() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+      }
+    });
+  }, { threshold: 0.05 });
+  
+  document.querySelectorAll(".fade-in-section").forEach(sec => {
+    observer.observe(sec);
+  });
+}
+
+// --- 8. ACCENT THEME SWITCHER CONTROLLER ---
+
+function initializeThemeSwitcher() {
+  const container = document.getElementById("theme-switcher-container");
+  const toggleBtn = document.getElementById("theme-switcher-toggle-btn");
+  const panel = document.getElementById("theme-presets-panel");
+  const dots = document.querySelectorAll(".preset-color-dot");
+  
+  // Load and apply color state
+  const savedAccent = localStorage.getItem("kv_accent_theme") || "blue";
+  document.body.setAttribute("data-accent", savedAccent);
+  
+  // Highlight active dot
+  dots.forEach(dot => {
+    if (dot.getAttribute("data-accent-val") === savedAccent) {
+      dot.classList.add("active");
+    } else {
+      dot.classList.remove("active");
+    }
+  });
+
+  // Toggle Panel
+  toggleBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    panel.classList.toggle("hidden");
+  });
+
+  // Click outside closes switcher
+  document.addEventListener("click", () => {
+    panel.classList.add("hidden");
+  });
+  panel.addEventListener("click", (e) => e.stopPropagation());
+
+  // Set event handlers
+  dots.forEach(dot => {
+    dot.addEventListener("click", () => {
+      const selected = dot.getAttribute("data-accent-val");
+      
+      document.body.setAttribute("data-accent", selected);
+      localStorage.setItem("kv_accent_theme", selected);
+      
+      dots.forEach(d => d.classList.remove("active"));
+      dot.classList.add("active");
+      
+      showToast(`Accent theme shifted to ${selected.toUpperCase()}`, "success");
+    });
+  });
+}
+
+// --- 9. INITIALIZERS ---
 
 window.addEventListener("hashchange", handleRouting);
 window.addEventListener("DOMContentLoaded", () => {
@@ -1127,6 +1193,9 @@ window.addEventListener("DOMContentLoaded", () => {
     e.preventDefault();
     showAdminLoginModal();
   });
+
+  // Theme Accent swapper initialization
+  initializeThemeSwitcher();
 
   // Trigger Routing
   handleRouting();
