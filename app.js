@@ -1,5 +1,5 @@
 /* ==========================================================================
-   APPLICATION CONTROLLER - KV ENTERPRISES (IVORY TIVOR SPA)
+   APPLICATION CONTROLLER - KV ENTERPRISES (TIVOR.US ESTHETIC SPA)
    ========================================================================== */
 
 // --- 1. LOCAL STORAGE STATE DATABASE ---
@@ -32,7 +32,7 @@ const SEED_JOBS = [
     qualification: "10th Pass to Any Degree",
     urgent: true,
     tags: ["Urgent", "Female Only", "Freshers Welcome"],
-    description: "visual quality inspection and line sorting of PCB assemblies. Air-conditioned factory shopfloor. Safe environment for female workers. Single shift setup."
+    description: "Visual quality inspection and line sorting of PCB assemblies. Air-conditioned factory shopfloor. Safe environment for female workers. Single shift setup."
   },
   {
     id: "job-03",
@@ -106,7 +106,7 @@ function saveDatabase() {
   localStorage.setItem("kv_db_clicks", JSON.stringify(STATE.clicks));
 }
 
-// Log candidate application actions
+// Log candidate actions
 function logApplyAction(jobTitle, company, type) {
   const now = new Date();
   const dateStr = now.getFullYear() + '-' + 
@@ -132,26 +132,29 @@ const ViewRenderers = {
   // A. HOME PAGE
   home: function(container) {
     container.innerHTML = `
-      <!-- Hero Banner - Centered Typographic Tivor style -->
+      <!-- Hero Banner - Typographic Center -->
       <section class="hero-section" id="hero-area">
-        <!-- Floating ambient light blob -->
         <div class="ambient-blob"></div>
         
         <div class="container hero-content-center">
           <div class="hero-tag anim-hero-tag">
             <span class="pulse-dot"></span>
-            <span>01 / Placement Logistics</span>
+            <span>01 / PLACEMENT LOGISTICS</span>
           </div>
-          <h1 class="hero-title anim-hero-title">
-            <span class="word-line"><span>Industrial Manpower.</span></span><br>
-            <span class="word-line"><span class="accent-text">Delivered. On Time.</span></span>
+          
+          <h1 class="hero-heading anim-hero-title">
+            INDUSTRIAL MANPOWER.<br>
+            <span class="accent-text">DELIVERED. ON TIME.</span>
           </h1>
+          
           <p class="hero-subtitle anim-hero-sub">
             Factory Onboarding & Supply Chain Staffing Solutions
           </p>
+          
           <p class="hero-desc anim-hero-desc">
             KV Enterprises places pre-verified operators and quality inspectors into leading manufacturing plants across the Sriperumbudur corridor. Direct gate joining. No middlemen.
           </p>
+          
           <div class="hero-ctas anim-hero-ctas">
             <a href="#jobs" class="btn btn-primary">Browse Jobs</a>
             <a href="#employer" class="btn btn-secondary">Hire Workers</a>
@@ -176,6 +179,16 @@ const ViewRenderers = {
             <span>Automotive</span>
             <span>Metal Tech</span>
           </div>
+        </div>
+      </section>
+
+      <!-- Manifesto Row (Tivor Manifesto) -->
+      <section class="manifesto-section scroll-reveal">
+        <div class="container">
+          <h2 class="manifesto-heading">Strategic Manpower Placements, Not Generic HR Agencies</h2>
+          <p class="manifesto-sub">
+            We don't stop at sending resumes. We understand your production lines, verify every operator first-hand, and dispatch workforce solutions that keep your factory floor running.
+          </p>
         </div>
       </section>
 
@@ -205,19 +218,21 @@ const ViewRenderers = {
         </div>
       </section>
 
-      <!-- Now Hiring Openings -->
+      <!-- Stacked Openings Deck Section -->
       <section class="jobs-section">
         <div class="container">
           <div class="section-header scroll-reveal">
-            <h2>Active Openings</h2>
+            <p class="font-mono text-[11px] tracking-widest uppercase text-muted mb-4" style="font-family:var(--font-mono)">Active Placements</p>
+            <h2>Featured Openings</h2>
             <p>Immediate gate joining openings. Select below to call or apply on WhatsApp.</p>
           </div>
           
-          <div class="job-feed-list" id="home-jobs-container">
+          <!-- Stacked deck wrapper -->
+          <div class="sticky-deck-container" id="home-jobs-container">
             <!-- Rendered Dynamically -->
           </div>
           
-          <div style="text-align:center; margin-top:3rem;" class="scroll-reveal">
+          <div style="text-align:center; margin-top:5rem;" class="scroll-reveal">
             <a href="#jobs" class="btn btn-secondary">View All Open Positions</a>
           </div>
         </div>
@@ -311,17 +326,42 @@ const ViewRenderers = {
         </div>
       </section>
 
-      <!-- Talk to us today -->
-      <section class="quick-contact-strip">
-        <div class="container">
-          <div class="quick-contact-box scroll-reveal">
-            <div class="quick-text">
-              <h3>Talk to us today</h3>
-              <p>Call or WhatsApp — get placed / staffed this week.</p>
-            </div>
-            <div class="quick-buttons">
-              <a href="tel:6385422938" class="btn btn-primary">Call 6385422938</a>
-              <a href="https://wa.me/916385422938" target="_blank" class="btn btn-secondary">WhatsApp Us</a>
+      <!-- Closing CTA Section (Tivor.us closing-cta Style) -->
+      <section id="closing-cta" class="scroll-reveal">
+        <div class="container text-center">
+          <div>
+            <p class="font-mono text-[11px] tracking-[0.1em] uppercase text-muted mb-6" style="font-family:var(--font-mono)">Ready to start</p>
+          </div>
+          <div>
+            <h2 class="closing-title">Let's start<br>recruiting together</h2>
+          </div>
+          <div>
+            <a class="cta-btn" href="#contact">
+              Get in touch
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+          </div>
+        </div>
+        
+        <!-- Logo Scroll Track below closing CTA -->
+        <div class="mt-24">
+          <div class="logo-track-mask">
+            <div class="logo-track">
+              <span class="logo-item">CNC Machining</span>
+              <span class="sep">◆</span>
+              <span class="logo-item">Quality Assurance</span>
+              <span class="sep">◆</span>
+              <span class="logo-item">Gilan Automotive</span>
+              <span class="sep">◆</span>
+              <span class="logo-item">Donracks TMTE</span>
+              <span class="sep">◆</span>
+              <span class="logo-item">CNC Machining</span>
+              <span class="sep">◆</span>
+              <span class="logo-item">Quality Assurance</span>
+              <span class="sep">◆</span>
+              <span class="logo-item">Gilan Automotive</span>
+              <span class="sep">◆</span>
+              <span class="logo-item">Donracks TMTE</span>
             </div>
           </div>
         </div>
@@ -356,7 +396,7 @@ const ViewRenderers = {
           </div>
         </div>
 
-        <div class="job-feed-list" id="board-jobs-container">
+        <div class="job-feed-list" id="board-jobs-container" style="display:flex; flex-direction:column; gap:2.5rem; margin-top:2rem;">
           <!-- Rendered Dynamically -->
         </div>
       </div>
@@ -425,93 +465,108 @@ const ViewRenderers = {
           </div>
         </aside>
 
-        <!-- Form Column -->
-        <div class="card scroll-reveal scroll-stagger-2">
-          <h3 style="margin-bottom:1.5rem; border-bottom:1px solid var(--border-color); padding-bottom:0.75rem;">Company Requirement Form</h3>
-          <form id="employer-requirement-form">
-            <div class="form-row">
-              <div class="form-group half">
-                <label class="form-label" for="comp-name">Company Name *</label>
-                <input type="text" id="comp-name" class="form-input" required placeholder="e.g. Gilan Automotive">
-              </div>
-              <div class="form-group half">
-                <label class="form-label" for="comp-industry">Industry *</label>
-                <input type="text" id="comp-industry" class="form-input" required placeholder="Automotive / CNC / Packaging...">
+        <!-- Form Column (Browser card wrapper style) -->
+        <div class="product-card scroll-reveal scroll-stagger-2">
+          <div class="product-card-inner">
+            <div class="product-card-header">
+              <div class="flex items-center gap-3">
+                <div class="flex items-center gap-[5px]">
+                  <span class="rounded-full" style="width:10px;height:10px;background:#FF5F57;display:block"></span>
+                  <span class="rounded-full" style="width:10px;height:10px;background:#FEBC2E;display:block"></span>
+                  <span class="rounded-full" style="width:10px;height:10px;background:#28C840;display:block"></span>
+                </div>
+                <span style="width:1px;height:16px;background:var(--border-color)"></span>
+                <span class="font-mono text-[10px] uppercase text-muted" style="font-family:var(--font-mono)">Register Requirement</span>
               </div>
             </div>
+            
+            <div class="p-8">
+              <form id="employer-requirement-form">
+                <div class="form-row">
+                  <div class="form-group half">
+                    <label class="form-label" for="comp-name">Company Name *</label>
+                    <input type="text" id="comp-name" class="form-input" required placeholder="e.g. Gilan Automotive">
+                  </div>
+                  <div class="form-group half">
+                    <label class="form-label" for="comp-industry">Industry *</label>
+                    <input type="text" id="comp-industry" class="form-input" required placeholder="Automotive / CNC / Packaging...">
+                  </div>
+                </div>
 
-            <div class="form-row">
-              <div class="form-group half">
-                <label class="form-label" for="comp-contact">Contact Person *</label>
-                <input type="text" id="comp-contact" class="form-input" required placeholder="e.g. Anand Kumar">
-              </div>
-              <div class="form-group half">
-                <label class="form-label" for="comp-desig">Designation</label>
-                <input type="text" id="comp-desig" class="form-input" placeholder="e.g. Plant HR Manager">
-              </div>
-            </div>
+                <div class="form-row">
+                  <div class="form-group half">
+                    <label class="form-label" for="comp-contact">Contact Person *</label>
+                    <input type="text" id="comp-contact" class="form-input" required placeholder="e.g. Anand Kumar">
+                  </div>
+                  <div class="form-group half">
+                    <label class="form-label" for="comp-desig">Designation</label>
+                    <input type="text" id="comp-desig" class="form-input" placeholder="e.g. Plant HR Manager">
+                  </div>
+                </div>
 
-            <div class="form-row">
-              <div class="form-group half">
-                <label class="form-label" for="comp-phone">Phone Number *</label>
-                <input type="tel" id="comp-phone" class="form-input" required>
-              </div>
-              <div class="form-group half">
-                <label class="form-label" for="comp-email">Email Address *</label>
-                <input type="email" id="comp-email" class="form-input" required>
-              </div>
-            </div>
+                <div class="form-row">
+                  <div class="form-group half">
+                    <label class="form-label" for="comp-phone">Phone Number *</label>
+                    <input type="tel" id="comp-phone" class="form-input" required>
+                  </div>
+                  <div class="form-group half">
+                    <label class="form-label" for="comp-email">Email Address *</label>
+                    <input type="email" id="comp-email" class="form-input" required>
+                  </div>
+                </div>
 
-            <div class="form-row">
-              <div class="form-group half">
-                <label class="form-label" for="comp-location">Plant Location *</label>
-                <input type="text" id="comp-location" class="form-input" required placeholder="e.g. Pennalur, Sriperumbudur">
-              </div>
-              <div class="form-group half">
-                <label class="form-label" for="comp-count">Workers Required *</label>
-                <input type="number" id="comp-count" class="form-input" required placeholder="e.g. 20">
-              </div>
-            </div>
+                <div class="form-row">
+                  <div class="form-group half">
+                    <label class="form-label" for="comp-location">Plant Location *</label>
+                    <input type="text" id="comp-location" class="form-input" required placeholder="e.g. Pennalur, Sriperumbudur">
+                  </div>
+                  <div class="form-group half">
+                    <label class="form-label" for="comp-count">Workers Required *</label>
+                    <input type="number" id="comp-count" class="form-input" required placeholder="e.g. 20">
+                  </div>
+                </div>
 
-            <div class="form-group">
-              <label class="form-label" for="comp-roles">Roles Needed *</label>
-              <input type="text" id="comp-roles" class="form-input" required placeholder="e.g. 20 CNC Operators, 5 QC Inspectors">
-            </div>
+                <div class="form-group">
+                  <label class="form-label" for="comp-roles">Roles Needed *</label>
+                  <input type="text" id="comp-roles" class="form-input" required placeholder="e.g. 20 CNC Operators, 5 QC Inspectors">
+                </div>
 
-            <div class="form-row">
-              <div class="form-group half">
-                <label class="form-label">Shift Preference</label>
-                <select id="comp-shift" class="form-select">
-                  <option value="Rotational">Rotational</option>
-                  <option value="No Night Shift">No Night Shift</option>
-                  <option value="Single Shift (Day)">Single Shift (Day)</option>
-                </select>
-              </div>
-              <div class="form-group half">
-                <label class="form-label">Gender Preference</label>
-                <select id="comp-gender" class="form-select">
-                  <option value="Both">Both</option>
-                  <option value="Male Only">Male Only</option>
-                  <option value="Female Only">Female Only</option>
-                </select>
-              </div>
-            </div>
+                <div class="form-row">
+                  <div class="form-group half">
+                    <label class="form-label">Shift Preference</label>
+                    <select id="comp-shift" class="form-select">
+                      <option value="Rotational">Rotational</option>
+                      <option value="No Night Shift">No Night Shift</option>
+                      <option value="Single Shift (Day)">Single Shift (Day)</option>
+                    </select>
+                  </div>
+                  <div class="form-group half">
+                    <label class="form-label">Gender Preference</label>
+                    <select id="comp-gender" class="form-select">
+                      <option value="Both">Both</option>
+                      <option value="Male Only">Male Only</option>
+                      <option value="Female Only">Female Only</option>
+                    </select>
+                  </div>
+                </div>
 
-            <div class="form-row">
-              <div class="form-group half">
-                <label class="form-label" for="comp-startdate">Expected Start Date</label>
-                <input type="date" id="comp-startdate" class="form-input">
-              </div>
-              <div class="form-group half">
-                <label class="form-label" for="comp-notes">Additional Notes</label>
-                <textarea id="comp-notes" class="form-textarea" placeholder="Any specific skills, salary range, benefits offered..."></textarea>
-              </div>
-            </div>
+                <div class="form-row">
+                  <div class="form-group half">
+                    <label class="form-label" for="comp-startdate">Expected Start Date</label>
+                    <input type="date" id="comp-startdate" class="form-input">
+                  </div>
+                  <div class="form-group half">
+                    <label class="form-label" for="comp-notes">Additional Notes</label>
+                    <textarea id="comp-notes" class="form-textarea" placeholder="Any specific skills, salary range, benefits offered..."></textarea>
+                  </div>
+                </div>
 
-            <div style="display:flex; justify-content:flex-end; margin-top:1.5rem;">
-              <button type="submit" class="btn btn-primary">Register Requirement</button>
+                <div style="display:flex; justify-content:flex-end; margin-top:1.5rem;">
+                  <button type="submit" class="btn btn-primary">Register Requirement</button>
+                </div>
+              </form>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     `;
@@ -696,7 +751,8 @@ function renderHomeJobs() {
   const container = document.getElementById("home-jobs-container");
   if (!container) return;
 
-  container.innerHTML = STATE.jobs.map(job => getJobCardHTML(job)).join("");
+  // Render jobs as browser window cards with z-indexes & sticky positions
+  container.innerHTML = STATE.jobs.map((job, idx) => getBrowserJobCardHTML(job, idx, true)).join("");
   bindJobCardEvents();
 }
 
@@ -723,47 +779,79 @@ function renderBoardJobsList(searchQuery, genderFilter) {
     return;
   }
 
-  container.innerHTML = results.map((job, idx) => getJobCardHTML(job, idx)).join("");
+  // Render on job board page - no sticky stack calculations
+  container.innerHTML = results.map((job, idx) => getBrowserJobCardHTML(job, idx, false)).join("");
   bindJobCardEvents();
   initScrollAnimations();
 }
 
-function getJobCardHTML(job, index = 0) {
-  const compLetter = job.company.charAt(0);
+// Generates the browser card component HTML (Tivor Stack style)
+function getBrowserJobCardHTML(job, index, isSticky = false) {
+  const idxStr = String(index + 1).padStart(2, '0');
+  
   const urgentBadge = job.urgent ? `<span class="badge badge-urgent">Urgent</span>` : '';
   const genderBadge = job.gender === "Both" 
     ? `<span class="badge badge-neutral">Male / Female</span>`
     : `<span class="badge badge-green">${job.gender} Only</span>`;
   
   const staggerClass = `scroll-stagger-${(index % 4) + 1}`;
-    
+  
+  // Stacking deck calculations
+  const styleString = isSticky 
+    ? `style="position: sticky; top: ${12 + index * 6}vh; z-index: ${10 + index}; margin-bottom: 5rem;"` 
+    : '';
+
   return `
-    <article class="job-card scroll-reveal ${staggerClass}" data-jobid="${job.id}">
-      <div class="job-card-main">
-        <div class="job-card-logo">${compLetter}</div>
-        <div class="job-card-info">
-          <div class="job-card-tags">
-            ${urgentBadge}
-            ${genderBadge}
-            <span class="badge badge-neutral">${job.shift}</span>
-          </div>
-          <h3 class="job-card-title">${job.title}</h3>
-          <span class="job-card-company">${job.company}</span>
-          <div class="job-card-meta">
-            <div class="meta-item">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3"/></svg>
-              <span>${job.location}</span>
+    <article class="product-card scroll-reveal ${staggerClass}" ${styleString} data-jobid="${job.id}">
+      <div class="product-card-inner">
+        <!-- Browser Header bar -->
+        <div class="product-card-header">
+          <div class="flex items-center gap-3">
+            <div class="flex items-center gap-[5px]">
+              <span class="rounded-full" style="width:10px;height:10px;background:#FF5F57;display:block"></span>
+              <span class="rounded-full" style="width:10px;height:10px;background:#FEBC2E;display:block"></span>
+              <span class="rounded-full" style="width:10px;height:10px;background:#28C840;display:block"></span>
             </div>
-            <div class="meta-item">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M12 16M9 21h6"/></svg>
-              <span>${job.salary}</span>
+            <span style="width:1px;height:16px;background:var(--border-color)"></span>
+            <span class="font-mono text-[10px] uppercase text-muted" style="font-family:var(--font-mono)">${idxStr}</span>
+            <div class="min-w-0">
+              <p class="font-semibold text-main text-sm leading-none truncate">${job.company}</p>
+            </div>
+          </div>
+          
+          <div class="flex items-center gap-4">
+            <p class="font-mono text-[11px] text-muted hidden sm:block" style="font-family:var(--font-mono)">${job.industry}</p>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-muted"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </div>
+        </div>
+        
+        <!-- Card Body content -->
+        <div class="p-8">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:1.5rem;">
+            <div>
+              <div class="job-card-tags" style="margin-bottom:0.75rem; display:flex; gap:0.45rem;">
+                ${urgentBadge}
+                ${genderBadge}
+                <span class="badge badge-neutral">${job.shift}</span>
+              </div>
+              <h3 style="font-size:1.6rem; font-weight:800; color:var(--text-main); margin-bottom:0.5rem; line-height:1.2;">${job.title}</h3>
+              <div style="display:flex; gap:1.5rem; font-family:var(--font-mono); font-size:0.85rem; color:var(--text-body); margin-top:0.5rem;">
+                <div style="display:flex; align-items:center; gap:0.35rem;">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3"/></svg>
+                  <span>${job.location}</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:0.35rem;">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M12 16M9 21h6"/></svg>
+                  <span style="font-weight:700; color:var(--accent);">${job.salary}</span>
+                </div>
+              </div>
+            </div>
+            
+            <div style="display:flex; align-items:center;">
+              <button class="btn btn-primary btn-detail-trigger" data-jobid="${job.id}">View Details & Apply</button>
             </div>
           </div>
         </div>
-      </div>
-      
-      <div class="job-card-actions">
-        <button class="btn btn-secondary btn-detail-trigger" data-jobid="${job.id}">View & Apply</button>
       </div>
     </article>
   `;
@@ -852,7 +940,6 @@ function showDetailModal(jobId) {
     logApplyAction(job.title, job.company, "WhatsApp Apply");
     showToast("Redirecting to WhatsApp...", "success");
     
-    // Generate text message template
     const textMsg = `Hi KV Enterprises, I want to apply for the position of "${job.title}" at "${job.company}". Please call me.`;
     const waUrl = `https://wa.me/916385422938?text=${encodeURIComponent(textMsg)}`;
     
@@ -920,7 +1007,6 @@ function showAdminLoginModal() {
 function showAdminDashboardLogs() {
   const overlay = document.getElementById("modal-container");
   
-  // Render B2B client requests table and WhatsApp apply logs
   const b2bRows = STATE.b2b.length === 0 
     ? `<tr><td colspan="5" style="text-align:center;">No requirements logged yet.</td></tr>`
     : STATE.b2b.map(b => `
@@ -1046,7 +1132,7 @@ function showToast(message, type = "success") {
 function handleRouting() {
   const hash = window.location.hash || "#home";
 
-  // Update navbar links active states
+  // Update nav active states
   const links = document.querySelectorAll(".nav-link");
   links.forEach(l => {
     const view = l.getAttribute("data-view");
@@ -1085,7 +1171,7 @@ function handleRouting() {
     }
   });
 
-  // SEO Document Title Dynamic Update
+  // Dynamic document title update
   const titles = {
     "#home": "KV Enterprises — Premium Industrial Manpower Placements in Sriperumbudur",
     "#jobs": "Open Positions — All Jobs in Sriperumbudur | KV Enterprises",
@@ -1106,7 +1192,7 @@ function initScrollAnimations() {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add("visible");
-        observer.unobserve(entry.target); // One-time fade trigger
+        observer.unobserve(entry.target);
       }
     });
   }, { threshold: 0.05 });
@@ -1116,7 +1202,6 @@ function initScrollAnimations() {
   });
 }
 
-// Animate metric statistics when scrolled into view
 function initStatsCounters() {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -1126,7 +1211,7 @@ function initStatsCounters() {
         if (isNaN(countTo)) return;
 
         let start = 0;
-        const duration = 1500; // 1.5s duration
+        const duration = 1500;
         const stepTime = Math.abs(Math.floor(duration / countTo));
         
         const counter = setInterval(() => {
@@ -1158,11 +1243,9 @@ function initializeThemeSwitcher() {
   const panel = document.getElementById("theme-presets-panel");
   const dots = document.querySelectorAll(".preset-color-dot");
   
-  // Load and apply color state
   const savedAccent = localStorage.getItem("kv_accent_theme") || "blue";
   document.body.setAttribute("data-accent", savedAccent);
   
-  // Highlight active dot
   dots.forEach(dot => {
     if (dot.getAttribute("data-accent-val") === savedAccent) {
       dot.classList.add("active");
@@ -1171,19 +1254,16 @@ function initializeThemeSwitcher() {
     }
   });
 
-  // Toggle Panel
   toggleBtn.addEventListener("click", (e) => {
     e.stopPropagation();
     panel.classList.toggle("hidden");
   });
 
-  // Click outside closes switcher
   document.addEventListener("click", () => {
     panel.classList.add("hidden");
   });
   panel.addEventListener("click", (e) => e.stopPropagation());
 
-  // Set event handlers
   dots.forEach(dot => {
     dot.addEventListener("click", () => {
       const selected = dot.getAttribute("data-accent-val");
@@ -1203,7 +1283,6 @@ function initializeThemeSwitcher() {
 
 window.addEventListener("hashchange", handleRouting);
 
-// Header blur/shadow transition after scrolling past Hero area
 window.addEventListener("scroll", () => {
   const header = document.querySelector(".main-header");
   if (!header) return;
@@ -1215,7 +1294,6 @@ window.addEventListener("scroll", () => {
 });
 
 window.addEventListener("DOMContentLoaded", () => {
-  // Mobile Nav Toggle Drawer
   const mobileToggle = document.getElementById("mobile-menu-toggle");
   const navMenu = document.getElementById("nav-menu");
   
@@ -1230,20 +1308,15 @@ window.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Logo navigation link
   document.getElementById("logo-link").addEventListener("click", () => {
     window.location.hash = "#home";
   });
 
-  // Footer admin link listener
   document.getElementById("footer-admin-link").addEventListener("click", (e) => {
     e.preventDefault();
     showAdminLoginModal();
   });
 
-  // Theme Accent swapper initialization
   initializeThemeSwitcher();
-
-  // Trigger Routing
   handleRouting();
 });
