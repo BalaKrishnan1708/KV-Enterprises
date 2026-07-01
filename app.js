@@ -1,5 +1,5 @@
 /* ==========================================================================
-   APPLICATION CONTROLLER - KV ENTERPRISES (LIGHT INDUSTRIAL SPA)
+   APPLICATION CONTROLLER - KV ENTERPRISES (IVORY TIVOR SPA)
    ========================================================================== */
 
 // --- 1. LOCAL STORAGE STATE DATABASE ---
@@ -132,72 +132,26 @@ const ViewRenderers = {
   // A. HOME PAGE
   home: function(container) {
     container.innerHTML = `
-      <!-- Hero Banner -->
+      <!-- Hero Banner - Centered Typographic Tivor style -->
       <section class="hero-section fade-in-section" id="hero-area">
-        <div class="container hero-grid">
-          <div class="hero-content-area">
-            <div class="hero-tag">
-              <span class="pulse-dot"></span>
-              <span>Direct Gate Placements • Sriperumbudur</span>
-            </div>
-            <h1 class="hero-title">
-              Industrial Manpower.<br>
-              <span class="gradient-text">Delivered. On Time.</span>
-            </h1>
-            <p class="hero-desc">
-              KV Enterprises places skilled operators into leading Korean, Japanese, and Indian manufacturing plants across the Sriperumbudur corridor. Direct joining. No middlemen.
-            </p>
-            <div class="hero-ctas">
-              <a href="#jobs" class="btn btn-primary">Browse Jobs</a>
-              <a href="#employer" class="btn btn-secondary">Hire Workers</a>
-            </div>
+        <div class="container hero-content-center">
+          <div class="hero-tag">
+            <span class="pulse-dot"></span>
+            <span>01 / Strategic Placements</span>
           </div>
-          
-          <!-- Redesigned Corporate Benefits Board -->
-          <div class="hero-features-board">
-            <div class="corporate-guarantees-card">
-              <div class="guarantees-header">
-                <h3>Placement Guarantees</h3>
-              </div>
-              
-              <div class="guarantees-list">
-                <div class="guarantee-item">
-                  <div class="guarantee-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-                    </svg>
-                  </div>
-                  <div class="guarantee-text">
-                    <strong>100% Direct Join Contracts</strong>
-                    <p>No brokerage fees or middleman charges. Official company rolls onboarding.</p>
-                  </div>
-                </div>
-                
-                <div class="guarantee-item">
-                  <div class="guarantee-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                    </svg>
-                  </div>
-                  <div class="guarantee-text">
-                    <strong>Pre-Screened Backgrounds</strong>
-                    <p>Aadhar details, bank verification, and educational background checks cleared.</p>
-                  </div>
-                </div>
-
-                <div class="guarantee-item">
-                  <div class="guarantee-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
-                  <div class="guarantee-text">
-                    <strong>Rapid Shift Mobilization</strong>
-                    <p>Workers pre-cleared and registered at the factory gate within 72 hours.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <h1 class="hero-title">
+            Industrial Manpower.<br>
+            <span class="accent-text">Delivered. On Time.</span>
+          </h1>
+          <p class="hero-subtitle">
+            Factory Onboarding & Supply Chain Staffing Solutions
+          </p>
+          <p class="hero-desc">
+            KV Enterprises places pre-verified operators and quality inspectors into leading manufacturing plants across the Sriperumbudur corridor. Direct gate joining. No middlemen.
+          </p>
+          <div class="hero-ctas">
+            <a href="#jobs" class="btn btn-primary">Browse Jobs</a>
+            <a href="#employer" class="btn btn-secondary">Hire Workers</a>
           </div>
         </div>
       </section>
@@ -277,19 +231,19 @@ const ViewRenderers = {
               </p>
               <div class="banner-features">
                 <div class="banner-feature-item">
-                  <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" width="16" height="16"><path d="M5 13l4 4L19 7"/></svg>
+                  <span class="feature-bullet-num">01 /</span>
                   <span>Same-day callback</span>
                 </div>
                 <div class="banner-feature-item">
-                  <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" width="16" height="16"><path d="M5 13l4 4L19 7"/></svg>
+                  <span class="feature-bullet-num">02 /</span>
                   <span>Verified workers</span>
                 </div>
                 <div class="banner-feature-item">
-                  <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" width="16" height="16"><path d="M5 13l4 4L19 7"/></svg>
+                  <span class="feature-bullet-num">03 /</span>
                   <span>Bulk hiring ready</span>
                 </div>
                 <div class="banner-feature-item">
-                  <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" width="16" height="16"><path d="M5 13l4 4L19 7"/></svg>
+                  <span class="feature-bullet-num">04 /</span>
                   <span>Compliance handled</span>
                 </div>
               </div>
@@ -319,7 +273,7 @@ const ViewRenderers = {
         </div>
       </section>
 
-      <!-- Why KV Section -->
+      <!-- Why KV Section (Numbered Tivor style) -->
       <section class="why-section fade-in-section">
         <div class="container">
           <div class="section-header">
@@ -425,7 +379,7 @@ const ViewRenderers = {
     renderBoardJobsList("", "all");
   },
 
-  // C. EMPLOYERS FORM
+  // C. EMPLOYERS FORM (Tivor numbered list style for side text)
   employer: function(container) {
     container.innerHTML = `
       <div class="page-header-strip">
@@ -436,24 +390,24 @@ const ViewRenderers = {
       </div>
       
       <div class="container employer-container-layout fade-in-section">
-        <!-- Info Column -->
+        <!-- Info Column - Numbered list -->
         <aside class="employer-info-card">
           <h3>Why Hire Through Us</h3>
           <ul class="employer-bullet-list">
             <li>
-              <strong>Same-day callback</strong>
+              <strong>01 / Same-day callback</strong>
               Our recruiter will call within business hours.
             </li>
             <li>
-              <strong>Bulk placements</strong>
+              <strong>02 / Bulk placements</strong>
               From 5 to 500 workers, we mobilise fast.
             </li>
             <li>
-              <strong>Verified candidates</strong>
+              <strong>03 / Verified candidates</strong>
               Aadhar, education & background checked.
             </li>
             <li>
-              <strong>Compliance managed</strong>
+              <strong>04 / Compliance managed</strong>
               PF, ESI documentation handled end-to-end.
             </li>
           </ul>
@@ -637,27 +591,27 @@ const ViewRenderers = {
         </div>
         <div class="about-serve-grid fade-in-section">
           <div class="serve-card">
-            <h4>Automotive</h4>
+            <h4>01 / Automotive</h4>
             <p>Korean & Indian OEMs, Tier-1 & Tier-2 suppliers.</p>
           </div>
           <div class="serve-card">
-            <h4>Metal Tech</h4>
+            <h4>02 / Metal Tech</h4>
             <p>Sheet metal, fabrication, racking systems.</p>
           </div>
           <div class="serve-card">
-            <h4>Precision CNC</h4>
+            <h4>03 / Precision CNC</h4>
             <p>CNC operators, quality inspectors, machinists.</p>
           </div>
           <div class="serve-card">
-            <h4>Logistics</h4>
+            <h4>04 / Logistics</h4>
             <p>Despatch, warehousing, packing lines.</p>
           </div>
         </div>
 
         <!-- Two paths CTA -->
-        <div class="fade-in-section" style="background-color:var(--text-main); color:#FFFFFF; border-radius:var(--radius-sm); padding:3rem; text-align:center; box-shadow: 0 10px 30px rgba(var(--accent-rgb),0.15);">
-          <h3 style="color:#FFFFFF; font-size:1.6rem; margin-bottom:0.75rem;">Ready to hire or get hired?</h3>
-          <p style="color:#94A3B8; margin-bottom:2rem; font-size:0.95rem;">Two paths. One trusted industrial manpower partner.</p>
+        <div class="fade-in-section" style="background-color:var(--text-main); color:var(--bg-canvas); border-radius:var(--radius-sm); padding:3rem; text-align:center; box-shadow: 0 10px 30px rgba(var(--accent-rgb),0.06);">
+          <h3 style="color:var(--bg-canvas); font-size:1.6rem; margin-bottom:0.75rem;">Ready to hire or get hired?</h3>
+          <p style="color:var(--text-muted); margin-bottom:2rem; font-size:0.95rem;">Two paths. One trusted industrial manpower partner.</p>
           <div style="display:flex; justify-content:center; gap:1rem; flex-wrap:wrap;">
             <a href="#jobs" class="btn btn-primary">I'm looking for a job</a>
             <a href="#employer" class="btn btn-teal">I need workers</a>
