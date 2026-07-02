@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>KV Enterprises — Manufacturer of Precision Sheet Metal Stamping Components</title>
   <meta name="description" content="KV Enterprises - Specialist manufacturer of precision sheet metal stamping components, assemblies, press tools, and jigs & fixtures in Sriperumbudur.">
   
-  <!-- Preconnect and Google Fonts -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
@@ -21,7 +21,7 @@
     <div class="header-container">
       <a href="#overview" class="logo-area" id="logo-link">
         <div class="logo-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
           </svg>
         </div>
@@ -51,18 +51,25 @@
           <span>Process Flow</span>
         </a>
         <a href="#contact" class="nav-link" data-view="contact">
-          <span>Contact & RFQ</span>
+          <span>Contact & Quote</span>
         </a>
       </nav>
       
       <div class="header-actions">
+        <!-- Pearl White / Dark Theme Toggle -->
+        <button class="theme-toggle-btn" id="theme-toggle-btn" title="Switch Theme">
+          <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+          <svg class="theme-icon-moon hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+          <span class="theme-btn-text" id="theme-btn-text">Pearl White</span>
+        </button>
+
         <a href="tel:6385422938" class="phone-link">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
           </svg>
           <span class="phone-number">6385422938</span>
         </a>
-        <a href="#contact" class="btn btn-primary" id="header-cta-rfq">Request RFQ</a>
+        <a href="#contact" class="btn btn-primary" id="header-cta-quote">Get Quote</a>
         
         <!-- Mobile Menu Toggle -->
         <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle Navigation Menu">
@@ -76,7 +83,6 @@
 
   <!-- Main Viewport Context -->
   <main id="app-viewport">
-    <!-- View Sections Loaded Dynamically via app.js -->
     <section id="view-overview" class="page-view animate-section"></section>
     <section id="view-about" class="page-view hidden animate-section"></section>
     <section id="view-machinery" class="page-view hidden animate-section"></section>
@@ -86,13 +92,13 @@
     <section id="view-contact" class="page-view hidden animate-section"></section>
   </main>
 
-  <!-- Apple-style Clean Footer -->
+  <!-- Apple-style Clean Professional Footer -->
   <footer class="main-footer">
     <div class="footer-container">
       <div class="footer-info">
         <a href="#overview" class="footer-logo">
           <div class="logo-icon-footer">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
             </svg>
           </div>
@@ -102,33 +108,40 @@
           </div>
         </a>
         <p class="footer-desc">
-          Manufacturer of precision sheet metal stamping components, assemblies, press tools, and jigs & fixtures based in Sriperumbudur.
+          Manufacturer of precision sheet metal stamping components, assemblies, press tools, and jigs & fixtures in Sriperumbudur. Committed to engineering excellence and continuous quality improvement.
         </p>
       </div>
       
       <div class="footer-links-group">
-        <h4 class="footer-header">Navigation</h4>
+        <h4 class="footer-header">Quick Navigation</h4>
         <ul class="footer-links">
           <li><a href="#overview">Overview</a></li>
           <li><a href="#about">About & Vision</a></li>
           <li><a href="#machinery">Machinery Specs</a></li>
-          <li><a href="#quality">Quality Assurance</a></li>
+          <li><a href="#quality">Quality Metrology</a></li>
           <li><a href="#plant">Plant & Org Structure</a></li>
           <li><a href="#process">Process Flow</a></li>
+          <li><a href="#contact">Contact & Quote</a></li>
         </ul>
       </div>
 
       <div class="footer-links-group">
-        <h4 class="footer-header">Plant Location & Contact</h4>
+        <h4 class="footer-header">Plant Location & Direct Contact</h4>
         <ul class="footer-links-contact">
-          <li class="contact-li-item">No. 45, Beauty Farms, Paaparambakkam Road, Mannur Village, Sriperumbudur – 602105</li>
-          <li class="contact-li-item" style="margin-top:0.5rem; font-weight:600;">Phone: 6385422938 / 7200172460</li>
+          <li class="contact-li-item">
+            <strong>Factory Address:</strong><br>
+            No.45, Beauty Farms, Paaparambakkam Road, Mannur Village, Sriperumbudur – 602105
+          </li>
+          <li class="contact-li-item" style="margin-top:0.5rem;">
+            <strong>Direct Phone:</strong><br>
+            <a href="tel:6385422938">6385422938</a> / <a href="tel:7200172460">7200172460</a>
+          </li>
           <li class="contact-li-item" style="margin-top: 1rem;">
             <a href="https://wa.me/916385422938" target="_blank" class="whatsapp-badge">
               <svg viewBox="0 0 24 24" fill="currentColor">
                 <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.248 8.477 3.517 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.965C16.638 2.005 14.16 1.002 11.53 1.002c-5.442 0-9.87 4.372-9.874 9.802-.001 1.73.466 3.424 1.353 4.928l-.995 3.636 3.738-.97c1.513.882 3.018 1.326 4.606 1.326zm8.818-5.305c-.244-.122-1.44-.709-1.663-.79-.222-.081-.383-.122-.544.122-.16.244-.622.79-.763.951-.141.162-.283.182-.527.061-.244-.122-1.03-.379-1.96-1.206-.724-.645-1.213-1.442-1.355-1.686-.141-.244-.015-.376.107-.497.11-.11.244-.284.366-.426.122-.142.162-.244.244-.406.081-.162.04-.304-.02-.426-.061-.122-.544-1.309-.745-1.793-.197-.474-.397-.41-.544-.418-.14-.007-.301-.008-.462-.008-.162 0-.426.061-.649.304-.222.244-.852.831-.852 2.029 0 1.198.872 2.353.993 2.516.121.163 1.717 2.622 4.159 3.673.58.25 1.034.4 1.389.513.583.185 1.114.159 1.533.096.467-.07 1.44-.588 1.643-1.157.203-.569.203-1.056.142-1.157-.061-.1-.223-.162-.467-.284z"/>
               </svg>
-              <span>WhatsApp Direct Line</span>
+              <span>WhatsApp Inquiry</span>
             </a>
           </li>
         </ul>
@@ -138,7 +151,7 @@
     <div class="footer-bottom">
       <div class="footer-bottom-container">
         <span>© 2026 KV Enterprises — Precision Manufacturing Plant. All Rights Reserved.</span>
-        <a href="#admin-log" id="footer-admin-link" style="color:var(--text-muted); font-size:0.8rem; text-decoration:none; opacity:0.6;">Admin Portal Gate</a>
+        <a href="#admin-log" id="footer-admin-link" class="admin-link">Admin Portal Gate</a>
       </div>
     </div>
   </footer>

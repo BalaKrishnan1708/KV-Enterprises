@@ -1,12 +1,12 @@
 /* ==========================================================================
-   APPLICATION CONTROLLER — KV ENTERPRISES (APPLE.COM STYLE)
-   Manufacturer of Precision Sheet Metal Stamping Components & Assemblies
+   APPLICATION CONTROLLER — KV ENTERPRISES
+   Pearl White & Raspberry Light Theme (Default) + Apple Dark Mode Toggle
    ========================================================================== */
 
-// --- 1. LOCAL STORAGE RFQ DATABASE ---
-const SEED_RFQS = [
+// --- 1. LOCAL STORAGE QUOTATION DATABASE ---
+const SEED_QUOTES = [
   {
-    id: "rfq-01",
+    id: "quote-01",
     companyName: "Automotive OEM Vendor",
     contactPerson: "Mr. R. Sundaram",
     phone: "9840123456",
@@ -20,19 +20,19 @@ const SEED_RFQS = [
 ];
 
 function initDatabase() {
-  if (!localStorage.getItem("kv_rfq_db")) {
-    localStorage.setItem("kv_rfq_db", JSON.stringify(SEED_RFQS));
+  if (!localStorage.getItem("kv_quotes_db")) {
+    localStorage.setItem("kv_quotes_db", JSON.stringify(SEED_QUOTES));
   }
-  return JSON.parse(localStorage.getItem("kv_rfq_db"));
+  return JSON.parse(localStorage.getItem("kv_quotes_db"));
 }
 
-let RFQ_DB = initDatabase();
+let QUOTES_DB = initDatabase();
 
 function saveDatabase() {
-  localStorage.setItem("kv_rfq_db", JSON.stringify(RFQ_DB));
+  localStorage.setItem("kv_quotes_db", JSON.stringify(QUOTES_DB));
 }
 
-// --- 2. DATASETS FROM UPDATED PROFILE PDF ---
+// --- 2. DATASETS FROM PROFILE PDF ---
 
 const POWER_PRESSES = [
   {
@@ -186,11 +186,11 @@ const ViewRenderers = {
           </p>
           
           <div class="hero-ctas">
-            <a href="#contact" class="btn btn-primary">Request Technical RFQ</a>
+            <a href="#contact" class="btn btn-primary">Get Technical Quote</a>
             <a href="#machinery" class="btn btn-secondary">Explore Machinery Specs</a>
           </div>
 
-          <div class="hero-image-wrap">
+          <div class="showcase-image-frame">
             <img src="kv_stamping_hero.png" alt="KV Enterprises Stamping Components">
           </div>
         </div>
@@ -283,7 +283,7 @@ const ViewRenderers = {
         </div>
       </section>
 
-      <!-- Quick RFQ CTA Strip -->
+      <!-- Quick Quote CTA Strip -->
       <section class="section-padding" style="background: var(--bg-card); border-y: 1px solid var(--border-color);">
         <div class="container text-center">
           <h2 class="section-title">Ready to Start Your Manufacturing Project?</h2>
@@ -307,32 +307,32 @@ const ViewRenderers = {
             <p class="section-desc">Shaping the future of manufacturing through precision engineering and uncompromising quality in Sriperumbudur.</p>
           </div>
 
-          <div class="apple-card" style="margin-bottom: 3rem; padding: 3rem;">
-            <p style="font-size: 1.1rem; line-height: 1.8; color: var(--text-main); margin-bottom: 1.5rem;">
+          <div class="apple-card" style="margin-bottom: 3rem; padding: 2.5rem;">
+            <p style="font-size: 1.05rem; line-height: 1.8; color: var(--text-main); margin-bottom: 1.25rem;">
               <strong>KV Enterprises</strong> is committed to shaping the future of manufacturing through precision engineering and uncompromising quality. Based in Sriperumbudur, we specialize in sheet metal components, assemblies, press tools, and jigs & fixtures, delivering reliable solutions that enhance customer productivity and success.
             </p>
-            <p style="font-size: 1.05rem; line-height: 1.8; color: var(--text-body);">
+            <p style="font-size: 1rem; line-height: 1.8; color: var(--text-body);">
               We strive to be a trusted partner by consistently exceeding expectations through innovation, quality, and service excellence. Located in Mannur Village near the Sriperumbudur industrial belt, our plant combines skilled technical manpower with high-tonnage power presses to deliver complex metal pressings on time.
             </p>
           </div>
 
           <div class="apple-card-grid" style="grid-template-columns: 1fr 1fr; gap: 2rem;">
-            <div class="apple-card" style="padding: 2.5rem; border-color: rgba(41, 151, 255, 0.3);">
-              <div class="apple-card-icon" style="background: rgba(41, 151, 255, 0.15);">
+            <div class="apple-card" style="padding: 2.25rem; border-color: rgba(var(--accent-rgb), 0.3);">
+              <div class="apple-card-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               </div>
-              <h3 class="apple-card-title" style="font-size: 1.6rem; color: var(--accent);">MISSION</h3>
-              <p class="apple-card-body" style="font-size: 1rem; line-height: 1.7; color: var(--text-main); margin-top: 1rem;">
+              <h3 class="apple-card-title" style="font-size: 1.5rem; color: var(--accent);">MISSION</h3>
+              <p class="apple-card-body" style="font-size: 0.95rem; line-height: 1.7; color: var(--text-main); margin-top: 0.75rem;">
                 Our mission is to deliver high-quality sheet metal stamping components and engineering solutions that meet customer requirements with precision, reliability, and efficiency. We focus on continuous improvement and customer satisfaction in every aspect of our work.
               </p>
             </div>
 
-            <div class="apple-card" style="padding: 2.5rem; border-color: rgba(48, 209, 88, 0.3);">
-              <div class="apple-card-icon" style="background: rgba(48, 209, 88, 0.15); color: var(--green-accent);">
+            <div class="apple-card" style="padding: 2.25rem; border-color: rgba(16, 185, 129, 0.3);">
+              <div class="apple-card-icon" style="background: rgba(16, 185, 129, 0.12); color: var(--green-accent);">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
               </div>
-              <h3 class="apple-card-title" style="font-size: 1.6rem; color: var(--green-accent);">VISION</h3>
-              <p class="apple-card-body" style="font-size: 1rem; line-height: 1.7; color: var(--text-main); margin-top: 1rem;">
+              <h3 class="apple-card-title" style="font-size: 1.5rem; color: var(--green-accent);">VISION</h3>
+              <p class="apple-card-body" style="font-size: 0.95rem; line-height: 1.7; color: var(--text-main); margin-top: 0.75rem;">
                 Our vision is to become a trusted and recognized manufacturing company in the sheet metal industry by delivering consistent quality, innovation, and long-term value to our customers.
               </p>
             </div>
@@ -353,12 +353,12 @@ const ViewRenderers = {
             <p class="section-desc">Equipped with 80T to 250T pneumatic power presses and automated coil feeding lines.</p>
           </div>
 
-          <!-- Machinery Image Showcase -->
-          <div class="hero-image-wrap" style="margin-bottom: 3.5rem;">
+          <!-- Machinery Image Showcase Frame -->
+          <div class="showcase-image-frame">
             <img src="kv_machinery.png" alt="KV Enterprises Power Press Machinery Lineup">
           </div>
 
-          <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--text-main); margin-bottom: 1.5rem;">List of Machineries (Power Presses)</h3>
+          <h3 style="font-size: 1.4rem; font-weight: 700; color: var(--text-main); margin-top: 3rem; margin-bottom: 1.25rem;">List of Machineries (Power Presses)</h3>
 
           <div class="machinery-grid">
             ${POWER_PRESSES.map(m => `
@@ -406,13 +406,13 @@ const ViewRenderers = {
           </div>
 
           <!-- Additional Machinery Section -->
-          <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--text-main); margin-top: 4rem; margin-bottom: 1.5rem;">List of Additional Machineries & Auxiliary Equipment</h3>
+          <h3 style="font-size: 1.4rem; font-weight: 700; color: var(--text-main); margin-top: 3.5rem; margin-bottom: 1.25rem;">List of Additional Machineries & Auxiliary Equipment</h3>
 
           <div class="apple-card-grid">
             ${AUXILIARY_EQUIPMENT.map(aux => `
               <div class="apple-card">
                 <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--accent); font-weight:700; text-transform:uppercase;">${aux.category}</span>
-                <h4 style="font-size: 1.2rem; font-weight:700; color:var(--text-main); margin: 0.4rem 0;">${aux.name}</h4>
+                <h4 style="font-size: 1.15rem; font-weight:700; color:var(--text-main); margin: 0.4rem 0;">${aux.name}</h4>
                 <p style="font-family:var(--font-mono); font-size: 0.85rem; color:var(--green-accent); margin-bottom: 0.75rem;">${aux.specs}</p>
                 <p class="apple-card-body">${aux.description}</p>
               </div>
@@ -434,40 +434,40 @@ const ViewRenderers = {
             <p class="section-desc">100% quality inspection using calibrated gauges to guarantee absolute precision and customer satisfaction.</p>
           </div>
 
-          <div class="hero-image-wrap" style="margin-bottom: 3.5rem;">
+          <div class="showcase-image-frame">
             <img src="kv_quality.png" alt="KV Enterprises Quality Inspection Metrology">
           </div>
 
-          <div class="metrology-grid">
+          <div class="metrology-grid" style="margin-top: 3rem;">
             ${QUALITY_INSTRUMENTS.map(inst => `
               <div class="instrument-card">
                 <div class="instrument-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                 </div>
                 <h3 class="instrument-title">${inst.name}</h3>
-                <p style="font-family:var(--font-mono); font-size:0.75rem; color:var(--accent); margin-bottom:0.5rem;">${inst.role}</p>
+                <p style="font-family:var(--font-mono); font-size:0.75rem; color:var(--accent); margin-bottom:0.4rem;">${inst.role}</p>
                 <p class="instrument-desc">${inst.desc}</p>
               </div>
             `).join("")}
           </div>
 
           <!-- Quality Policy Summary -->
-          <div class="apple-card" style="margin-top: 3.5rem; padding: 2.5rem;">
-            <h3 style="font-size: 1.3rem; font-weight: 700; color: var(--text-main); margin-bottom: 1rem;">Quality Control Standards</h3>
+          <div class="apple-card" style="margin-top: 3rem; padding: 2.25rem;">
+            <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--text-main); margin-bottom: 1rem;">Quality Control Standards</h3>
             <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.75rem;">
-              <li style="display: flex; align-items: center; gap: 0.75rem; color: var(--text-body); font-size: 0.95rem;">
+              <li style="display: flex; align-items: center; gap: 0.75rem; color: var(--text-body); font-size: 0.9rem;">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" style="color:var(--green-accent);"><path d="M5 13l4 4L19 7"/></svg>
                 <span><strong>Raw Material Inspection:</strong> Coil thickness and sheet grain orientation verified before mounting.</span>
               </li>
-              <li style="display: flex; align-items: center; gap: 0.75rem; color: var(--text-body); font-size: 0.95rem;">
+              <li style="display: flex; align-items: center; gap: 0.75rem; color: var(--text-body); font-size: 0.9rem;">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" style="color:var(--green-accent);"><path d="M5 13l4 4L19 7"/></svg>
                 <span><strong>First Piece Sign-off:</strong> Initial production sample verified on calibrated surface table & DHG before mass press run.</span>
               </li>
-              <li style="display: flex; align-items: center; gap: 0.75rem; color: var(--text-body); font-size: 0.95rem;">
+              <li style="display: flex; align-items: center; gap: 0.75rem; color: var(--text-body); font-size: 0.9rem;">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" style="color:var(--green-accent);"><path d="M5 13l4 4L19 7"/></svg>
                 <span><strong>In-Process Quality Checks:</strong> Periodic line sampling by Quality Inspectors to ensure burr-free edges and flat tolerances.</span>
               </li>
-              <li style="display: flex; align-items: center; gap: 0.75rem; color: var(--text-body); font-size: 0.95rem;">
+              <li style="display: flex; align-items: center; gap: 0.75rem; color: var(--text-body); font-size: 0.9rem;">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" style="color:var(--green-accent);"><path d="M5 13l4 4L19 7"/></svg>
                 <span><strong>Pre-Dispatch Inspection (PDI):</strong> Final batch testing and protective packaging prior to customer dispatch.</span>
               </li>
@@ -490,9 +490,9 @@ const ViewRenderers = {
           </div>
 
           <!-- Plant Layout Section -->
-          <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--text-main); margin-bottom: 1.5rem;">Plant Layout (6 Core Facility Zones)</h3>
+          <h3 style="font-size: 1.4rem; font-weight: 700; color: var(--text-main); margin-bottom: 1.25rem;">Plant Layout (6 Core Facility Zones)</h3>
 
-          <div class="plant-layout-grid" style="margin-bottom: 4rem;">
+          <div class="plant-layout-grid" style="margin-bottom: 3.5rem;">
             ${PLANT_ZONES.map(z => `
               <div class="plant-zone-card">
                 <span class="zone-num">${z.num}</span>
@@ -505,15 +505,15 @@ const ViewRenderers = {
           </div>
 
           <!-- Organisation Structure Hierarchy -->
-          <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--text-main); margin-bottom: 1.5rem;">Organisation Structure</h3>
+          <h3 style="font-size: 1.4rem; font-weight: 700; color: var(--text-main); margin-bottom: 1.25rem;">Organisation Structure</h3>
 
           <div class="org-chart-wrapper">
             <!-- Top Level -->
             <div class="org-node-top">
               <h3>MANAGING DIRECTOR & ADMIN</h3>
               <p>KV ENTERPRISES MANAGEMENT</p>
-              <div style="width:2px; height:20px; background:var(--accent); margin:0.5rem auto;"></div>
-              <div style="font-weight:700; color:var(--text-main); font-size:0.95rem;">PLANT HEAD</div>
+              <div style="width:2px; height:18px; background:var(--accent); margin:0.4rem auto;"></div>
+              <div style="font-weight:700; color:var(--text-main); font-size:0.9rem;">PLANT HEAD</div>
             </div>
 
             <!-- Departmental Grid -->
@@ -657,7 +657,7 @@ const ViewRenderers = {
     `;
   },
 
-  // CONTACT & RFQ FORM PAGE
+  // CONTACT & QUOTE FORM PAGE
   contact: function(container) {
     container.innerHTML = `
       <section class="section-padding">
@@ -672,7 +672,7 @@ const ViewRenderers = {
             <!-- Contact Info Panel -->
             <div class="rfq-info-panel">
               <h3>KV ENTERPRISES</h3>
-              <p style="color:var(--text-body); font-size:0.95rem; line-height:1.6;">
+              <p style="color:var(--text-body); font-size:0.9rem; line-height:1.6;">
                 Manufacturer of Precision Sheet Metal Stamping Components & Assemblies.
               </p>
 
@@ -683,7 +683,7 @@ const ViewRenderers = {
                   </div>
                   <div class="contact-info-text">
                     <h5>PLANT ADDRESS</h5>
-                    <p style="font-weight:400; font-size:0.9rem; line-height:1.5;">
+                    <p style="font-weight:400; font-size:0.875rem; line-height:1.5;">
                       No.45, Beauty Farms, Paaparambakkam Road, Mannur Village, Sriperumbudur – 602105
                     </p>
                   </div>
@@ -705,7 +705,7 @@ const ViewRenderers = {
                     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.248 8.477 3.517 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.965C16.638 2.005 14.16 1.002 11.53 1.002c-5.442 0-9.87 4.372-9.874 9.802-.001 1.73.466 3.424 1.353 4.928l-.995 3.636 3.738-.97c1.513.882 3.018 1.326 4.606 1.326z"/></svg>
                   </div>
                   <div class="contact-info-text">
-                    <h5>WHATSAPP DIRECT</h5>
+                    <h5>WHATSAPP INQUIRY</h5>
                     <p><a href="https://wa.me/916385422938" target="_blank" style="color:#25D366; font-weight:700;">Chat on WhatsApp &rarr;</a></p>
                   </div>
                 </div>
@@ -714,7 +714,7 @@ const ViewRenderers = {
 
             <!-- Form Card -->
             <div class="rfq-form-card">
-              <h3 style="font-size:1.3rem; font-weight:700; color:var(--text-main); margin-bottom:1.25rem;">Submit Component RFQ</h3>
+              <h3 style="font-size:1.25rem; font-weight:700; color:var(--text-main); margin-bottom:1.25rem;">Submit Component Specifications</h3>
               <form id="rfq-form">
                 <div class="form-row">
                   <div class="form-group">
@@ -760,7 +760,7 @@ const ViewRenderers = {
                   <textarea id="rfq-desc" class="form-textarea" required placeholder="Describe material sheet thickness, dimensions, drawing notes..."></textarea>
                 </div>
 
-                <div style="display:flex; justify-content:flex-end; gap:1rem;">
+                <div style="display:flex; justify-content:flex-end;">
                   <button type="submit" class="btn btn-primary" style="width:100%;">Submit Quotation Request</button>
                 </div>
               </form>
@@ -773,8 +773,8 @@ const ViewRenderers = {
     document.getElementById("rfq-form").addEventListener("submit", function(e) {
       e.preventDefault();
       
-      const newRfq = {
-        id: "rfq-" + Date.now(),
+      const newQuote = {
+        id: "quote-" + Date.now(),
         companyName: document.getElementById("rfq-name").value.trim(),
         contactPerson: document.getElementById("rfq-person").value.trim(),
         phone: document.getElementById("rfq-phone").value.trim(),
@@ -785,17 +785,16 @@ const ViewRenderers = {
         date: new Date().toLocaleDateString()
       };
 
-      RFQ_DB.unshift(newRfq);
+      QUOTES_DB.unshift(newQuote);
       saveDatabase();
 
       showToast("Quotation request submitted successfully! Our engineering team will contact you.", "success");
       
-      // WhatsApp message option
-      const waMsg = `Hi KV Enterprises, I have submitted an RFQ for "${newRfq.companyName}". Contact: ${newRfq.phone}. Details: ${newRfq.partDescription}`;
+      const waMsg = `Hi KV Enterprises, I have submitted a quotation request for "${newQuote.companyName}". Contact: ${newQuote.phone}. Details: ${newQuote.partDescription}`;
       const waUrl = `https://wa.me/916385422938?text=${encodeURIComponent(waMsg)}`;
       
       setTimeout(() => {
-        if (confirm("Would you like to send this RFQ directly via WhatsApp as well?")) {
+        if (confirm("Would you like to send this inquiry directly via WhatsApp as well?")) {
           window.open(waUrl, "_blank");
         }
       }, 500);
@@ -805,7 +804,43 @@ const ViewRenderers = {
   }
 };
 
-// --- 4. ADMIN PORTAL LOGS MODAL ---
+// --- 4. THEME SWITCHER ENGINE ---
+
+function initThemeSystem() {
+  const toggleBtn = document.getElementById("theme-toggle-btn");
+  const sunIcon = document.querySelector(".theme-icon-sun");
+  const moonIcon = document.querySelector(".theme-icon-moon");
+  const btnText = document.getElementById("theme-btn-text");
+
+  // Load saved theme or default to "light" (Pearl White & Raspberry)
+  const savedTheme = localStorage.getItem("kv_theme") || "light";
+  applyTheme(savedTheme);
+
+  if (toggleBtn) {
+    toggleBtn.addEventListener("click", () => {
+      const currentTheme = document.documentElement.getAttribute("data-theme") || "light";
+      const nextTheme = currentTheme === "light" ? "dark" : "light";
+      applyTheme(nextTheme);
+      localStorage.setItem("kv_theme", nextTheme);
+      showToast(`Switched to ${nextTheme === "light" ? "Pearl White & Raspberry" : "Apple Dark Mode"}`, "success");
+    });
+  }
+
+  function applyTheme(theme) {
+    document.documentElement.setAttribute("data-theme", theme);
+    if (theme === "dark") {
+      if (sunIcon) sunIcon.classList.add("hidden");
+      if (moonIcon) moonIcon.classList.remove("hidden");
+      if (btnText) btnText.innerText = "Apple Dark";
+    } else {
+      if (sunIcon) sunIcon.classList.remove("hidden");
+      if (moonIcon) moonIcon.classList.add("hidden");
+      if (btnText) btnText.innerText = "Pearl Light";
+    }
+  }
+}
+
+// --- 5. ADMIN PORTAL LOGS MODAL ---
 
 function showAdminLoginModal() {
   const overlay = document.getElementById("modal-container");
@@ -816,20 +851,20 @@ function showAdminLoginModal() {
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M6 18L18 6M6 6l12 12"/></svg>
       </button>
       
-      <h2 style="font-size:1.4rem; font-weight:700; color:var(--text-main); margin-bottom:0.5rem;">Admin Portal</h2>
-      <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:1.5rem;">Enter credentials to access logged RFQs. (Default: admin / admin)</p>
+      <h2 style="font-size:1.3rem; font-weight:700; color:var(--text-main); margin-bottom:0.4rem;">Admin Portal Gate</h2>
+      <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:1.25rem;">Enter credentials to access logged quotation inquiries. (Default: admin / admin)</p>
       
       <form id="admin-login-form">
         <div class="form-group" style="margin-bottom:1rem;">
           <label class="form-label" for="adm-user">Username</label>
           <input type="text" id="adm-user" class="form-input" required value="admin">
         </div>
-        <div class="form-group" style="margin-bottom:1.5rem;">
+        <div class="form-group" style="margin-bottom:1.25rem;">
           <label class="form-label" for="adm-pass">Password</label>
           <input type="password" id="adm-pass" class="form-input" required value="admin">
         </div>
         
-        <button type="submit" class="btn btn-primary" style="width:100%;">Login & Access RFQs</button>
+        <button type="submit" class="btn btn-primary" style="width:100%;">Login & Access Inquiries</button>
       </form>
     </div>
   `;
@@ -851,9 +886,9 @@ function showAdminLoginModal() {
 function showAdminDashboardLogs() {
   const overlay = document.getElementById("modal-container");
   
-  const rfqRows = RFQ_DB.length === 0 
-    ? `<tr><td colspan="5" style="text-align:center; padding:1.5rem;">No RFQs logged yet.</td></tr>`
-    : RFQ_DB.map(r => `
+  const quoteRows = QUOTES_DB.length === 0 
+    ? `<tr><td colspan="5" style="text-align:center; padding:1.5rem;">No quotation inquiries logged yet.</td></tr>`
+    : QUOTES_DB.map(r => `
         <tr style="border-bottom:1px solid var(--border-color);">
           <td style="padding:0.75rem 0.5rem;"><strong>${r.companyName}</strong><br><span style="font-size:0.75rem; color:var(--text-muted);">${r.contactPerson}</span></td>
           <td style="padding:0.75rem 0.5rem; font-family:var(--font-mono); color:var(--accent);">${r.phone}<br>${r.email}</td>
@@ -869,10 +904,10 @@ function showAdminDashboardLogs() {
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M6 18L18 6M6 6l12 12"/></svg>
       </button>
       
-      <h2 style="font-size:1.4rem; font-weight:700; color:var(--text-main); margin-bottom:0.5rem;">Submitted Quotation Requests (RFQs)</h2>
-      <p style="font-size:0.8rem; color:var(--accent); font-family:var(--font-mono); margin-bottom:1.5rem;">DATABASE STATUS: ${RFQ_DB.length} TOTAL LEADS LOGGED</p>
+      <h2 style="font-size:1.3rem; font-weight:700; color:var(--text-main); margin-bottom:0.4rem;">Submitted Quotation Inquiries</h2>
+      <p style="font-size:0.8rem; color:var(--accent); font-family:var(--font-mono); margin-bottom:1.25rem;">DATABASE STATUS: ${QUOTES_DB.length} TOTAL INQUIRIES LOGGED</p>
       
-      <div style="max-height:60vh; overflow-y:auto; margin-bottom:1.5rem;">
+      <div style="max-height:60vh; overflow-y:auto; margin-bottom:1.25rem;">
         <table style="width:100%; border-collapse:collapse; text-align:left; font-size:0.85rem;">
           <thead>
             <tr style="border-bottom:1px solid var(--accent); color:var(--accent); font-family:var(--font-mono);">
@@ -884,13 +919,13 @@ function showAdminDashboardLogs() {
             </tr>
           </thead>
           <tbody>
-            ${rfqRows}
+            ${quoteRows}
           </tbody>
         </table>
       </div>
 
       <div style="display:flex; justify-content:space-between;">
-        <button class="btn btn-secondary" id="btn-clear-rfqs" style="color:#EF4444; border-color:#EF4444;">Clear All RFQs</button>
+        <button class="btn btn-secondary" id="btn-clear-quotes" style="color:#EF4444; border-color:#EF4444;">Clear All Inquiries</button>
         <button class="btn btn-primary" id="btn-close-admin">Close Portal</button>
       </div>
     </div>
@@ -899,11 +934,11 @@ function showAdminDashboardLogs() {
   document.getElementById("btn-close-modal").addEventListener("click", closeModal);
   document.getElementById("btn-close-admin").addEventListener("click", closeModal);
   
-  document.getElementById("btn-clear-rfqs").addEventListener("click", () => {
-    if (confirm("Are you sure you want to clear all logged RFQs?")) {
-      RFQ_DB = [];
+  document.getElementById("btn-clear-quotes").addEventListener("click", () => {
+    if (confirm("Are you sure you want to clear all logged inquiries?")) {
+      QUOTES_DB = [];
       saveDatabase();
-      showToast("RFQs cleared", "success");
+      showToast("Inquiries database cleared", "success");
       showAdminDashboardLogs();
     }
   });
@@ -913,7 +948,7 @@ function closeModal() {
   document.getElementById("modal-container").classList.add("hidden");
 }
 
-// --- 5. TOAST NOTIFICATIONS ---
+// --- 6. TOAST NOTIFICATIONS ---
 
 function showToast(message, type = "success") {
   const container = document.getElementById("toast-wrapper");
@@ -932,7 +967,7 @@ function showToast(message, type = "success") {
   setTimeout(() => { toast.remove(); }, 3500);
 }
 
-// --- 6. ROUTING ENGINE ---
+// --- 7. ROUTING ENGINE ---
 
 function handleRouting() {
   const hash = window.location.hash || "#overview";
@@ -985,17 +1020,19 @@ function handleRouting() {
     "#quality": "Quality Assurance & Metrology — KV Enterprises",
     "#plant": "Plant Layout & Organisation Structure — KV Enterprises",
     "#process": "Manufacturing Process Flow — KV Enterprises",
-    "#contact": "Request RFQ & Contact — KV Enterprises"
+    "#contact": "Contact & Quote — KV Enterprises"
   };
 
   document.title = titles[hash] || "KV Enterprises — Precision Manufacturing";
 }
 
-// --- 7. INITIALIZERS ---
+// --- 8. INITIALIZERS ---
 
 window.addEventListener("hashchange", handleRouting);
 
 window.addEventListener("DOMContentLoaded", () => {
+  initThemeSystem();
+
   const mobileToggle = document.getElementById("mobile-menu-toggle");
   const navMenu = document.getElementById("nav-menu");
   
