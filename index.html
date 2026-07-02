@@ -3,49 +3,55 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  
+  <title>KV Enterprises — Manufacturer of Precision Sheet Metal Stamping Components</title>
+  <meta name="description" content="KV Enterprises - Specialist manufacturer of precision sheet metal stamping components, assemblies, press tools, and jigs & fixtures in Sriperumbudur.">
   
   <!-- Preconnect and Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
   
   <!-- App Stylesheet -->
   <link rel="stylesheet" href="index.css">
 </head>
 <body>
 
-  <!-- Sticky Glassmorphic Header -->
-  <header class="main-header">
+  <!-- Sticky Glassmorphic Apple-style Header -->
+  <header class="main-header" id="header">
     <div class="header-container">
-      <a href="#home" class="logo-area" id="logo-link">
+      <a href="#overview" class="logo-area" id="logo-link">
         <div class="logo-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
           </svg>
         </div>
         <div class="logo-text">
           <span class="logo-title">KV ENTERPRISES</span>
-          <span class="logo-subtitle">Industrial Manpower</span>
+          <span class="logo-subtitle">Precision Stamping & Assemblies</span>
         </div>
       </a>
       
       <nav class="nav-menu" id="nav-menu">
-        <a href="#home" class="nav-button nav-link active" data-view="home">
-          <span class="nav-button-dot"></span><span>Home</span>
+        <a href="#overview" class="nav-link active" data-view="overview">
+          <span>Overview</span>
         </a>
-        <a href="#jobs" class="nav-button nav-link" data-view="jobs">
-          <span class="nav-button-dot"></span><span>Jobs</span>
+        <a href="#about" class="nav-link" data-view="about">
+          <span>About & Vision</span>
         </a>
-        <a href="#employer" class="nav-button nav-link" data-view="employer">
-          <span class="nav-button-dot"></span><span>Employers</span>
+        <a href="#machinery" class="nav-link" data-view="machinery">
+          <span>Machinery Specs</span>
         </a>
-        <a href="#about" class="nav-button nav-link" data-view="about">
-          <span class="nav-button-dot"></span><span>About</span>
+        <a href="#quality" class="nav-link" data-view="quality">
+          <span>Quality Metrology</span>
         </a>
-        <a href="#contact" class="nav-button nav-link" data-view="contact">
-          <span class="nav-button-dot"></span><span>Contact</span>
+        <a href="#plant" class="nav-link" data-view="plant">
+          <span>Plant & Org</span>
+        </a>
+        <a href="#process" class="nav-link" data-view="process">
+          <span>Process Flow</span>
+        </a>
+        <a href="#contact" class="nav-link" data-view="contact">
+          <span>Contact & RFQ</span>
         </a>
       </nav>
       
@@ -56,8 +62,7 @@
           </svg>
           <span class="phone-number">6385422938</span>
         </a>
-        <a href="#jobs" class="btn btn-primary" id="header-cta-find">Browse Jobs</a>
-        <a href="#employer" class="btn btn-secondary" id="header-cta-post">Hire Workers</a>
+        <a href="#contact" class="btn btn-primary" id="header-cta-rfq">Request RFQ</a>
         
         <!-- Mobile Menu Toggle -->
         <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle Navigation Menu">
@@ -71,79 +76,59 @@
 
   <!-- Main Viewport Context -->
   <main id="app-viewport">
-    
-    <!-- Views will be loaded dynamically via routing -->
-    
-    <!-- 1. HOME VIEW -->
-    <section id="view-home" class="page-view animate-section">
-      <!-- Loaded dynamically via app.js template rendering -->
-    </section>
-
-    <!-- 2. JOBS VIEW -->
-    <section id="view-jobs" class="page-view hidden animate-section">
-      <!-- Loaded dynamically via app.js template rendering -->
-    </section>
-
-    <!-- 3. EMPLOYERS HUB -->
-    <section id="view-employer" class="page-view hidden animate-section">
-      <!-- Loaded dynamically via app.js template rendering -->
-    </section>
-
-    <!-- 4. ABOUT US -->
-    <section id="view-about" class="page-view hidden animate-section">
-      <!-- Loaded dynamically via app.js template rendering -->
-    </section>
-
-    <!-- 5. CONTACT -->
-    <section id="view-contact" class="page-view hidden animate-section">
-      <!-- Loaded dynamically via app.js template rendering -->
-    </section>
-
+    <!-- View Sections Loaded Dynamically via app.js -->
+    <section id="view-overview" class="page-view animate-section"></section>
+    <section id="view-about" class="page-view hidden animate-section"></section>
+    <section id="view-machinery" class="page-view hidden animate-section"></section>
+    <section id="view-quality" class="page-view hidden animate-section"></section>
+    <section id="view-plant" class="page-view hidden animate-section"></section>
+    <section id="view-process" class="page-view hidden animate-section"></section>
+    <section id="view-contact" class="page-view hidden animate-section"></section>
   </main>
 
-  <!-- Sticky Footer - Aligned strictly with kvrecruiter.com -->
+  <!-- Apple-style Clean Footer -->
   <footer class="main-footer">
     <div class="footer-container">
       <div class="footer-info">
-        <a href="#home" class="footer-logo">
+        <a href="#overview" class="footer-logo">
           <div class="logo-icon-footer">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
             </svg>
           </div>
           <div class="logo-text">
             <span class="logo-title-footer">KV ENTERPRISES</span>
-            <span class="logo-subtitle-footer">Industrial Manpower</span>
+            <span class="logo-subtitle-footer">Precision Sheet Metal Manufacturing</span>
           </div>
         </a>
         <p class="footer-desc">
-          Trusted industrial manpower partner in Sriperumbudur since day one. We connect skilled workers with leading manufacturing companies across automotive, CNC, metal, and precision industries.
+          Manufacturer of precision sheet metal stamping components, assemblies, press tools, and jigs & fixtures based in Sriperumbudur.
         </p>
       </div>
       
       <div class="footer-links-group">
-        <h4 class="footer-header">Quick Links</h4>
+        <h4 class="footer-header">Navigation</h4>
         <ul class="footer-links">
-          <li><a href="#jobs">Browse Jobs</a></li>
-          <li><a href="#employer">Hire Workers</a></li>
-          <li><a href="#about">About Us</a></li>
-          <li><a href="#contact">Contact</a></li>
-          <li><a href="#admin-log" id="footer-admin-link">Admin Login</a></li>
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#about">About & Vision</a></li>
+          <li><a href="#machinery">Machinery Specs</a></li>
+          <li><a href="#quality">Quality Assurance</a></li>
+          <li><a href="#plant">Plant & Org Structure</a></li>
+          <li><a href="#process">Process Flow</a></li>
         </ul>
       </div>
 
       <div class="footer-links-group">
-        <h4 class="footer-header">Contact</h4>
+        <h4 class="footer-header">Plant Location & Contact</h4>
         <ul class="footer-links-contact">
-          <li class="contact-li-item">6385422938</li>
-          <li class="contact-li-item">7200172460</li>
-          <li class="contact-li-item">Sriperumbudur, Chennai</li>
+          <li class="contact-li-item">No. 45, Beauty Farms, Paaparambakkam Road, Mannur Village, Sriperumbudur – 602105</li>
+          <li class="contact-li-item" style="margin-top:0.5rem; font-weight:600;">Phone: 6385422938 / 7200172460</li>
           <li class="contact-li-item" style="margin-top: 1rem;">
             <a href="https://wa.me/916385422938" target="_blank" class="whatsapp-badge">
               <svg viewBox="0 0 24 24" fill="currentColor">
                 <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.248 8.477 3.517 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.965C16.638 2.005 14.16 1.002 11.53 1.002c-5.442 0-9.87 4.372-9.874 9.802-.001 1.73.466 3.424 1.353 4.928l-.995 3.636 3.738-.97c1.513.882 3.018 1.326 4.606 1.326zm8.818-5.305c-.244-.122-1.44-.709-1.663-.79-.222-.081-.383-.122-.544.122-.16.244-.622.79-.763.951-.141.162-.283.182-.527.061-.244-.122-1.03-.379-1.96-1.206-.724-.645-1.213-1.442-1.355-1.686-.141-.244-.015-.376.107-.497.11-.11.244-.284.366-.426.122-.142.162-.244.244-.406.081-.162.04-.304-.02-.426-.061-.122-.544-1.309-.745-1.793-.197-.474-.397-.41-.544-.418-.14-.007-.301-.008-.462-.008-.162 0-.426.061-.649.304-.222.244-.852.831-.852 2.029 0 1.198.872 2.353.993 2.516.121.163 1.717 2.622 4.159 3.673.58.25 1.034.4 1.389.513.583.185 1.114.159 1.533.096.467-.07 1.44-.588 1.643-1.157.203-.569.203-1.056.142-1.157-.061-.1-.223-.162-.467-.284z"/>
               </svg>
-              <span>WhatsApp</span>
+              <span>WhatsApp Direct Line</span>
             </a>
           </li>
         </ul>
@@ -152,20 +137,19 @@
     
     <div class="footer-bottom">
       <div class="footer-bottom-container">
-        <span>© 2026 KV Enterprises — All Rights Reserved</span>
+        <span>© 2026 KV Enterprises — Precision Manufacturing Plant. All Rights Reserved.</span>
+        <a href="#admin-log" id="footer-admin-link" style="color:var(--text-muted); font-size:0.8rem; text-decoration:none; opacity:0.6;">Admin Portal Gate</a>
       </div>
     </div>
   </footer>
 
-  <!-- Direct Application and Detail Modal Container -->
-  <div id="modal-container" class="modal-overlay hidden">
-    <!-- Rendered dynamically -->
-  </div>
+  <!-- Modal Container -->
+  <div id="modal-container" class="modal-overlay hidden"></div>
 
-  <!-- Toast Notification System -->
+  <!-- Toast Notification Wrapper -->
   <div id="toast-wrapper"></div>
 
-  <!-- App Main Controller script -->
+  <!-- Main JavaScript Controller -->
   <script src="app.js"></script>
 </body>
 </html>

@@ -1,957 +1,811 @@
 /* ==========================================================================
-   APPLICATION CONTROLLER - KV ENTERPRISES (TIVOR.US ESTHETIC SPA)
+   APPLICATION CONTROLLER — KV ENTERPRISES (APPLE.COM STYLE)
+   Manufacturer of Precision Sheet Metal Stamping Components & Assemblies
    ========================================================================== */
 
-// --- 1. LOCAL STORAGE STATE DATABASE ---
-const SEED_JOBS = [
+// --- 1. LOCAL STORAGE RFQ DATABASE ---
+const SEED_RFQS = [
   {
-    id: "job-01",
-    title: "Production / Despatch Operators",
-    company: "DONRACKS PVT. LTD (DONRACKS TMTE Metal Tech)",
-    industry: "Metal Manufacturing",
-    location: "Pennalur, Sriperumbudur",
-    gender: "Both",
-    age: "18 - 30",
-    shift: "No Night Shift",
-    salary: "₹15,600 (8 HRS)",
-    qualification: "Any Qualification",
-    urgent: true,
-    tags: ["Urgent", "No Night Shift", "Direct Join"],
-    description: "Urgent requirements for operators in sheet metal cutting, product packaging, and dispatch operations. Sit-and-work and standing operations available. Joining at plant gate."
-  },
-  {
-    id: "job-02",
-    title: "Quality Department - Female Candidates",
-    company: "Chennai CNC Servotonics",
-    industry: "Precision Manufacturing",
-    location: "Sriperumbudur",
-    gender: "Female",
-    age: "18 - 35",
-    shift: "Single Shift (7 AM - 7 PM)",
-    salary: "Up to ₹20,000",
-    qualification: "10th Pass to Any Degree",
-    urgent: true,
-    tags: ["Urgent", "Female Only", "Freshers Welcome"],
-    description: "Visual quality inspection and line sorting of PCB assemblies. Air-conditioned factory shopfloor. Safe environment for female workers. Single shift setup."
-  },
-  {
-    id: "job-03",
-    title: "CNC Operator / Foaming / Bending / Quality",
-    company: "Gilan Automotive",
-    industry: "Automotive",
-    location: "Vallam, Near Royal Enfield Company, Vallakottai",
-    gender: "Both",
-    age: "18 - 40",
-    shift: "Rotational Shift",
-    salary: "₹16,000 (8 HRS)",
-    qualification: "8th Pass to Any Degree",
-    urgent: true,
-    tags: ["Urgent", "Korean MNC", "Automotive"],
-    description: "Operating CNC machines, components foaming, and mechanical bending of car steering parts. Leading Korean MNC. Onboard safety training provided on joining."
-  }
-];
-
-const SEED_B2B = [
-  {
-    id: "b2b-01",
-    companyName: "Hyundai Transys Vendor",
-    industry: "Automotive",
-    contactPerson: "Mr. Ramesh HR",
-    designation: "Manager HR",
-    phone: "7200172460",
-    email: "hr@hyundaitransys-vendor.co.in",
-    location: "Vallam Vadagal Industrial Park",
-    workersRequired: "30",
-    rolesNeeded: "CNC Operators and Loading associates",
-    shift: "Rotational",
-    gender: "Both",
-    startDate: "2026-07-10",
-    notes: "Requires quick mobilization before July 10th."
-  }
-];
-
-const SEED_APPLY_CLICKS = [
-  {
-    jobTitle: "Production / Despatch Operators",
-    company: "DONRACKS PVT. LTD",
-    action: "WhatsApp Apply",
-    date: "2026-06-30 11:20 AM"
-  },
-  {
-    jobTitle: "Quality Department - Female Candidates",
-    company: "Chennai CNC Servotonics",
-    action: "Call HR Desk",
-    date: "2026-07-01 09:15 AM"
+    id: "rfq-01",
+    companyName: "Automotive OEM Vendor",
+    contactPerson: "Mr. R. Sundaram",
+    phone: "9840123456",
+    email: "sundaram@automotive-vendor.co.in",
+    partDescription: "Sheet metal bracket assembly for automotive chassis",
+    requiredQuantity: "15,000 pcs / month",
+    requiredPress: "200 Ton / 250 Ton Power Press",
+    targetDate: "2026-07-25",
+    notes: "Requires auto coil feeder setup. Material thickness 2.5mm."
   }
 ];
 
 function initDatabase() {
-  if (!localStorage.getItem("kv_db_jobs")) {
-    localStorage.setItem("kv_db_jobs", JSON.stringify(SEED_JOBS));
-    localStorage.setItem("kv_db_b2b", JSON.stringify(SEED_B2B));
-    localStorage.setItem("kv_db_clicks", JSON.stringify(SEED_APPLY_CLICKS));
+  if (!localStorage.getItem("kv_rfq_db")) {
+    localStorage.setItem("kv_rfq_db", JSON.stringify(SEED_RFQS));
   }
-  return {
-    jobs: JSON.parse(localStorage.getItem("kv_db_jobs")),
-    b2b: JSON.parse(localStorage.getItem("kv_db_b2b")),
-    clicks: JSON.parse(localStorage.getItem("kv_db_clicks"))
-  };
+  return JSON.parse(localStorage.getItem("kv_rfq_db"));
 }
 
-let STATE = initDatabase();
+let RFQ_DB = initDatabase();
 
 function saveDatabase() {
-  localStorage.setItem("kv_db_jobs", JSON.stringify(STATE.jobs));
-  localStorage.setItem("kv_db_b2b", JSON.stringify(STATE.b2b));
-  localStorage.setItem("kv_db_clicks", JSON.stringify(STATE.clicks));
+  localStorage.setItem("kv_rfq_db", JSON.stringify(RFQ_DB));
 }
 
-// Log candidate actions
-function logApplyAction(jobTitle, company, type) {
-  const now = new Date();
-  const dateStr = now.getFullYear() + '-' + 
-                  String(now.getMonth() + 1).padStart(2, '0') + '-' + 
-                  String(now.getDate()).padStart(2, '0') + ' ' + 
-                  String(now.getHours()).padStart(2, '0') + ':' + 
-                  String(now.getMinutes()).padStart(2, '0') + ' ' + 
-                  (now.getHours() >= 12 ? 'PM' : 'AM');
-  
-  STATE.clicks.unshift({
-    jobTitle: jobTitle,
-    company: company,
-    action: type,
-    date: dateStr
-  });
-  saveDatabase();
-}
+// --- 2. DATASETS FROM UPDATED PROFILE PDF ---
 
-// --- 2. VIEW RENDERERS ---
+const POWER_PRESSES = [
+  {
+    id: "press-200-bansal",
+    type: "200 TON POWER PRESS - BANSAL",
+    brand: "BANSAL",
+    tonnage: "200 TON",
+    clutch: "Pneumatic",
+    shutHeight: "500 - 400 mm",
+    quantity: 1,
+    spm: "40 strokes/min",
+    slideArea: "720 × 580 mm",
+    bolsterArea: "1250 × 740 mm",
+    feedType: "Auto Feeder",
+    description: "High-speed 200T heavy-duty pneumatic press with auto feeder integration for high-volume precision stamping."
+  },
+  {
+    id: "press-250-sbppl",
+    type: "250 TON POWER PRESS - SBPPL",
+    brand: "SBPPL",
+    tonnage: "250 TON",
+    clutch: "Pneumatic",
+    shutHeight: "600 - 480 mm",
+    quantity: 1,
+    spm: "25 - 45 strokes/min",
+    slideArea: "1100 × 900 mm",
+    bolsterArea: "1500 × 1000 mm",
+    feedType: "Single Feed",
+    description: "250T maximum capacity pneumatic power press designed for heavy gauge sheet metal components & deep draw tooling."
+  },
+  {
+    id: "press-250-isgec",
+    type: "250 TON POWER PRESS - ISGEC",
+    brand: "ISGEC",
+    tonnage: "250 TON",
+    clutch: "Pneumatic",
+    shutHeight: "550 - 425 mm",
+    quantity: 1,
+    spm: "25 - 45 strokes/min",
+    slideArea: "1100 × 700 mm",
+    bolsterArea: "1500 × 850 mm",
+    feedType: "Single Feed",
+    description: "Precision ISGEC 250T pneumatic press offering extreme rigidity, consistent bolster alignment, and tight tolerances."
+  },
+  {
+    id: "press-110-komatsu",
+    type: "110 TON POWER PRESS - KOMATSU",
+    brand: "KOMATSU",
+    tonnage: "110 TON",
+    clutch: "Pneumatic",
+    shutHeight: "380 - 250 mm",
+    quantity: 1,
+    spm: "40 strokes/min",
+    slideArea: "600 × 450 mm",
+    bolsterArea: "1100 × 700 mm",
+    feedType: "Single Feed",
+    description: "Komatsu Japanese engineering 110T pneumatic press suited for progressive stamping dies and complex bracket geometries."
+  },
+  {
+    id: "press-80-aida",
+    type: "80 TON POWER PRESS - AIDA",
+    brand: "AIDA",
+    tonnage: "80 TON",
+    clutch: "Pneumatic",
+    shutHeight: "350 - 240 mm",
+    quantity: 1,
+    spm: "45 strokes/min",
+    slideArea: "540 × 460 mm",
+    bolsterArea: "950 × 600 mm",
+    feedType: "Single Feed",
+    description: "Aida high-precision 80T press optimized for rapid cycle speeds, fine piercing, and high repeatability."
+  }
+];
+
+const AUXILIARY_EQUIPMENT = [
+  {
+    name: "DATEX COIL FEEDER",
+    category: "Automated Feeding",
+    specs: "Coil Size: 150 - 600 mm | Capacity: 3 Ton | Thickness: 0.6 - 3.2 mm",
+    description: "Automatic de-coiler and feeder system delivering uniform raw material coil feed to power press lines."
+  },
+  {
+    name: "HEAVY DUTY FORKLIFT",
+    category: "Material Handling",
+    specs: "Capacity: 3 Ton",
+    description: "Dedicated 3T forklift for rapid tool/die movement and heavy raw material sheet handling."
+  },
+  {
+    name: "HIGH PRESSURE COMPRESSOR",
+    category: "Pneumatic Systems",
+    specs: "Power Rating: 20 HP",
+    description: "20 HP central air compressor providing constant pneumatic pressure to all power press clutches and die cushions."
+  }
+];
+
+const QUALITY_INSTRUMENTS = [
+  {
+    name: "SURFACE TABLE",
+    role: "Flatness & Reference Base",
+    desc: "Calibrated precision granite surface table for measuring flat tolerances, parallelism, and assembly squareness."
+  },
+  {
+    name: "DIGITAL HEIGHT GAUGE (DHG)",
+    role: "Sub-Micron Dimensional Inspection",
+    desc: "High precision electronic height gauge for verifying step heights, hole positions, and feature depths."
+  },
+  {
+    name: "VERNIER CALIPERS",
+    role: "Dimensional Verification",
+    desc: "Digital and dial vernier calipers for internal, external, and depth measurements on stamped parts."
+  },
+  {
+    name: "MICROMETERS",
+    role: "Sheet Thickness & Tolerance",
+    desc: "Precision micrometers used for verifying raw material strip thickness and critical die clearance dimensions."
+  }
+];
+
+const PLANT_ZONES = [
+  { num: "01", title: "Tool Room / Storage", desc: "Dedicated maintenance area for press tools, dies, jigs, fixtures, and spare parts storage." },
+  { num: "02", title: "Raw Material Storage", desc: "Organized storage bay for sheet metal coils, steel plates, and incoming raw material stacks." },
+  { num: "03", title: "Production Area", desc: "Main manufacturing floor housing 80T to 250T power presses and automatic feed lines." },
+  { num: "04", title: "Quality Inspection Lab", desc: "Temperature-controlled metrology station equipped with calibrated surface table and height gauges." },
+  { num: "05", title: "Finished Goods Area", desc: "Secure staging warehouse for 100% inspected stamped components ready for dispatch." },
+  { num: "06", title: "Dispatch Area", desc: "Logistics loading dock with 3T forklift access for prompt customer delivery shipment." }
+];
+
+// --- 3. VIEW RENDERERS ---
 
 const ViewRenderers = {
 
-  // A. HOME PAGE
-  home: function(container) {
+  // OVERVIEW PAGE
+  overview: function(container) {
     container.innerHTML = `
-      <!-- Hero Banner - Typographic Center -->
-      <section class="hero-section" id="hero-area">
-        <div class="ambient-blob"></div>
-        
-        <div class="container hero-content-center">
-          <div class="hero-tag anim-hero-tag">
+      <!-- Hero Showcase -->
+      <section class="hero-section">
+        <div class="ambient-glow"></div>
+        <div class="container">
+          <div class="hero-tag">
             <span class="pulse-dot"></span>
-            <span>01 / PLACEMENT LOGISTICS</span>
+            <span>PRECISION SHEET METAL STAMPING PLANT</span>
           </div>
           
-          <h1 class="hero-heading anim-hero-title">
-            INDUSTRIAL MANPOWER<br>
-            <span class="accent-text">DELIVERED ON TIME</span>
+          <h1 class="hero-heading">
+            ENGINEERED WITH PRECISION.<br>
+            <span class="accent-text">BUILT FOR RELIABILITY.</span>
           </h1>
           
-          <p class="hero-subtitle anim-hero-sub">
-            Factory Onboarding & Supply Chain Staffing Solutions
+          <p class="hero-subtitle">
+            KV Enterprises is a specialist manufacturer of precision sheet metal stamping components, assemblies, press tools, and jigs & fixtures in Sriperumbudur.
           </p>
           
-          <p class="hero-desc anim-hero-desc">
-            KV Enterprises places pre-verified operators and quality inspectors into leading manufacturing plants across the Sriperumbudur corridor. Direct gate joining. No middlemen.
-          </p>
-          
-          <div class="hero-ctas anim-hero-ctas">
-            <a href="#jobs" class="btn btn-primary">Browse Jobs</a>
-            <a href="#employer" class="btn btn-secondary">Hire Workers</a>
+          <div class="hero-ctas">
+            <a href="#contact" class="btn btn-primary">Request Technical RFQ</a>
+            <a href="#machinery" class="btn btn-secondary">Explore Machinery Specs</a>
+          </div>
+
+          <div class="hero-image-wrap">
+            <img src="kv_stamping_hero.png" alt="KV Enterprises Stamping Components">
           </div>
         </div>
       </section>
 
-      <!-- Infinite auto-scrolling marquee -->
-      <section class="scroll-reveal">
-        <div class="marquee-container">
-          <div class="marquee-inner">
-            <span>CNC Machining</span>
-            <span>Quality Control</span>
-            <span>Production Staffing</span>
-            <span>Manpower Outsourcing</span>
-            <span>Automotive</span>
-            <span>Metal Tech</span>
-            <span>CNC Machining</span>
-            <span>Quality Control</span>
-            <span>Production Staffing</span>
-            <span>Manpower Outsourcing</span>
-            <span>Automotive</span>
-            <span>Metal Tech</span>
+      <!-- Highlights Bar -->
+      <section class="spec-highlights-strip">
+        <div class="container spec-strip-grid">
+          <div class="spec-strip-item">
+            <div class="spec-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            </div>
+            <div class="spec-info">
+              <h4>80T to 250T Capacities</h4>
+              <p>Power press lineup for all sheet gauges</p>
+            </div>
+          </div>
+          <div class="spec-strip-item">
+            <div class="spec-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div class="spec-info">
+              <h4>100% Quality Inspection</h4>
+              <p>DHG & calibrated surface table metrology</p>
+            </div>
+          </div>
+          <div class="spec-strip-item">
+            <div class="spec-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <div class="spec-info">
+              <h4>On-Time Project Delivery</h4>
+              <p>Lean production & agile scheduling</p>
+            </div>
+          </div>
+          <div class="spec-strip-item">
+            <div class="spec-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3"/></svg>
+            </div>
+            <div class="spec-info">
+              <h4>Sriperumbudur Hub</h4>
+              <p>Mannur Village manufacturing facility</p>
+            </div>
           </div>
         </div>
       </section>
 
-      <!-- Manifesto Row (Tivor Manifesto) -->
-      <section class="manifesto-section scroll-reveal">
+      <!-- Core Capabilities Grid -->
+      <section class="section-padding">
         <div class="container">
-          <h2 class="manifesto-heading">Strategic Manpower Placements, Not Generic HR Agencies</h2>
-          <p class="manifesto-sub">
-            We don't stop at sending resumes. We understand your production lines, verify every operator first-hand, and dispatch workforce solutions that keep your factory floor running.
-          </p>
-        </div>
-      </section>
+          <div class="section-header">
+            <span class="section-tag">Manufacturing Excellence</span>
+            <h2 class="section-title">What We Manufacture</h2>
+            <p class="section-desc">Delivering high-precision engineering solutions for automotive, industrial, and electrical equipment requirements.</p>
+          </div>
 
-      <!-- Stats Metric Panel -->
-      <section class="stats-section scroll-reveal">
-        <div class="container stats-grid">
-          <div class="stat-card">
-            <div class="stat-number" data-count-target="500">0</div>
-            <div class="stat-label">Workers Placed</div>
-            <div class="stat-desc">Direct factory jobs</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-number" data-count-target="25">0</div>
-            <div class="stat-label">Client Factories</div>
-            <div class="stat-desc">Sriperumbudur corridor</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-number" data-count-target="72">0</div>
-            <div class="stat-label">Avg. Placement Hours</div>
-            <div class="stat-desc">Quick Gate Joining</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-number" data-count-target="100">0</div>
-            <div class="stat-label">Direct Joining %</div>
-            <div class="stat-desc">Zero Middlemen</div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Stacked Openings Deck Section -->
-      <section class="jobs-section">
-        <div class="container">
-          <div class="section-header scroll-reveal">
-            <p class="font-mono text-[11px] tracking-widest uppercase text-muted mb-4" style="font-family:var(--font-mono)">Active Placements</p>
-            <h2>Featured Openings</h2>
-            <p>Immediate gate joining openings. Select below to call or apply on WhatsApp.</p>
-          </div>
-          
-          <!-- Stacked deck wrapper -->
-          <div class="sticky-deck-container" id="home-jobs-container">
-            <!-- Rendered Dynamically -->
-          </div>
-          
-          <div style="text-align:center; margin-top:5rem;" class="scroll-reveal">
-            <a href="#jobs" class="btn btn-secondary">View All Open Positions</a>
-          </div>
-        </div>
-      </section>
-
-      <!-- B2B Employer register banner -->
-      <section class="employer-banner-section">
-        <div class="container">
-          <div class="banner-grid scroll-reveal">
-            <div class="banner-content">
-              <h3>Need workers this week?</h3>
-              <p>
-                Whether you need 10 CNC operators or 200 production associates, we mobilise pre-verified workers across Sriperumbudur. Fill the requirement form — our team calls back the same day.
-              </p>
-              <div class="banner-features">
-                <div class="banner-feature-item">
-                  <span class="feature-bullet-num">01 /</span>
-                  <span>Same-day callback</span>
-                </div>
-                <div class="banner-feature-item">
-                  <span class="feature-bullet-num">02 /</span>
-                  <span>Verified workers</span>
-                </div>
-                <div class="banner-feature-item">
-                  <span class="feature-bullet-num">03 /</span>
-                  <span>Bulk hiring ready</span>
-                </div>
-                <div class="banner-feature-item">
-                  <span class="feature-bullet-num">04 /</span>
-                  <span>Compliance handled</span>
-                </div>
+          <div class="apple-card-grid">
+            <div class="apple-card">
+              <div class="apple-card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
               </div>
-              <div>
-                <a href="#employer" class="btn btn-primary">Register Requirement</a>
-              </div>
+              <h3 class="apple-card-title">Sheet Metal Stamping</h3>
+              <p class="apple-card-body">High repeatability blanking, piercing, forming, and bending of sheet metal components with tight tolerances using pneumatic power presses.</p>
             </div>
-            
-            <div class="banner-img-area">
-              <div class="banner-hud-card">
-                <h4>Hiring Logistics</h4>
-                <div class="hud-row">
-                  <span>CNC Operators:</span>
-                  <span class="val">Immediate</span>
-                </div>
-                <div class="hud-row">
-                  <span>QC Inspectors:</span>
-                  <span class="val">Ready to join</span>
-                </div>
-                <div class="hud-row">
-                  <span>B2B Callback:</span>
-                  <span class="val">&lt; 12 Hours</span>
-                </div>
+
+            <div class="apple-card">
+              <div class="apple-card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4a2 2 0 114 0v1a2 2 0 01-2 2 2 2 0 01-2-2V4zm-4 6a2 2 0 114 0v1a2 2 0 01-2 2 2 2 0 01-2-2v-1zm8 0a2 2 0 114 0v1a2 2 0 01-2 2 2 2 0 01-2-2v-1z"/></svg>
               </div>
+              <h3 class="apple-card-title">Precision Assemblies</h3>
+              <p class="apple-card-body">Sub-assembly and riveted/welded metal assemblies engineered to exact customer drawings and stringent quality standards.</p>
+            </div>
+
+            <div class="apple-card">
+              <div class="apple-card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><circle cx="12" cy="12" r="3"/></svg>
+              </div>
+              <h3 class="apple-card-title">Press Tools & Dies</h3>
+              <p class="apple-card-body">In-house tooling expertise for press die maintenance, single station dies, progressive tool setup, and modification.</p>
+            </div>
+
+            <div class="apple-card">
+              <div class="apple-card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+              </div>
+              <h3 class="apple-card-title">Jigs & Fixtures</h3>
+              <p class="apple-card-body">Custom designed welding jigs, drilling fixtures, and inspection gauges to streamline shopfloor production consistency.</p>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- Why KV Section (Numbered Tivor style list rows) -->
-      <section class="why-section">
-        <div class="container">
-          <div class="section-header scroll-reveal">
-            <h2>Built for Sriperumbudur's factory belt</h2>
-          </div>
-          <div class="why-features-grid">
-            <div class="why-card scroll-reveal scroll-stagger-1">
-              <span class="why-num">01 / CAPABILITY</span>
-              <h3 class="why-title">Factory-first</h3>
-              <p class="why-desc">We know the shop floor. From CNC to despatch, we place workers who can start Monday.</p>
-              <span class="why-arrow">&rarr;</span>
-            </div>
-            <div class="why-card scroll-reveal scroll-stagger-2">
-              <span class="why-num">02 / DISPATCH</span>
-              <h3 class="why-title">Fast turnaround</h3>
-              <p class="why-desc">Most placements happen within 72 hours of requirement submission.</p>
-              <span class="why-arrow">&rarr;</span>
-            </div>
-            <div class="why-card scroll-reveal scroll-stagger-3">
-              <span class="why-num">03 / CONTROL</span>
-              <h3 class="why-title">Verified profiles</h3>
-              <p class="why-desc">Aadhar, education & experience proofs verified before gate onboarding.</p>
-              <span class="why-arrow">&rarr;</span>
-            </div>
-            <div class="why-card scroll-reveal scroll-stagger-4">
-              <span class="why-num">04 / SUPPORT</span>
-              <h3 class="why-title">End-to-end</h3>
-              <p class="why-desc">Documentation, onboarding, replacement — one contact, zero hassle.</p>
-              <span class="why-arrow">&rarr;</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Closing CTA Section (Tivor.us closing-cta Style) -->
-      <section id="closing-cta" class="scroll-reveal">
+      <!-- Quick RFQ CTA Strip -->
+      <section class="section-padding" style="background: var(--bg-card); border-y: 1px solid var(--border-color);">
         <div class="container text-center">
-          <div>
-            <p class="font-mono text-[11px] tracking-[0.1em] uppercase text-muted mb-6" style="font-family:var(--font-mono)">Ready to start</p>
-          </div>
-          <div>
-            <h2 class="closing-title">Let's start<br>recruiting together</h2>
-          </div>
-          <div>
-            <a class="cta-btn" href="#contact">
-              Get in touch
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-            </a>
-          </div>
+          <h2 class="section-title">Ready to Start Your Manufacturing Project?</h2>
+          <p class="section-desc" style="max-width: 650px; margin: 0 auto 2rem auto;">
+            Send us your component drawings or technical specifications for an immediate quotation and feasibility study.
+          </p>
+          <a href="#contact" class="btn btn-primary" style="padding: 0.8rem 2rem; font-size: 1rem;">Get a Quote Today &rarr;</a>
         </div>
-        
-        <!-- Logo Scroll Track below closing CTA -->
-        <div class="mt-24">
-          <div class="logo-track-mask">
-            <div class="logo-track">
-              <span class="logo-item">CNC Machining</span>
-              <span class="sep">◆</span>
-              <span class="logo-item">Quality Assurance</span>
-              <span class="sep">◆</span>
-              <span class="logo-item">Gilan Automotive</span>
-              <span class="sep">◆</span>
-              <span class="logo-item">Donracks TMTE</span>
-              <span class="sep">◆</span>
-              <span class="logo-item">CNC Machining</span>
-              <span class="sep">◆</span>
-              <span class="logo-item">Quality Assurance</span>
-              <span class="sep">◆</span>
-              <span class="logo-item">Gilan Automotive</span>
-              <span class="sep">◆</span>
-              <span class="logo-item">Donracks TMTE</span>
+      </section>
+    `;
+  },
+
+  // ABOUT & VISION PAGE
+  about: function(container) {
+    container.innerHTML = `
+      <section class="section-padding">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-tag">Company Profile</span>
+            <h2 class="section-title">About KV Enterprises</h2>
+            <p class="section-desc">Shaping the future of manufacturing through precision engineering and uncompromising quality in Sriperumbudur.</p>
+          </div>
+
+          <div class="apple-card" style="margin-bottom: 3rem; padding: 3rem;">
+            <p style="font-size: 1.1rem; line-height: 1.8; color: var(--text-main); margin-bottom: 1.5rem;">
+              <strong>KV Enterprises</strong> is committed to shaping the future of manufacturing through precision engineering and uncompromising quality. Based in Sriperumbudur, we specialize in sheet metal components, assemblies, press tools, and jigs & fixtures, delivering reliable solutions that enhance customer productivity and success.
+            </p>
+            <p style="font-size: 1.05rem; line-height: 1.8; color: var(--text-body);">
+              We strive to be a trusted partner by consistently exceeding expectations through innovation, quality, and service excellence. Located in Mannur Village near the Sriperumbudur industrial belt, our plant combines skilled technical manpower with high-tonnage power presses to deliver complex metal pressings on time.
+            </p>
+          </div>
+
+          <div class="apple-card-grid" style="grid-template-columns: 1fr 1fr; gap: 2rem;">
+            <div class="apple-card" style="padding: 2.5rem; border-color: rgba(41, 151, 255, 0.3);">
+              <div class="apple-card-icon" style="background: rgba(41, 151, 255, 0.15);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              </div>
+              <h3 class="apple-card-title" style="font-size: 1.6rem; color: var(--accent);">MISSION</h3>
+              <p class="apple-card-body" style="font-size: 1rem; line-height: 1.7; color: var(--text-main); margin-top: 1rem;">
+                Our mission is to deliver high-quality sheet metal stamping components and engineering solutions that meet customer requirements with precision, reliability, and efficiency. We focus on continuous improvement and customer satisfaction in every aspect of our work.
+              </p>
+            </div>
+
+            <div class="apple-card" style="padding: 2.5rem; border-color: rgba(48, 209, 88, 0.3);">
+              <div class="apple-card-icon" style="background: rgba(48, 209, 88, 0.15); color: var(--green-accent);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+              </div>
+              <h3 class="apple-card-title" style="font-size: 1.6rem; color: var(--green-accent);">VISION</h3>
+              <p class="apple-card-body" style="font-size: 1rem; line-height: 1.7; color: var(--text-main); margin-top: 1rem;">
+                Our vision is to become a trusted and recognized manufacturing company in the sheet metal industry by delivering consistent quality, innovation, and long-term value to our customers.
+              </p>
             </div>
           </div>
         </div>
       </section>
     `;
-
-    renderHomeJobs();
   },
 
-  // B. JOB SEARCH & BOARD
-  jobs: function(container) {
+  // MACHINERY SPECS PAGE
+  machinery: function(container) {
     container.innerHTML = `
-      <div class="page-header-strip">
+      <section class="section-padding">
         <div class="container">
-          <h1>Open Positions</h1>
-          <p>All active jobs in Sriperumbudur industrial belt. Direct hiring, zero middlemen.</p>
-        </div>
-      </div>
-      
-      <div class="container jobs-board-wrap">
-        <div class="jobs-filter-bar scroll-reveal">
-          <div class="board-search-input-wrap">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-            <input type="text" id="jobs-search-input" placeholder="Search by company, title, location...">
+          <div class="section-header">
+            <span class="section-tag">Plant Machinery Lineup</span>
+            <h2 class="section-title">High-Precision Power Presses</h2>
+            <p class="section-desc">Equipped with 80T to 250T pneumatic power presses and automated coil feeding lines.</p>
           </div>
-          
-          <div class="gender-filters-group">
-            <span style="font-size:0.75rem; font-family:var(--font-mono); font-weight:700; text-transform:uppercase; color:var(--text-muted);">Gender:</span>
-            <button class="gender-filter-btn active" data-gender="all">all</button>
-            <button class="gender-filter-btn" data-gender="male">male</button>
-            <button class="gender-filter-btn" data-gender="female">female</button>
+
+          <!-- Machinery Image Showcase -->
+          <div class="hero-image-wrap" style="margin-bottom: 3.5rem;">
+            <img src="kv_machinery.png" alt="KV Enterprises Power Press Machinery Lineup">
           </div>
-        </div>
 
-        <div class="job-feed-list" id="board-jobs-container" style="display:flex; flex-direction:column; gap:2.5rem; margin-top:2rem;">
-          <!-- Rendered Dynamically -->
-        </div>
-      </div>
-    `;
+          <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--text-main); margin-bottom: 1.5rem;">List of Machineries (Power Presses)</h3>
 
-    const searchInput = document.getElementById("jobs-search-input");
-    const genderBtns = container.querySelectorAll(".gender-filter-btn");
-    
-    let activeGenderFilter = "all";
-
-    const filterTrigger = () => {
-      const query = searchInput.value.toLowerCase().trim();
-      renderBoardJobsList(query, activeGenderFilter);
-    };
-
-    searchInput.addEventListener("input", filterTrigger);
-    genderBtns.forEach(btn => {
-      btn.addEventListener("click", () => {
-        genderBtns.forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-        activeGenderFilter = btn.dataset.gender;
-        filterTrigger();
-      });
-    });
-
-    renderBoardJobsList("", "all");
-  },
-
-  // C. EMPLOYERS FORM (Tivor numbered list style for side text)
-  employer: function(container) {
-    container.innerHTML = `
-      <div class="page-header-strip">
-        <div class="container">
-          <h1>For Employers</h1>
-          <p>Register your factory manpower requirements. Mobilize verified workers fast.</p>
-        </div>
-      </div>
-      
-      <div class="container employer-container-layout">
-        <!-- Info Column - Numbered list -->
-        <aside class="employer-info-card scroll-reveal scroll-stagger-1">
-          <h3>Why Hire Through Us</h3>
-          <ul class="employer-bullet-list">
-            <li>
-              <strong>01 / Same-day callback</strong>
-              Our recruiter will call within business hours.
-            </li>
-            <li>
-              <strong>02 / Bulk placements</strong>
-              From 5 to 500 workers, we mobilise fast.
-            </li>
-            <li>
-              <strong>03 / Verified candidates</strong>
-              Aadhar, education & background checked.
-            </li>
-            <li>
-              <strong>04 / Compliance managed</strong>
-              PF, ESI documentation handled end-to-end.
-            </li>
-          </ul>
-          
-          <div style="margin-top:2rem; border-top:1px solid var(--border-color); padding-top:1.5rem;">
-            <p style="font-size:0.75rem; font-family:var(--font-mono); color:var(--text-muted); margin-bottom:0.25rem;">PREFER TO TALK?</p>
-            <p style="font-weight:700; color:var(--text-main); font-size:1.1rem; margin-bottom:0.25rem;">Call our HR Desk</p>
-            <p style="font-family:var(--font-mono); font-weight:700; font-size:0.95rem; color:var(--accent);">6385422938 / 7200172460</p>
-          </div>
-        </aside>
-
-        <!-- Form Column (Browser card wrapper style) -->
-        <div class="product-card scroll-reveal scroll-stagger-2">
-          <div class="product-card-inner">
-            <div class="product-card-header">
-              <div class="flex items-center gap-3">
-                <div class="flex items-center gap-[5px]">
-                  <span class="rounded-full" style="width:10px;height:10px;background:#FF5F57;display:block"></span>
-                  <span class="rounded-full" style="width:10px;height:10px;background:#FEBC2E;display:block"></span>
-                  <span class="rounded-full" style="width:10px;height:10px;background:#28C840;display:block"></span>
+          <div class="machinery-grid">
+            ${POWER_PRESSES.map(m => `
+              <div class="machine-card">
+                <div class="machine-card-header">
+                  <div>
+                    <span class="machine-tonnage">${m.tonnage}</span>
+                    <span class="machine-brand"> | ${m.brand}</span>
+                  </div>
+                  <span class="machine-badge">${m.clutch}</span>
                 </div>
-                <span style="width:1px;height:16px;background:var(--border-color)"></span>
-                <span class="font-mono text-[10px] uppercase text-muted" style="font-family:var(--font-mono)">Register Requirement</span>
+                <div class="machine-card-body">
+                  <table class="machine-spec-table">
+                    <tr>
+                      <td class="label">Machine Type</td>
+                      <td class="val">${m.type}</td>
+                    </tr>
+                    <tr>
+                      <td class="label">Shut Height</td>
+                      <td class="val">${m.shutHeight}</td>
+                    </tr>
+                    <tr>
+                      <td class="label">Strokes / Min</td>
+                      <td class="val">${m.spm}</td>
+                    </tr>
+                    <tr>
+                      <td class="label">Slide Area</td>
+                      <td class="val">${m.slideArea}</td>
+                    </tr>
+                    <tr>
+                      <td class="label">Bolster Area</td>
+                      <td class="val">${m.bolsterArea}</td>
+                    </tr>
+                    <tr>
+                      <td class="label">Feed Type</td>
+                      <td class="val" style="color:var(--accent);">${m.feedType}</td>
+                    </tr>
+                  </table>
+                  <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 1rem; line-height: 1.5;">
+                    ${m.description}
+                  </p>
+                </div>
+              </div>
+            `).join("")}
+          </div>
+
+          <!-- Additional Machinery Section -->
+          <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--text-main); margin-top: 4rem; margin-bottom: 1.5rem;">List of Additional Machineries & Auxiliary Equipment</h3>
+
+          <div class="apple-card-grid">
+            ${AUXILIARY_EQUIPMENT.map(aux => `
+              <div class="apple-card">
+                <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--accent); font-weight:700; text-transform:uppercase;">${aux.category}</span>
+                <h4 style="font-size: 1.2rem; font-weight:700; color:var(--text-main); margin: 0.4rem 0;">${aux.name}</h4>
+                <p style="font-family:var(--font-mono); font-size: 0.85rem; color:var(--green-accent); margin-bottom: 0.75rem;">${aux.specs}</p>
+                <p class="apple-card-body">${aux.description}</p>
+              </div>
+            `).join("")}
+          </div>
+        </div>
+      </section>
+    `;
+  },
+
+  // QUALITY METROLOGY PAGE
+  quality: function(container) {
+    container.innerHTML = `
+      <section class="section-padding">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-tag">Metrology & Inspection</span>
+            <h2 class="section-title">Our Quality Instruments</h2>
+            <p class="section-desc">100% quality inspection using calibrated gauges to guarantee absolute precision and customer satisfaction.</p>
+          </div>
+
+          <div class="hero-image-wrap" style="margin-bottom: 3.5rem;">
+            <img src="kv_quality.png" alt="KV Enterprises Quality Inspection Metrology">
+          </div>
+
+          <div class="metrology-grid">
+            ${QUALITY_INSTRUMENTS.map(inst => `
+              <div class="instrument-card">
+                <div class="instrument-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+                <h3 class="instrument-title">${inst.name}</h3>
+                <p style="font-family:var(--font-mono); font-size:0.75rem; color:var(--accent); margin-bottom:0.5rem;">${inst.role}</p>
+                <p class="instrument-desc">${inst.desc}</p>
+              </div>
+            `).join("")}
+          </div>
+
+          <!-- Quality Policy Summary -->
+          <div class="apple-card" style="margin-top: 3.5rem; padding: 2.5rem;">
+            <h3 style="font-size: 1.3rem; font-weight: 700; color: var(--text-main); margin-bottom: 1rem;">Quality Control Standards</h3>
+            <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.75rem;">
+              <li style="display: flex; align-items: center; gap: 0.75rem; color: var(--text-body); font-size: 0.95rem;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" style="color:var(--green-accent);"><path d="M5 13l4 4L19 7"/></svg>
+                <span><strong>Raw Material Inspection:</strong> Coil thickness and sheet grain orientation verified before mounting.</span>
+              </li>
+              <li style="display: flex; align-items: center; gap: 0.75rem; color: var(--text-body); font-size: 0.95rem;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" style="color:var(--green-accent);"><path d="M5 13l4 4L19 7"/></svg>
+                <span><strong>First Piece Sign-off:</strong> Initial production sample verified on calibrated surface table & DHG before mass press run.</span>
+              </li>
+              <li style="display: flex; align-items: center; gap: 0.75rem; color: var(--text-body); font-size: 0.95rem;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" style="color:var(--green-accent);"><path d="M5 13l4 4L19 7"/></svg>
+                <span><strong>In-Process Quality Checks:</strong> Periodic line sampling by Quality Inspectors to ensure burr-free edges and flat tolerances.</span>
+              </li>
+              <li style="display: flex; align-items: center; gap: 0.75rem; color: var(--text-body); font-size: 0.95rem;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" style="color:var(--green-accent);"><path d="M5 13l4 4L19 7"/></svg>
+                <span><strong>Pre-Dispatch Inspection (PDI):</strong> Final batch testing and protective packaging prior to customer dispatch.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    `;
+  },
+
+  // PLANT LAYOUT & ORG HIERARCHY PAGE
+  plant: function(container) {
+    container.innerHTML = `
+      <section class="section-padding">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-tag">Facility & Management</span>
+            <h2 class="section-title">Plant Layout & Organisation</h2>
+            <p class="section-desc">Streamlined 6-zone manufacturing layout and clear management structure for seamless project execution.</p>
+          </div>
+
+          <!-- Plant Layout Section -->
+          <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--text-main); margin-bottom: 1.5rem;">Plant Layout (6 Core Facility Zones)</h3>
+
+          <div class="plant-layout-grid" style="margin-bottom: 4rem;">
+            ${PLANT_ZONES.map(z => `
+              <div class="plant-zone-card">
+                <span class="zone-num">${z.num}</span>
+                <div>
+                  <h4 class="zone-title">${z.title}</h4>
+                  <p class="zone-desc">${z.desc}</p>
+                </div>
+              </div>
+            `).join("")}
+          </div>
+
+          <!-- Organisation Structure Hierarchy -->
+          <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--text-main); margin-bottom: 1.5rem;">Organisation Structure</h3>
+
+          <div class="org-chart-wrapper">
+            <!-- Top Level -->
+            <div class="org-node-top">
+              <h3>MANAGING DIRECTOR & ADMIN</h3>
+              <p>KV ENTERPRISES MANAGEMENT</p>
+              <div style="width:2px; height:20px; background:var(--accent); margin:0.5rem auto;"></div>
+              <div style="font-weight:700; color:var(--text-main); font-size:0.95rem;">PLANT HEAD</div>
+            </div>
+
+            <!-- Departmental Grid -->
+            <div class="org-dept-grid">
+              <div class="org-dept-card">
+                <h4>PRODUCTION</h4>
+                <ul>
+                  <li>Production Manager</li>
+                  <li>Line Supervisor</li>
+                  <li>Operators & Helpers</li>
+                </ul>
+              </div>
+
+              <div class="org-dept-card">
+                <h4>QUALITY CONTROL</h4>
+                <ul>
+                  <li>Quality Manager</li>
+                  <li>Quality Control Eng.</li>
+                  <li>Line Inspector</li>
+                  <li>Pre Dispatch Inspector</li>
+                </ul>
+              </div>
+
+              <div class="org-dept-card">
+                <h4>TOOL ROOM</h4>
+                <ul>
+                  <li>Tool Room Engineer</li>
+                  <li>Die Maintenance</li>
+                </ul>
+              </div>
+
+              <div class="org-dept-card">
+                <h4>MAINTENANCE</h4>
+                <ul>
+                  <li>Maintenance Engineer</li>
+                  <li>Plant Uptime Tech</li>
+                </ul>
+              </div>
+
+              <div class="org-dept-card">
+                <h4>PURCHASE</h4>
+                <ul>
+                  <li>Purchase Manager</li>
+                  <li>Raw Material Procurement</li>
+                </ul>
+              </div>
+
+              <div class="org-dept-card">
+                <h4>STORE & DISPATCH</h4>
+                <ul>
+                  <li>Store & Dispatch Eng.</li>
+                  <li>Logistics Team</li>
+                </ul>
+              </div>
+
+              <div class="org-dept-card">
+                <h4>SALES & MARKETING</h4>
+                <ul>
+                  <li>Sales & Mktg Manager</li>
+                  <li>Customer Desk</li>
+                </ul>
               </div>
             </div>
-            
-            <div class="p-8">
-              <form id="employer-requirement-form">
-                <div class="form-row">
-                  <div class="form-group half">
-                    <label class="form-label" for="comp-name">Company Name *</label>
-                    <input type="text" id="comp-name" class="form-input" required placeholder="e.g. Gilan Automotive">
+          </div>
+        </div>
+      </section>
+    `;
+  },
+
+  // MANUFACTURING PROCESS FLOW PAGE
+  process: function(container) {
+    container.innerHTML = `
+      <section class="section-padding">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-tag">Quality Execution</span>
+            <h2 class="section-title">Manufacturing Process Flow</h2>
+            <p class="section-desc">From initial requirement analysis to final on-time delivery, our structured process ensures zero-defect manufacturing.</p>
+          </div>
+
+          <div class="process-flow-timeline">
+            <div class="process-step-card">
+              <div class="process-step-num">01 /</div>
+              <h3 class="process-step-title">Design & Planning</h3>
+              <ul class="process-step-list">
+                <li>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                  <span>Customer Requirement Analysis</span>
+                </li>
+                <li>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                  <span>Material Selection & Feasibility</span>
+                </li>
+                <li>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                  <span>Die Setup & Tool Design Planning</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="process-step-card">
+              <div class="process-step-num">02 /</div>
+              <h3 class="process-step-title">Manufacturing Process</h3>
+              <ul class="process-step-list">
+                <li>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                  <span>Power Press Operating (80T - 250T)</span>
+                </li>
+                <li>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                  <span>Tool & Die Usage with Precision Feeder</span>
+                </li>
+                <li>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                  <span>Blanking, Forming & Piercing Lines</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="process-step-card">
+              <div class="process-step-num">03 /</div>
+              <h3 class="process-step-title">Quality & Delivery</h3>
+              <ul class="process-step-list">
+                <li>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                  <span>Quality Testing (Surface Table & DHG)</span>
+                </li>
+                <li>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                  <span>Deburring, Finishing & Anti-Rust Packing</span>
+                </li>
+                <li>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                  <span>On-Time Customer Dispatch</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    `;
+  },
+
+  // CONTACT & RFQ FORM PAGE
+  contact: function(container) {
+    container.innerHTML = `
+      <section class="section-padding">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-tag">Get In Touch</span>
+            <h2 class="section-title">Request a Technical Quotation</h2>
+            <p class="section-desc">Submit your component details or get in touch directly with our manufacturing engineering team.</p>
+          </div>
+
+          <div class="rfq-container">
+            <!-- Contact Info Panel -->
+            <div class="rfq-info-panel">
+              <h3>KV ENTERPRISES</h3>
+              <p style="color:var(--text-body); font-size:0.95rem; line-height:1.6;">
+                Manufacturer of Precision Sheet Metal Stamping Components & Assemblies.
+              </p>
+
+              <div class="contact-info-list">
+                <div class="contact-info-item">
+                  <div class="contact-info-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3"/></svg>
                   </div>
-                  <div class="form-group half">
-                    <label class="form-label" for="comp-industry">Industry *</label>
-                    <input type="text" id="comp-industry" class="form-input" required placeholder="Automotive / CNC / Packaging...">
+                  <div class="contact-info-text">
+                    <h5>PLANT ADDRESS</h5>
+                    <p style="font-weight:400; font-size:0.9rem; line-height:1.5;">
+                      No.45, Beauty Farms, Paaparambakkam Road, Mannur Village, Sriperumbudur – 602105
+                    </p>
+                  </div>
+                </div>
+
+                <div class="contact-info-item">
+                  <div class="contact-info-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                  </div>
+                  <div class="contact-info-text">
+                    <h5>DIRECT PHONE LINES</h5>
+                    <p><a href="tel:6385422938">Primary: 6385422938</a></p>
+                    <p><a href="tel:7200172460">Alternate: 7200172460</a></p>
+                  </div>
+                </div>
+
+                <div class="contact-info-item">
+                  <div class="contact-info-icon" style="background:rgba(37,211,102,0.1); color:#25D366;">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.248 8.477 3.517 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.965C16.638 2.005 14.16 1.002 11.53 1.002c-5.442 0-9.87 4.372-9.874 9.802-.001 1.73.466 3.424 1.353 4.928l-.995 3.636 3.738-.97c1.513.882 3.018 1.326 4.606 1.326z"/></svg>
+                  </div>
+                  <div class="contact-info-text">
+                    <h5>WHATSAPP DIRECT</h5>
+                    <p><a href="https://wa.me/916385422938" target="_blank" style="color:#25D366; font-weight:700;">Chat on WhatsApp &rarr;</a></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Form Card -->
+            <div class="rfq-form-card">
+              <h3 style="font-size:1.3rem; font-weight:700; color:var(--text-main); margin-bottom:1.25rem;">Submit Component RFQ</h3>
+              <form id="rfq-form">
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-label" for="rfq-name">Company Name *</label>
+                    <input type="text" id="rfq-name" class="form-input" required placeholder="e.g. Precision Auto Components">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="rfq-person">Contact Person *</label>
+                    <input type="text" id="rfq-person" class="form-input" required placeholder="e.g. Mr. Rajesh Kumar">
                   </div>
                 </div>
 
                 <div class="form-row">
-                  <div class="form-group half">
-                    <label class="form-label" for="comp-contact">Contact Person *</label>
-                    <input type="text" id="comp-contact" class="form-input" required placeholder="e.g. Anand Kumar">
+                  <div class="form-group">
+                    <label class="form-label" for="rfq-phone">Phone Number *</label>
+                    <input type="tel" id="rfq-phone" class="form-input" required placeholder="e.g. 9840123456">
                   </div>
-                  <div class="form-group half">
-                    <label class="form-label" for="comp-desig">Designation</label>
-                    <input type="text" id="comp-desig" class="form-input" placeholder="e.g. Plant HR Manager">
-                  </div>
-                </div>
-
-                <div class="form-row">
-                  <div class="form-group half">
-                    <label class="form-label" for="comp-phone">Phone Number *</label>
-                    <input type="tel" id="comp-phone" class="form-input" required>
-                  </div>
-                  <div class="form-group half">
-                    <label class="form-label" for="comp-email">Email Address *</label>
-                    <input type="email" id="comp-email" class="form-input" required>
+                  <div class="form-group">
+                    <label class="form-label" for="rfq-email">Email Address *</label>
+                    <input type="email" id="rfq-email" class="form-input" required placeholder="e.g. rajesh@company.com">
                   </div>
                 </div>
 
                 <div class="form-row">
-                  <div class="form-group half">
-                    <label class="form-label" for="comp-location">Plant Location *</label>
-                    <input type="text" id="comp-location" class="form-input" required placeholder="e.g. Pennalur, Sriperumbudur">
-                  </div>
-                  <div class="form-group half">
-                    <label class="form-label" for="comp-count">Workers Required *</label>
-                    <input type="number" id="comp-count" class="form-input" required placeholder="e.g. 20">
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label" for="comp-roles">Roles Needed *</label>
-                  <input type="text" id="comp-roles" class="form-input" required placeholder="e.g. 20 CNC Operators, 5 QC Inspectors">
-                </div>
-
-                <div class="form-row">
-                  <div class="form-group half">
-                    <label class="form-label">Shift Preference</label>
-                    <select id="comp-shift" class="form-select">
-                      <option value="Rotational">Rotational</option>
-                      <option value="No Night Shift">No Night Shift</option>
-                      <option value="Single Shift (Day)">Single Shift (Day)</option>
+                  <div class="form-group">
+                    <label class="form-label" for="rfq-press">Required Press Capacity</label>
+                    <select id="rfq-press" class="form-select">
+                      <option value="250 Ton Power Press">250 Ton Power Press</option>
+                      <option value="200 Ton Power Press">200 Ton Power Press</option>
+                      <option value="110 Ton Power Press">110 Ton Power Press</option>
+                      <option value="80 Ton Power Press">80 Ton Power Press</option>
+                      <option value="Assembly / Tooling">Assembly / Tooling Setup</option>
                     </select>
                   </div>
-                  <div class="form-group half">
-                    <label class="form-label">Gender Preference</label>
-                    <select id="comp-gender" class="form-select">
-                      <option value="Both">Both</option>
-                      <option value="Male Only">Male Only</option>
-                      <option value="Female Only">Female Only</option>
-                    </select>
+                  <div class="form-group">
+                    <label class="form-label" for="rfq-qty">Monthly Batch Quantity</label>
+                    <input type="text" id="rfq-qty" class="form-input" placeholder="e.g. 10,000 pcs">
                   </div>
                 </div>
 
-                <div class="form-row">
-                  <div class="form-group half">
-                    <label class="form-label" for="comp-startdate">Expected Start Date</label>
-                    <input type="date" id="comp-startdate" class="form-input">
-                  </div>
-                  <div class="form-group half">
-                    <label class="form-label" for="comp-notes">Additional Notes</label>
-                    <textarea id="comp-notes" class="form-textarea" placeholder="Any specific skills, salary range, benefits offered..."></textarea>
-                  </div>
+                <div class="form-group" style="margin-bottom:1.25rem;">
+                  <label class="form-label" for="rfq-desc">Component Specifications / Part Details *</label>
+                  <textarea id="rfq-desc" class="form-textarea" required placeholder="Describe material sheet thickness, dimensions, drawing notes..."></textarea>
                 </div>
 
-                <div style="display:flex; justify-content:flex-end; margin-top:1.5rem;">
-                  <button type="submit" class="btn btn-primary">Register Requirement</button>
+                <div style="display:flex; justify-content:flex-end; gap:1rem;">
+                  <button type="submit" class="btn btn-primary" style="width:100%;">Submit Quotation Request</button>
                 </div>
               </form>
             </div>
           </div>
         </div>
-      </div>
+      </section>
     `;
 
-    document.getElementById("employer-requirement-form").addEventListener("submit", function(e) {
+    document.getElementById("rfq-form").addEventListener("submit", function(e) {
       e.preventDefault();
       
-      const newB2b = {
-        id: "b2b-" + Date.now(),
-        companyName: document.getElementById("comp-name").value.trim(),
-        industry: document.getElementById("comp-industry").value.trim(),
-        contactPerson: document.getElementById("comp-contact").value.trim(),
-        designation: document.getElementById("comp-desig").value.trim(),
-        phone: document.getElementById("comp-phone").value.trim(),
-        email: document.getElementById("comp-email").value.trim(),
-        location: document.getElementById("comp-location").value.trim(),
-        workersRequired: document.getElementById("comp-count").value,
-        rolesNeeded: document.getElementById("comp-roles").value.trim(),
-        shift: document.getElementById("comp-shift").value,
-        gender: document.getElementById("comp-gender").value,
-        startDate: document.getElementById("comp-startdate").value || "Immediate",
-        notes: document.getElementById("comp-notes").value.trim()
+      const newRfq = {
+        id: "rfq-" + Date.now(),
+        companyName: document.getElementById("rfq-name").value.trim(),
+        contactPerson: document.getElementById("rfq-person").value.trim(),
+        phone: document.getElementById("rfq-phone").value.trim(),
+        email: document.getElementById("rfq-email").value.trim(),
+        requiredPress: document.getElementById("rfq-press").value,
+        requiredQuantity: document.getElementById("rfq-qty").value.trim(),
+        partDescription: document.getElementById("rfq-desc").value.trim(),
+        date: new Date().toLocaleDateString()
       };
 
-      STATE.b2b.push(newB2b);
+      RFQ_DB.unshift(newRfq);
       saveDatabase();
 
-      showToast("Requirement registered successfully! Our team will call you back today.", "success");
+      showToast("Quotation request submitted successfully! Our engineering team will contact you.", "success");
+      
+      // WhatsApp message option
+      const waMsg = `Hi KV Enterprises, I have submitted an RFQ for "${newRfq.companyName}". Contact: ${newRfq.phone}. Details: ${newRfq.partDescription}`;
+      const waUrl = `https://wa.me/916385422938?text=${encodeURIComponent(waMsg)}`;
+      
+      setTimeout(() => {
+        if (confirm("Would you like to send this RFQ directly via WhatsApp as well?")) {
+          window.open(waUrl, "_blank");
+        }
+      }, 500);
+
       this.reset();
     });
-  },
-
-  // D. ABOUT US
-  about: function(container) {
-    container.innerHTML = `
-      <div class="page-header-strip">
-        <div class="container">
-          <h1>About Us</h1>
-          <p>Sriperumbudur's industrial workforce, wired.</p>
-        </div>
-      </div>
-      
-      <div class="container" style="margin-top:3.5rem;">
-        <div class="about-narrative scroll-reveal">
-          <strong>KV ENTERPRISES</strong> is a specialised industrial manpower firm supplying skilled and semi-skilled workers to leading manufacturing plants in and around Sriperumbudur. We operate lean, move fast, and deliver workers who show up ready.
-        </div>
-
-        <div class="card scroll-reveal" style="margin-bottom:3.5rem;">
-          <h3 style="margin-bottom:1rem; color:var(--accent); font-family:var(--font-mono); text-transform:uppercase; font-size:1rem;">Our Mission</h3>
-          <h2 style="font-size:1.85rem; margin-bottom:1rem; color:var(--text-main);">Right worker. Right role. Right on time.</h2>
-          <p style="line-height:1.65; color:var(--text-body); max-width:850px;">
-            Manufacturing plants lose lakhs every day a line runs short-staffed. Job seekers lose weeks chasing consultants. We remove both problems by matching pre-verified workers to open shifts within 72 hours.
-          </p>
-          <p style="line-height:1.65; color:var(--text-body); max-width:850px; margin-top:1rem;">
-            From Korean automotive OEMs to home-grown metal fabricators, we've built a reliable pipeline of CNC operators, quality inspectors, production associates, and despatch labour ready to join immediately.
-          </p>
-        </div>
-
-        <!-- Metrics display -->
-        <div class="stats-grid scroll-reveal" style="margin-bottom:4rem;">
-          <div class="stat-card">
-            <div class="stat-number" data-count-target="500">0</div>
-            <div class="stat-label">Workers placed</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-number" data-count-target="25">0</div>
-            <div class="stat-label">Client factories</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-number" data-count-target="72">0</div>
-            <div class="stat-label">Avg. placement</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-number" data-count-target="100">0</div>
-            <div class="stat-label">Direct joining</div>
-          </div>
-        </div>
-
-        <!-- Industries serve grid -->
-        <div class="section-header scroll-reveal">
-          <h2>Where our workers show up</h2>
-          <p>Supplying skilled technicians to key manufacturing lines.</p>
-        </div>
-        <div class="about-serve-grid">
-          <div class="serve-card scroll-reveal scroll-stagger-1">
-            <h4>01 / Automotive</h4>
-            <p>Korean & Indian OEMs, Tier-1 & Tier-2 suppliers.</p>
-          </div>
-          <div class="serve-card scroll-reveal scroll-stagger-2">
-            <h4>02 / Metal Tech</h4>
-            <p>Sheet metal, fabrication, racking systems.</p>
-          </div>
-          <div class="serve-card scroll-reveal scroll-stagger-3">
-            <h4>03 / Precision CNC</h4>
-            <p>CNC operators, quality inspectors, machinists.</p>
-          </div>
-          <div class="serve-card scroll-reveal scroll-stagger-4">
-            <h4>04 / Logistics</h4>
-            <p>Despatch, warehousing, packing lines.</p>
-          </div>
-        </div>
-
-        <!-- Two paths CTA -->
-        <div class="scroll-reveal" style="background-color:var(--text-main); color:var(--bg-canvas); border-radius:var(--radius-sm); padding:4rem 2rem; text-align:center; box-shadow: 0 10px 30px rgba(var(--accent-rgb),0.06);">
-          <h3 style="color:var(--bg-canvas); font-size:1.85rem; margin-bottom:0.75rem;">Ready to hire or get hired?</h3>
-          <p style="color:var(--text-muted); margin-bottom:2.5rem; font-size:0.95rem;">Two paths. One trusted industrial manpower partner.</p>
-          <div style="display:flex; justify-content:center; gap:1.25rem; flex-wrap:wrap;">
-            <a href="#jobs" class="btn btn-primary">I'm looking for a job</a>
-            <a href="#employer" class="btn btn-teal">I need workers</a>
-          </div>
-        </div>
-      </div>
-    `;
-  },
-
-  // E. CONTACT
-  contact: function(container) {
-    container.innerHTML = `
-      <div class="page-header-strip">
-        <div class="container">
-          <h1>Contact</h1>
-          <p>Get in touch. Call, WhatsApp, or drop by. We reply within business hours.</p>
-        </div>
-      </div>
-      
-      <div class="container contact-layout-box">
-        <!-- Address Details -->
-        <div class="contact-details-grid">
-          <div class="contact-detail-item scroll-reveal scroll-stagger-1">
-            <div class="contact-icon-wrap">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
-            </div>
-            <div class="contact-text-wrap">
-              <h4>Call Recruiter Desk</h4>
-              <p style="font-weight:700; color:var(--text-main); margin-top:0.25rem;">Call Primary: 6385422938</p>
-              <p style="font-weight:700; color:var(--text-main);">Call Alternate: 7200172460</p>
-            </div>
-          </div>
-
-          <div class="contact-detail-item scroll-reveal scroll-stagger-2">
-            <div class="contact-icon-wrap" style="background-color:rgba(37,211,102,0.06); color:#25D366; border-color: rgba(37,211,102,0.15)">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
-            </div>
-            <div class="contact-text-wrap">
-              <h4>WhatsApp Placements</h4>
-              <a href="https://wa.me/916385422938" target="_blank" style="font-weight:700; color:#25D366; display:inline-block; margin-top:0.25rem;">Chat Now &rarr;</a>
-            </div>
-          </div>
-
-          <div class="contact-detail-item scroll-reveal scroll-stagger-3">
-            <div class="contact-icon-wrap">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3"/></svg>
-            </div>
-            <div class="contact-text-wrap">
-              <h4>Corridor Location</h4>
-              <p>Sriperumbudur, Chennai</p>
-              <p style="font-size:0.8rem; color:var(--text-muted); margin-top:0.25rem;">Serving factories across Sriperumbudur, Vallam, Pennalur, Vallakottai and Oragadam corridors.</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Office Hours Panel -->
-        <div class="office-hours-block scroll-reveal scroll-stagger-2">
-          <h3>Working Hours</h3>
-          <div class="hours-row">
-            <span>Monday – Saturday:</span>
-            <span class="val">9:00 AM — 8:00 PM</span>
-          </div>
-          <div class="hours-row">
-            <span>Sunday:</span>
-            <span class="val" style="color:#EF4444; font-weight:700;">Closed</span>
-          </div>
-        </div>
-      </div>
-    `;
   }
 };
 
-// --- 3. SUB-RENDERING HELPERS ---
-
-function renderHomeJobs() {
-  const container = document.getElementById("home-jobs-container");
-  if (!container) return;
-
-  // Render jobs as browser window cards with z-indexes & sticky positions
-  container.innerHTML = STATE.jobs.map((job, idx) => getBrowserJobCardHTML(job, idx, true)).join("");
-  bindJobCardEvents();
-}
-
-function renderBoardJobsList(searchQuery, genderFilter) {
-  const container = document.getElementById("board-jobs-container");
-  if (!container) return;
-
-  let results = STATE.jobs.filter(job => {
-    const matchesSearch = !searchQuery || 
-                          job.title.toLowerCase().includes(searchQuery) ||
-                          job.company.toLowerCase().includes(searchQuery) ||
-                          job.location.toLowerCase().includes(searchQuery) ||
-                          job.description.toLowerCase().includes(searchQuery);
-
-    const matchesGender = genderFilter === "all" || 
-                          job.gender === "Both" || 
-                          job.gender.toLowerCase() === genderFilter.toLowerCase();
-
-    return matchesSearch && matchesGender;
-  });
-
-  if (results.length === 0) {
-    container.innerHTML = `<div class="card scroll-reveal" style="text-align:center; padding:3rem; grid-column:span 3;">No matching open positions found.</div>`;
-    return;
-  }
-
-  // Render on job board page - no sticky stack calculations
-  container.innerHTML = results.map((job, idx) => getBrowserJobCardHTML(job, idx, false)).join("");
-  bindJobCardEvents();
-  initScrollAnimations();
-}
-
-// Generates the browser card component HTML (Tivor Stack style)
-function getBrowserJobCardHTML(job, index, isSticky = false) {
-  const idxStr = String(index + 1).padStart(2, '0');
-  
-  const urgentBadge = job.urgent ? `<span class="badge badge-urgent">Urgent</span>` : '';
-  const genderBadge = job.gender === "Both" 
-    ? `<span class="badge badge-neutral">Male / Female</span>`
-    : `<span class="badge badge-green">${job.gender} Only</span>`;
-  
-  const staggerClass = `scroll-stagger-${(index % 4) + 1}`;
-  
-  // Stacking deck calculations
-  const styleString = isSticky 
-    ? `style="position: sticky; top: ${12 + index * 6}vh; z-index: ${10 + index}; margin-bottom: 5rem;"` 
-    : '';
-
-  return `
-    <article class="product-card scroll-reveal ${staggerClass}" ${styleString} data-jobid="${job.id}">
-      <div class="product-card-inner">
-        <!-- Browser Header bar -->
-        <div class="product-card-header">
-          <div class="flex items-center gap-3">
-            <div class="flex items-center gap-[5px]">
-              <span class="rounded-full" style="width:10px;height:10px;background:#FF5F57;display:block"></span>
-              <span class="rounded-full" style="width:10px;height:10px;background:#FEBC2E;display:block"></span>
-              <span class="rounded-full" style="width:10px;height:10px;background:#28C840;display:block"></span>
-            </div>
-            <span style="width:1px;height:16px;background:var(--border-color)"></span>
-            <span class="font-mono text-[10px] uppercase text-muted" style="font-family:var(--font-mono)">${idxStr}</span>
-            <div class="min-w-0">
-              <p class="font-semibold text-main text-sm leading-none truncate">${job.company}</p>
-            </div>
-          </div>
-          
-          <div class="flex items-center gap-4">
-            <p class="font-mono text-[11px] text-muted hidden sm:block" style="font-family:var(--font-mono)">${job.industry}</p>
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-muted"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-          </div>
-        </div>
-        
-        <!-- Card Body content -->
-        <div class="p-8">
-          <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:1.5rem;">
-            <div>
-              <div class="job-card-tags" style="margin-bottom:0.75rem; display:flex; gap:0.45rem;">
-                ${urgentBadge}
-                ${genderBadge}
-                <span class="badge badge-neutral">${job.shift}</span>
-              </div>
-              <h3 style="font-size:1.6rem; font-weight:800; color:var(--text-main); margin-bottom:0.5rem; line-height:1.2;">${job.title}</h3>
-              <div style="display:flex; gap:1.5rem; font-family:var(--font-mono); font-size:0.85rem; color:var(--text-body); margin-top:0.5rem;">
-                <div style="display:flex; align-items:center; gap:0.35rem;">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3"/></svg>
-                  <span>${job.location}</span>
-                </div>
-                <div style="display:flex; align-items:center; gap:0.35rem;">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M12 16M9 21h6"/></svg>
-                  <span style="font-weight:700; color:var(--accent);">${job.salary}</span>
-                </div>
-              </div>
-            </div>
-            
-            <div style="display:flex; align-items:center;">
-              <button class="btn btn-primary btn-detail-trigger" data-jobid="${job.id}">View Details & Apply</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </article>
-  `;
-}
-
-function bindJobCardEvents() {
-  document.querySelectorAll(".btn-detail-trigger").forEach(btn => {
-    btn.addEventListener("click", () => showDetailModal(btn.dataset.jobid));
-  });
-}
-
-// --- 4. DETAILS & APPLY MODAL WINDOW ---
-
-function showDetailModal(jobId) {
-  const job = STATE.jobs.find(j => j.id === jobId);
-  if (!job) return;
-
-  const overlay = document.getElementById("modal-container");
-  
-  overlay.innerHTML = `
-    <div class="modal-content">
-      <button class="modal-close-btn" id="btn-close-modal">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M6 18L18 6M6 6l12 12"/></svg>
-      </button>
-      
-      <div class="modal-header-block">
-        <span class="badge badge-green" style="margin-bottom:0.5rem;">${job.industry}</span>
-        <h2>${job.title}</h2>
-        <p style="color:var(--accent); font-weight:700; font-size:1.05rem; margin-top:0.25rem;">${job.company}</p>
-      </div>
-      
-      <div class="modal-body-block">
-        <table class="details-summary-table">
-          <tr>
-            <td class="label">Location</td>
-            <td class="value">${job.location}</td>
-          </tr>
-          <tr>
-            <td class="label">Salary Package</td>
-            <td class="value" style="font-weight:700; color:var(--accent);">${job.salary}</td>
-          </tr>
-          <tr>
-            <td class="label">Shift Timing</td>
-            <td class="value">${job.shift}</td>
-          </tr>
-          <tr>
-            <td class="label">Gender Allowed</td>
-            <td class="value">${job.gender} Candidates</td>
-          </tr>
-          <tr>
-            <td class="label">Age Limit</td>
-            <td class="value">${job.age} Years</td>
-          </tr>
-          <tr>
-            <td class="label">Qualification</td>
-            <td class="value">${job.qualification}</td>
-          </tr>
-        </table>
-        
-        <h4 style="margin-top:1.5rem; margin-bottom:0.5rem; font-family:var(--font-mono); font-size:0.8rem; text-transform:uppercase; color:var(--text-main);">Details Description</h4>
-        <p style="font-size:0.9rem; line-height:1.5; color:var(--text-body); white-space:pre-line;">
-          ${job.description}
-        </p>
-      </div>
-      
-      <div class="modal-footer-block">
-        <button class="btn btn-secondary btn-apply-call" data-jobid="${job.id}">Call HR Desk</button>
-        <button class="btn btn-primary btn-apply-wa" data-jobid="${job.id}">Apply on WhatsApp</button>
-      </div>
-    </div>
-  `;
-  
-  overlay.classList.remove("hidden");
-
-  // Bind close modal
-  document.getElementById("btn-close-modal").addEventListener("click", closeModal);
-
-  // Bind WhatsApp and Call
-  overlay.querySelector(".btn-apply-call").addEventListener("click", () => {
-    logApplyAction(job.title, job.company, "Call HR Desk");
-    showToast("Opening dialer...", "success");
-    window.location.href = "tel:6385422938";
-  });
-
-  overlay.querySelector(".btn-apply-wa").addEventListener("click", () => {
-    logApplyAction(job.title, job.company, "WhatsApp Apply");
-    showToast("Redirecting to WhatsApp...", "success");
-    
-    const textMsg = `Hi KV Enterprises, I want to apply for the position of "${job.title}" at "${job.company}". Please call me.`;
-    const waUrl = `https://wa.me/916385422938?text=${encodeURIComponent(textMsg)}`;
-    
-    window.open(waUrl, "_blank");
-  });
-}
-
-function closeModal() {
-  document.getElementById("modal-container").classList.add("hidden");
-}
-
-// --- 5. ADMIN UTILITY MODAL & DATABASE LOGS ---
+// --- 4. ADMIN PORTAL LOGS MODAL ---
 
 function showAdminLoginModal() {
   const overlay = document.getElementById("modal-container");
@@ -962,44 +816,34 @@ function showAdminLoginModal() {
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M6 18L18 6M6 6l12 12"/></svg>
       </button>
       
-      <div class="modal-header-block">
-        <h2>Admin Portal Gate</h2>
-        <p style="font-size:0.75rem; color:var(--text-muted);">Enter credentials to view B2B logs. (Use admin / admin)</p>
-      </div>
+      <h2 style="font-size:1.4rem; font-weight:700; color:var(--text-main); margin-bottom:0.5rem;">Admin Portal</h2>
+      <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:1.5rem;">Enter credentials to access logged RFQs. (Default: admin / admin)</p>
       
       <form id="admin-login-form">
-        <div class="modal-body-block">
-          <div class="form-group">
-            <label class="form-label" for="adm-user">Username</label>
-            <input type="text" id="adm-user" class="form-input" required value="admin">
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="adm-pass">Password</label>
-            <input type="password" id="adm-pass" class="form-input" required value="admin">
-          </div>
+        <div class="form-group" style="margin-bottom:1rem;">
+          <label class="form-label" for="adm-user">Username</label>
+          <input type="text" id="adm-user" class="form-input" required value="admin">
+        </div>
+        <div class="form-group" style="margin-bottom:1.5rem;">
+          <label class="form-label" for="adm-pass">Password</label>
+          <input type="password" id="adm-pass" class="form-input" required value="admin">
         </div>
         
-        <div class="modal-footer-block">
-          <button type="submit" class="btn btn-primary">Login & view logs</button>
-        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%;">Login & Access RFQs</button>
       </form>
     </div>
   `;
 
   overlay.classList.remove("hidden");
-
   document.getElementById("btn-close-modal").addEventListener("click", closeModal);
   
   document.getElementById("admin-login-form").addEventListener("submit", function(e) {
     e.preventDefault();
-    const u = document.getElementById("adm-user").value;
-    const p = document.getElementById("adm-pass").value;
-
-    if (u === "admin" && p === "admin") {
+    if (document.getElementById("adm-user").value === "admin" && document.getElementById("adm-pass").value === "admin") {
       showToast("Access Granted", "success");
       showAdminDashboardLogs();
     } else {
-      showToast("Invalid credentials", "error");
+      showToast("Invalid Credentials", "error");
     }
   });
 }
@@ -1007,26 +851,15 @@ function showAdminLoginModal() {
 function showAdminDashboardLogs() {
   const overlay = document.getElementById("modal-container");
   
-  const b2bRows = STATE.b2b.length === 0 
-    ? `<tr><td colspan="5" style="text-align:center;">No requirements logged yet.</td></tr>`
-    : STATE.b2b.map(b => `
-        <tr>
-          <td><strong>${b.companyName}</strong></td>
-          <td>${b.rolesNeeded}</td>
-          <td>${b.workersRequired} Workers</td>
-          <td>${b.phone} / ${b.email}</td>
-          <td>${b.location}</td>
-        </tr>
-      `).join("");
-
-  const clickRows = STATE.clicks.length === 0
-    ? `<tr><td colspan="4" style="text-align:center;">No candidate interactions logged.</td></tr>`
-    : STATE.clicks.map(c => `
-        <tr>
-          <td>${c.date}</td>
-          <td><strong>${c.action}</strong></td>
-          <td>${c.jobTitle}</td>
-          <td>${c.company}</td>
+  const rfqRows = RFQ_DB.length === 0 
+    ? `<tr><td colspan="5" style="text-align:center; padding:1.5rem;">No RFQs logged yet.</td></tr>`
+    : RFQ_DB.map(r => `
+        <tr style="border-bottom:1px solid var(--border-color);">
+          <td style="padding:0.75rem 0.5rem;"><strong>${r.companyName}</strong><br><span style="font-size:0.75rem; color:var(--text-muted);">${r.contactPerson}</span></td>
+          <td style="padding:0.75rem 0.5rem; font-family:var(--font-mono); color:var(--accent);">${r.phone}<br>${r.email}</td>
+          <td style="padding:0.75rem 0.5rem; font-size:0.85rem;">${r.requiredPress}</td>
+          <td style="padding:0.75rem 0.5rem; font-size:0.85rem;">${r.partDescription}</td>
+          <td style="padding:0.75rem 0.5rem; font-size:0.85rem;">${r.requiredQuantity || 'N/A'}</td>
         </tr>
       `).join("");
 
@@ -1036,76 +869,51 @@ function showAdminDashboardLogs() {
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M6 18L18 6M6 6l12 12"/></svg>
       </button>
       
-      <div class="modal-header-block">
-        <h2>Admin Placement Database logs</h2>
-        <p style="font-size:0.75rem; color:var(--text-muted); font-family:var(--font-mono);">SYNC STATUS: LOCALSTORAGE DATABASE ACTIVE</p>
-      </div>
+      <h2 style="font-size:1.4rem; font-weight:700; color:var(--text-main); margin-bottom:0.5rem;">Submitted Quotation Requests (RFQs)</h2>
+      <p style="font-size:0.8rem; color:var(--accent); font-family:var(--font-mono); margin-bottom:1.5rem;">DATABASE STATUS: ${RFQ_DB.length} TOTAL LEADS LOGGED</p>
       
-      <div class="modal-body-block" style="display:flex; flex-direction:column; gap:2rem; max-height:60vh; overflow-y:auto;">
-        
-        <div>
-          <h3 style="font-size:1rem; font-family:var(--font-mono); margin-bottom:0.75rem; color:var(--accent); text-transform:uppercase;">Registered B2B Client Requirements</h3>
-          <div style="overflow-x:auto;">
-            <table class="admin-log-table">
-              <thead>
-                <tr>
-                  <th>Client Plant</th>
-                  <th>Roles Requested</th>
-                  <th>Count</th>
-                  <th>Contact info</th>
-                  <th>Location</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${b2bRows}
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <div>
-          <h3 style="font-size:1rem; font-family:var(--font-mono); margin-bottom:0.75rem; color:var(--accent); text-transform:uppercase;">Candidate Application clicks logs</h3>
-          <div style="overflow-x:auto;">
-            <table class="admin-log-table">
-              <thead>
-                <tr>
-                  <th>Timestamp</th>
-                  <th>Action Selected</th>
-                  <th>Target Opportunity</th>
-                  <th>Company</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${clickRows}
-              </tbody>
-            </table>
-          </div>
-        </div>
-
+      <div style="max-height:60vh; overflow-y:auto; margin-bottom:1.5rem;">
+        <table style="width:100%; border-collapse:collapse; text-align:left; font-size:0.85rem;">
+          <thead>
+            <tr style="border-bottom:1px solid var(--accent); color:var(--accent); font-family:var(--font-mono);">
+              <th style="padding:0.5rem;">Company & Contact</th>
+              <th style="padding:0.5rem;">Phone / Email</th>
+              <th style="padding:0.5rem;">Press Line</th>
+              <th style="padding:0.5rem;">Part Description</th>
+              <th style="padding:0.5rem;">Quantity</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rfqRows}
+          </tbody>
+        </table>
       </div>
-      
-      <div class="modal-footer-block">
-        <button class="btn btn-secondary" id="btn-clear-database" style="color:#EF4444; border-color:#EF4444;">Clear logs</button>
-        <button class="btn btn-primary" id="btn-close-admin-view">Close logs</button>
+
+      <div style="display:flex; justify-content:space-between;">
+        <button class="btn btn-secondary" id="btn-clear-rfqs" style="color:#EF4444; border-color:#EF4444;">Clear All RFQs</button>
+        <button class="btn btn-primary" id="btn-close-admin">Close Portal</button>
       </div>
     </div>
   `;
 
   document.getElementById("btn-close-modal").addEventListener("click", closeModal);
-  document.getElementById("btn-close-admin-view").addEventListener("click", closeModal);
+  document.getElementById("btn-close-admin").addEventListener("click", closeModal);
   
-  document.getElementById("btn-clear-database").addEventListener("click", () => {
-    if (confirm("Are you sure you want to clear B2B submissions and click logs?")) {
-      STATE.b2b = [];
-      STATE.clicks = [];
+  document.getElementById("btn-clear-rfqs").addEventListener("click", () => {
+    if (confirm("Are you sure you want to clear all logged RFQs?")) {
+      RFQ_DB = [];
       saveDatabase();
-      showToast("Database logs cleared", "success");
+      showToast("RFQs cleared", "success");
       showAdminDashboardLogs();
     }
   });
 }
 
-// --- 6. TOAST MESSAGES ---
+function closeModal() {
+  document.getElementById("modal-container").classList.add("hidden");
+}
+
+// --- 5. TOAST NOTIFICATIONS ---
 
 function showToast(message, type = "success") {
   const container = document.getElementById("toast-wrapper");
@@ -1118,21 +926,17 @@ function showToast(message, type = "success") {
     ? `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>` 
     : `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>`;
 
-  toast.innerHTML = `
-    <div class="toast-icon">${icon}</div>
-    <span>${message}</span>
-  `;
+  toast.innerHTML = `<div class="toast-icon">${icon}</div><span>${message}</span>`;
 
   container.appendChild(toast);
   setTimeout(() => { toast.remove(); }, 3500);
 }
 
-// --- 7. ROUTING ENGINE & MOTION STAGGER TRIGGERS ---
+// --- 6. ROUTING ENGINE ---
 
 function handleRouting() {
-  const hash = window.location.hash || "#home";
+  const hash = window.location.hash || "#overview";
 
-  // Update nav active states
   const links = document.querySelectorAll(".nav-link");
   links.forEach(l => {
     const view = l.getAttribute("data-view");
@@ -1144,17 +948,20 @@ function handleRouting() {
   });
 
   window.scrollTo(0, 0);
-  document.getElementById("nav-menu").classList.remove("open");
+  const navMenu = document.getElementById("nav-menu");
+  if (navMenu) navMenu.classList.remove("open");
 
   const viewIdMap = {
-    "#home": "view-home",
-    "#jobs": "view-jobs",
-    "#employer": "view-employer",
+    "#overview": "view-overview",
     "#about": "view-about",
+    "#machinery": "view-machinery",
+    "#quality": "view-quality",
+    "#plant": "view-plant",
+    "#process": "view-process",
     "#contact": "view-contact"
   };
 
-  const activeId = viewIdMap[hash] || "view-home";
+  const activeId = viewIdMap[hash] || "view-overview";
 
   Object.entries(viewIdMap).forEach(([h, id]) => {
     const section = document.getElementById(id);
@@ -1171,107 +978,54 @@ function handleRouting() {
     }
   });
 
-  // Dynamic document title update
   const titles = {
-    "#home": "KV Enterprises — Premium Industrial Manpower Placements in Sriperumbudur",
-    "#jobs": "Open Positions — All Jobs in Sriperumbudur | KV Enterprises",
-    "#employer": "Hire Manpower — Register Factory Manpower Requirements | KV Enterprises",
-    "#about": "About Us — Sriperumbudur's Industrial Workforce Placements | KV Enterprises",
-    "#contact": "Contact — Call or WhatsApp Recruiter Desk | KV Enterprises"
+    "#overview": "KV Enterprises — Manufacturer of Precision Sheet Metal Stamping Components",
+    "#about": "About Us & Vision — KV Enterprises",
+    "#machinery": "Power Press Machinery Specs — KV Enterprises",
+    "#quality": "Quality Assurance & Metrology — KV Enterprises",
+    "#plant": "Plant Layout & Organisation Structure — KV Enterprises",
+    "#process": "Manufacturing Process Flow — KV Enterprises",
+    "#contact": "Request RFQ & Contact — KV Enterprises"
   };
 
-  document.title = titles[hash] || "KV Enterprises — Industrial Manpower";
-
-  // Trigger motion reveals and statistics counts
-  initScrollAnimations();
-  initStatsCounters();
+  document.title = titles[hash] || "KV Enterprises — Precision Manufacturing";
 }
 
-function initScrollAnimations() {
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.05 });
-  
-  document.querySelectorAll(".scroll-reveal").forEach(sec => {
-    observer.observe(sec);
-  });
-}
-
-function initStatsCounters() {
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const target = entry.target;
-        const countTo = parseInt(target.getAttribute("data-count-target"), 10);
-        if (isNaN(countTo)) return;
-
-        let start = 0;
-        const duration = 1500;
-        const stepTime = Math.abs(Math.floor(duration / countTo));
-        
-        const counter = setInterval(() => {
-          start += 1;
-          target.innerText = start + (target.innerText.includes("%") || countTo === 100 ? "%" : "+");
-          if (start >= countTo) {
-            target.innerText = countTo + (countTo === 100 || countTo === 72 ? "" : "+");
-            if (countTo === 100) target.innerText += "%";
-            if (countTo === 72) target.innerText += "H";
-            clearInterval(counter);
-          }
-        }, Math.max(stepTime, 10));
-
-        observer.unobserve(target);
-      }
-    });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll(".stat-number").forEach(num => {
-    observer.observe(num);
-  });
-}
-
-// --- 8. INITIALIZERS ---
+// --- 7. INITIALIZERS ---
 
 window.addEventListener("hashchange", handleRouting);
-
-window.addEventListener("scroll", () => {
-  const header = document.querySelector(".main-header");
-  if (!header) return;
-  if (window.scrollY > 80) {
-    header.classList.add("scrolled");
-  } else {
-    header.classList.remove("scrolled");
-  }
-});
 
 window.addEventListener("DOMContentLoaded", () => {
   const mobileToggle = document.getElementById("mobile-menu-toggle");
   const navMenu = document.getElementById("nav-menu");
   
-  mobileToggle.addEventListener("click", (e) => {
-    e.stopPropagation();
-    navMenu.classList.toggle("open");
-  });
-  
-  document.addEventListener("click", (e) => {
-    if (!navMenu.contains(e.target) && e.target !== mobileToggle) {
-      navMenu.classList.remove("open");
-    }
-  });
+  if (mobileToggle && navMenu) {
+    mobileToggle.addEventListener("click", (e) => {
+      e.stopPropagation();
+      navMenu.classList.toggle("open");
+    });
+    
+    document.addEventListener("click", (e) => {
+      if (!navMenu.contains(e.target) && e.target !== mobileToggle) {
+        navMenu.classList.remove("open");
+      }
+    });
+  }
 
-  document.getElementById("logo-link").addEventListener("click", () => {
-    window.location.hash = "#home";
-  });
+  const logoLink = document.getElementById("logo-link");
+  if (logoLink) {
+    logoLink.addEventListener("click", () => {
+      window.location.hash = "#overview";
+    });
+  }
 
-  document.getElementById("footer-admin-link").addEventListener("click", (e) => {
-    e.preventDefault();
-    showAdminLoginModal();
-  });
+  const adminLink = document.getElementById("footer-admin-link");
+  if (adminLink) {
+    adminLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      showAdminLoginModal();
+    });
+  }
 
   handleRouting();
 });
